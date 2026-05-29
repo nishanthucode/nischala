@@ -53,6 +53,16 @@
 	/* Typing cursor */
 	.typed-cursor { display: inline-block; margin-left: 3px; opacity: 1; animation: blink 1s steps(2,start) infinite; }
 	@keyframes blink { to { opacity: 0 } }
+
+	/* About / Yoga custom styles */
+	.about-section .title { color: #224b3a; font-weight:700; }
+	.about-media img { box-shadow: 0 8px 30px rgba(34,75,58,0.12); border-radius:8px; }
+	.about-content p { color: #333; line-height:1.75; }
+	.about-features { list-style:none; padding:0; margin:18px 0; display:flex; gap:18px; flex-wrap:wrap; }
+	.about-features li { display:flex; gap:12px; align-items:flex-start; min-width:220px; }
+	.about-features i { font-size:22px; color:#2b6b4a; margin-top:4px; }
+	.site-button.green { background:#2b6b4a; border-color:#2b6b4a; }
+	.site-button.green:hover { background:#244f3d; border-color:#244f3d; }
 	</style>
 	
 	
@@ -186,132 +196,82 @@
 			<!-- Content Section -->
 			<div class="section-full content-inner bg-gray">
 				<div class="container">
-					<div class="row align-items-center">
+					<div class="row align-items-center text-center">
 						<div class="col-lg-3 col-md-6 col-6 m-b30">
 							<div class="icon-bx-wraper left counter-style-6">
 								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-laptop-code"></i></span> 
+									<span class="icon-cell"><i class="las la-spa"></i></span>
 								</div>
 								<div class="icon-content">
-									<h5 class="dlab-tilte">8000</h5>
-									<p>Online Courses</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up" >
-									<span class="icon-cell"><i class="las la-user-graduate"></i></span> 
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">2700</h5>
-									<p>Expert Instructors</p>
+									<h5 class="dlab-tilte">5000+</h5>
+									<p>Yoga Classes</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-6 m-b30">
 							<div class="icon-bx-wraper left counter-style-6">
 								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-book"></i></span> 
+									<span class="icon-cell"><i class="las la-user-graduate"></i></span>
 								</div>
 								<div class="icon-content">
-									<h5 class="dlab-tilte">Unlimited</h5>
-									<p>Course Access</p>
+									<h5 class="dlab-tilte">3</h5>
+									<p>Certified Teachers</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-6 m-b30">
 							<div class="icon-bx-wraper left counter-style-6">
 								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-book-reader"></i></span> 
+									<span class="icon-cell"><i class="las la-users"></i></span>
 								</div>
 								<div class="icon-content">
-									<h5 class="dlab-tilte">Learn</h5>
-									<p>From Anywhere</p>
+									<h5 class="dlab-tilte">50,000+</h5>
+									<p>Participants</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-6 m-b30">
+							<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-map-marker"></i></span>
+								</div>
+								<div class="icon-content">
+									<h5 class="dlab-tilte">3</h5>
+									<p>Locations</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Courses Category -->
-			<div class="section-full bg-white content-inner">
+			<!-- About / Welcome Section -->
+			<div class="section-full bg-white content-inner about-section">
 				<div class="container">
-					<div class="section-head text-center ">
-						<h2 class="title">Expand Your Knowledge & Acheive Your Goal</h2>
-						<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since the been when an unknown printer.</p>
-					</div>
-					<div class="row">
-						<div class="col-lg-6 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.3s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic1.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">Web Developer</h2>
-									<p>+18 Courses</p>
-								</div>
-							</a>
+					<div class="row align-items-center">
+						<div class="col-lg-6 col-md-12 m-b30">
+							<div class="about-media">
+								<img src="images/about/about.jpg" alt="Welcome to Nischala" style="width:100%; height:auto; border-radius:6px; object-fit:cover;">
+							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.9s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic2.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">Photography</h2>
-									<p>+23 Courses</p>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="1.2s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic3.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">business study</h2>
-									<p>+10 Courses</p>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="1.5s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic4.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">Health & fitness</h2>
-									<p>+18 Courses</p>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-3 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="1.8s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic5.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">Mathematics</h2>
-									<p>+15 Courses</p>
-								</div>
-							</a>
-						</div>
-						<div class="col-lg-6 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="2.1s">
-							<a href="javascript:void(0);" class="category-box dlab-box">
-								<div class="dlab-media dlab-img-effect zoom">
-									<img src="images/gallery/pic6.jpg" alt="">
-								</div>
-								<div class="icon-content">
-									<h2 class="dlab-tilte">marketing</h2>
-									<p>+10 Courses</p>
-								</div>
-							</a>
+						<div class="col-lg-6 col-md-12 m-b30">
+							<div class="section-head">
+								<h2 class="title">Welcome to Nischala</h2>
+							</div>
+							<div class="about-content">
+								<p>Nischala is a space dedicated to helping individuals experience yoga beyond physical exercise. Our programs are thoughtfully designed to support physical wellbeing, emotional balance, mental clarity, and conscious living.</p>
+								<p>Through traditional Hatha practices, guided meditation, breathwork (pranayama), and mindful living guidance, we create a safe, supportive environment for personal transformation.</p>
+								<ul class="about-features">
+									<li><i class="las la-spa"></i><div><strong>Traditional Hatha</strong><div class="text-muted">Authentic postures and alignment</div></div></li>
+									<li><i class="las la-heart"></i><div><strong>Meditation & Breathwork</strong><div class="text-muted">Calm the mind, balance emotions</div></div></li>
+									<li><i class="las la-users"></i><div><strong>Small, Guided Classes</strong><div class="text-muted">Personal attention and safe progress</div></div></li>
+								</ul>
+								<p class="m-t20"><a href="booking.html" class="site-button green">Book a Trial Class</a> <a href="about-1.html" class="site-button ms-3">Learn More</a></p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- Courses Category End -->
+			<!-- About / Welcome Section End -->
 			<!-- Call To Action -->
 			<div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
 				<div class="container">
