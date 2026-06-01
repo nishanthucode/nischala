@@ -196,10 +196,15 @@
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
+					 <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
+                        </ul>
                     </li>
 					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -210,7 +215,7 @@
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
                             <li><a href="edit-courses.html">Edit Classes</a></li>
-                            <li><a href="about-courses.html">About Classes</a></li>
+                            
                         </ul>
                     </li>
 					
@@ -231,7 +236,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
-                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                            <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -292,80 +297,260 @@
 							<div class="card-header">
 								<h4 class="card-title">Courses Details</h4>
 							</div>
+                            <div class="card-body">
+                                <?php
+                                require_once __DIR__ . '/../backend/functions.php';
+                                $courseId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+                                $course = $courseId > 0 ? backend_fetch_one('classes', $courseId) : null;
+                                if (!$course) {
+                                    $course = [
+                                        'id' => '',
+                                        'name' => '',
+                                        'description' => '',
+                                        'start_date' => '',
+                                        'price' => '',
+                                        'instructor' => '',
+                                        'image_path' => '',
+                                        'booking_enabled' => 1,
+                                        'slot_capacity' => '',
+                                        'timeslots' => '06:00,08:00,10:00,12:00,14:00,16:00,18:00',
+                                        'tiers' => 'General,Premium,VIP',
+                                    ];
+                                }
+                                ?>
+                                <form action="../backend/save.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="module" value="classes">
+                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars((string)$course['id']); ?>">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Course Name <span class="text-danger">*</span></label>
+                                                <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($course['name']); ?>" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Course Details</label>
+                                                <textarea name="description" class="form-control" rows="5"><?php echo htmlspecialchars($course['description']); ?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Start Date <span class="text-danger">*</span></label>
+                                                <input type="date" name="start_date" class="form-control" value="<?php echo htmlspecialchars($course['start_date']); ?>" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Price <span class="text-danger">*</span></label>
+                                                <input type="number" step="0.01" name="price" class="form-control" value="<?php echo htmlspecialchars($course['price']); ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Instructor</label>
+                                                <input type="text" name="instructor" class="form-control" value="<?php echo htmlspecialchars($course['instructor']); ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Enable Booking</label>
+                                                <select name="booking_enabled" class="form-control">
+                                                    <option value="1"<?php echo (int)$course['booking_enabled'] === 1 ? ' selected' : ''; ?>>Enabled</option>
+                                                    <option value="0"<?php echo (int)$course['booking_enabled'] === 0 ? ' selected' : ''; ?>>Disabled</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Slot Capacity</label>
+                                                <input type="number" name="slot_capacity" class="form-control" value="<?php echo htmlspecialchars($course['slot_capacity']); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Default Time Slots</label>
+                                                <input type="text" name="timeslots" class="form-control" value="<?php echo htmlspecialchars($course['timeslots']); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Program Tiers</label>
+                                                <input type="text" name="tiers" class="form-control" value="<?php echo htmlspecialchars($course['tiers']); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group fallback w-100">
+                                                <label class="form-label d-block">Course Photo</label>
+                                                <input type="file" class="dropify form-control" data-default-file="" name="image_path">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="button" onclick="history.back()" class="btn btn-light">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+							</div>
+						</div>
+					</div>
+				<div class="row" id="bookings" <?php if ($courseId === 0) echo 'style="display:none;"'; ?>>
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header d-flex justify-content-between align-items-center">
+								<h4 class="card-title">Class Bookings Management</h4>
+                                <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBookingModal">Add Booking Manually</a>
+							</div>
 							<div class="card-body">
-								<form action="#" method="post">
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Name</label>
-												<input type="text" class="form-control" value="Programming">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Code</label>
-												<input type="text" class="form-control" value="Pro#005">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Details</label>
-												<textarea class="form-control" rows="5">Why is Early Education Essential</textarea>
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Start Form</label>
-												<input name="datepicker" class="datepicker-default form-control" id="datepicker" value="7 August, 2022">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Duration</label>
-												<input type="text" class="form-control" value="3 Year">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Price</label>
-												<input type="text" class="form-control" value="$1500">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Professor Name</label>
-												<input type="text" class="form-control" value="Jimmy Morris">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Maximum Students</label>
-												<input type="text" class="form-control" value="200">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Contact Number</label>
-												<input type="text" class="form-control" value="+01 123 456 7890">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group fallback w-100">
-												<label class="form-label d-block">Course Photo</label>
-												<input type="file" class="dropify form-control" data-default-file="">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
-										</div>
-									</div>
-								</form>
+                                <?php
+                                if ($courseId > 0) {
+                                    $stmt = pdo()->prepare('SELECT * FROM bookings WHERE class_id = ? ORDER BY booking_date DESC, time_slot ASC');
+                                    $stmt->execute([$courseId]);
+                                    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                } else {
+                                    $bookings = [];
+                                }
+                                ?>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped verticle-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Email / Phone</th>
+                                                <th>Date & Time</th>
+                                                <th>Tier / Type</th>
+                                                <th>Qty</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if (!$bookings): ?>
+                                                <tr><td colspan="7" class="text-center">No bookings found for this class.</td></tr>
+                                            <?php endif; ?>
+                                            <?php foreach ($bookings as $b): ?>
+                                                <tr>
+                                                    <td><?php echo htmlspecialchars($b['customer_name']); ?></td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($b['customer_email']); ?><br>
+                                                        <small><?php echo htmlspecialchars((string)($b['customer_phone'] ?? '')); ?></small>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($b['booking_date']); ?><br>
+                                                        <span class="badge badge-light"><?php echo htmlspecialchars($b['time_slot']); ?></span>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars((string)($b['program_tier'] ?? '')); ?><br>
+                                                        <small class="text-muted"><?php echo htmlspecialchars(ucfirst((string)($b['personal_or_group'] ?? ''))); ?></small>
+                                                    </td>
+                                                    <td><?php echo (int)$b['quantity']; ?></td>
+                                                    <td>
+                                                        <span class="badge badge-<?php echo ($b['payment_status'] ?? '') === 'paid' ? 'success' : 'warning'; ?>">
+                                                            <?php echo htmlspecialchars(ucfirst((string)($b['payment_status'] ?? 'pending'))); ?>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            <a href="../backend/delete.php?module=bookings&id=<?php echo (int)$b['id']; ?>&redirect=../admin/edit-courses.html?id=<?php echo $courseId; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Delete this booking?');"><i class="la la-trash-o"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
+
+                <!-- Modal for manual booking -->
+                <div class="modal fade" id="addBookingModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Add Booking Manually</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="../backend/save.php" method="post">
+                            <input type="hidden" name="module" value="bookings">
+                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="class_id" value="<?php echo $courseId; ?>">
+                            <input type="hidden" name="redirect" value="../admin/edit-courses.html?id=<?php echo $courseId; ?>#bookings">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Customer Name</label>
+                                    <input type="text" class="form-control" name="customer_name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="customer_email" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" class="form-control" name="customer_phone">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Booking Date</label>
+                                    <input type="date" class="form-control" name="booking_date" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Time Slot</label>
+                                    <select class="form-control" name="time_slot" required>
+                                        <?php 
+                                        $slots = explode(',', (string)($course['timeslots'] ?? ''));
+                                        foreach ($slots as $slot) {
+                                            $s = trim($slot);
+                                            if ($s) echo "<option value=\"".htmlspecialchars($s)."\">".htmlspecialchars($s)."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Quantity</label>
+                                    <input type="number" class="form-control" name="quantity" value="1" min="1" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Program Tier</label>
+                                    <select class="form-control" name="program_tier">
+                                        <?php 
+                                        $tiers = explode(',', (string)($course['tiers'] ?? ''));
+                                        foreach ($tiers as $tier) {
+                                            $t = trim($tier);
+                                            if ($t) echo "<option value=\"".htmlspecialchars($t)."\">".htmlspecialchars($t)."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Personal / Group</label>
+                                    <select class="form-control" name="personal_or_group">
+                                        <option value="personal">Personal</option>
+                                        <option value="group">Group</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Payment Status</label>
+                                    <select class="form-control" name="payment_status">
+                                        <option value="pending">Pending</option>
+                                        <option value="paid">Paid</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Save Booking</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             </div>
         </div>
         <!--**********************************

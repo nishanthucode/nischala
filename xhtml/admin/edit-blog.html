@@ -1,3 +1,37 @@
+<?php
+require_once __DIR__ . '/../backend/functions.php';
+$blogId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$blog = $blogId > 0 ? backend_fetch_one('blogs', $blogId) : null;
+if (!$blog) {
+    $blog = ['id' => '', 'title' => '', 'author' => '', 'category' => 'Education', 'publish_date' => '', 'content' => '', 'image_path' => ''];
+}
+
+function blog_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return '';
+    }
+
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, '../') || str_starts_with($imagePath, 'images/')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return '../' . $imagePath;
+    }
+
+    if (strpos($imagePath, '/') === false) {
+        return '../uploads/blogs/' . $imagePath;
+    }
+
+    return '../' . ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -188,10 +222,15 @@
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
+					 <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
+                        </ul>
                     </li>
 					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -202,7 +241,7 @@
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
                             <li><a href="edit-courses.html">Edit Classes</a></li>
-                            <li><a href="about-courses.html">About Classes</a></li>
+                            
                         </ul>
                     </li>
 					
@@ -223,7 +262,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
-                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                            <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -264,14 +303,14 @@
 				<div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Edit Blog</h4>
+                            <h4></h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                             <li class="breadcrumb-item active"><a href="javascript:void(0);">Blog</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Blog</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);"></a></li>
                         </ol>
                     </div>
                 </div>
@@ -282,48 +321,50 @@
 							<div class="card-header">
 								<h4 class="card-title">Blog Details</h4>
 							</div>
-							<div class="card-body">
-								<form action="#" method="post">
+                            <div class="card-body">
+                                <form action="../backend/save.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="module" value="blogs">
+                                    <input type="hidden" name="id" value="<?php echo htmlspecialchars((string)$blog['id']); ?>">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Blog Title</label>
-												<input type="text" class="form-control" value="Innovative learning techniques for students">
+                                                <input type="text" class="form-control" name="title" value="<?php echo htmlspecialchars($blog['title']); ?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Author Name</label>
-												<input type="text" class="form-control" value="John Doe">
+                                                <input type="text" class="form-control" name="author" value="<?php echo htmlspecialchars($blog['author']); ?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Blog Category</label>
-												<select class="form-control">
-													<option value="Education" selected>Education</option>
-													<option value="Technology">Technology</option>
-													<option value="Tips & Tricks">Tips & Tricks</option>
-													<option value="General">General</option>
+                                                <select class="form-control" name="category">
+                                                    <option value="Education" <?php echo $blog['category'] === 'Education' ? 'selected' : ''; ?>>Education</option>
+                                                    <option value="Technology" <?php echo $blog['category'] === 'Technology' ? 'selected' : ''; ?>>Technology</option>
+                                                    <option value="Tips & Tricks" <?php echo $blog['category'] === 'Tips & Tricks' ? 'selected' : ''; ?>>Tips & Tricks</option>
+                                                    <option value="General" <?php echo $blog['category'] === 'General' ? 'selected' : ''; ?>>General</option>
 												</select>
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Publish Date</label>
-												<input name="datepicker" class="datepicker-default form-control" id="datepicker" value="05 January, 2024">
+                                                <input type="date" class="form-control" name="publish_date" value="<?php echo htmlspecialchars($blog['publish_date']); ?>">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Blog Content</label>
-												<textarea class="form-control" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus, diam ac accumsan convallis, velit eros gravida velit, at varius lorem purus non enim. Praesent efficitur, ligula vel pretium convallis, diam nisl feugiat massa, sed eleifend quam nisl id augue. Mauris convallis lacus in porttitor sollicitudin.</textarea>
+                                                <textarea class="form-control" rows="10" name="content"><?php echo htmlspecialchars($blog['content']); ?></textarea>
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group fallback w-100">
 												<label class="form-label d-block">Thumbnail Image</label>
-												<input type="file" class="dropify" data-default-file="images/courses/pic1.jpg">
+                                                <input type="file" class="dropify" data-default-file="<?php echo htmlspecialchars(blog_image_src((string)$blog['image_path'])); ?>" name="image_path">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">

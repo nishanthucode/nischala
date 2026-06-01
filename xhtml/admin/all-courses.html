@@ -85,69 +85,6 @@
                         </div>
 
                         <ul class="navbar-nav header-right">
-                            <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
-                                    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-									</svg>
-                                    <div class="pulse-css"></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                    <a class="all-notification" href="#">See all notifications <i
-                                            class="ti-arrow-right"></i></a>
-                                </div>
-                            </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt=""/>
@@ -156,14 +93,6 @@
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ms-2">Profile </span>
-                                    </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        <span class="ms-2">Inbox </span>
-                                    </a>
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                        <span class="ms-2">Logout </span>
                                     </a>
                                 </div>
                             </li>
@@ -193,10 +122,15 @@
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
+					 <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
+                        </ul>
                     </li>
 					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -207,7 +141,7 @@
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
                             <li><a href="edit-courses.html">Edit Classes</a></li>
-                            <li><a href="about-courses.html">About Classes</a></li>
+                            
                         </ul>
                     </li>
 					
@@ -228,7 +162,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
-                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                            <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -284,171 +218,67 @@
                 </div>
 				
 				<div class="row">
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic1.jpg" alt="">
-							<div class="card-body">
-								<h4>Why is Early Education Essential?</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jack Ronan</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic2.jpg" alt="">
-							<div class="card-body">
-								<h4>The Shocking Revelation of Education.</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jimmy Morris</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic3.jpg" alt="">
-							<div class="card-body">
-								<h4>Five Things Nobody Told You About</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Konne Backfield</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic4.jpg" alt="">
-							<div class="card-body">
-								<h4>Learn Python – Interactive Python Tutorial</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Nashid Martines</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic5.jpg" alt="">
-							<div class="card-body">
-								<h4>Why is Early Education Essential?</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jack Ronan</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic6.jpg" alt="">
-							<div class="card-body">
-								<h4>The Shocking Revelation of Education.</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Jimmy Morris</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic7.jpg" alt="">
-							<div class="card-body">
-								<h4>Five Things Nobody Told You About</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Konne Backfield</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic8.jpg" alt="">
-							<div class="card-body">
-								<h4>Learn Python – Interactive Python Tutorial</h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0 text-muted">April 23</span>
-										<a href="javascript:void(0);"><i class="la la-heart-o me-1"></i><strong>230</strong></a></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Duration :</span><strong>12 Months</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span class="mb-0">Professor :</span><strong>Nashid Martines</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between">
-										<span><i class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong></li>
-								</ul>
-								<a href="about-courses.html" class="btn btn-primary">Read More</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-            </div>
-        </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
+                    <div class="row">
+<?php
+require_once __DIR__ . '/../backend/functions.php';
+$courses = backend_fetch_all('classes');
 
+function class_admin_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/courses/pic1.jpg';
+    }
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+    if (str_starts_with($imagePath, '../')) {
+        return $imagePath;
+    }
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return '../' . $imagePath;
+    }
+    return '../uploads/classes/' . ltrim($imagePath, '/');
+}
+?>
 
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
+                        <?php if (!$courses): ?>
+                            <div class="col-12">
+                                <div class="alert alert-info">No classes found yet.</div>
+                            </div>
+                        <?php endif; ?>
+                        <?php foreach ($courses as $course): 
+                            $stmt = pdo()->prepare('SELECT COUNT(*) FROM bookings WHERE class_id = ?');
+                            $stmt->execute([(int)$course['id']]);
+                            $booking_count = $stmt->fetchColumn();
+                        ?>
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div class="card">
+                                    <img class="img-fluid" style="height:250px; object-fit:cover;" src="<?php echo htmlspecialchars(class_admin_image_src((string)($course['image_path'] ?? ''))); ?>" alt="">
+                                    <div class="card-body">
+                                        <h4><?php echo htmlspecialchars((string)$course['name']); ?></h4>
+                                        <ul class="list-group mb-3 list-group-flush">
+                                            <li class="list-group-item px-0 border-top-0 d-flex justify-content-between">
+                                                <span class="mb-0 text-muted"><?php echo htmlspecialchars(($course['start_date'] ?? '') ? date('d M Y', strtotime((string)$course['start_date'])) : ''); ?></span>
+                                                <span class="text-muted"><?php echo htmlspecialchars((string)($course['booking_enabled'] ? 'Booking On' : 'Booking Off')); ?></span>
+                                            </li>
+                                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                                <span class="mb-0">Instructor :</span><strong><?php echo htmlspecialchars((string)($course['instructor'] ?? '')); ?></strong></li>
+                                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                                <span>Slot Capacity</span><strong><?php echo htmlspecialchars((string)($course['slot_capacity'] ?? '')); ?></strong></li>
+                                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                                <span>Total Bookings</span><strong><?php echo (int)$booking_count; ?></strong></li>
+                                        </ul>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <a href="edit-courses.html?id=<?php echo (int)$course['id']; ?>" class="btn btn-primary me-2">Edit</a>
+                                            <a href="edit-courses.html?id=<?php echo (int)$course['id']; ?>#bookings" class="btn btn-info me-2">View Bookings</a>
+                                            <a href="../backend/delete.php?module=classes&id=<?php echo (int)$course['id']; ?>" class="btn btn-light" onclick="return confirm('Delete this class?');">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
             <div class="copyright">
                 <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
             </div>

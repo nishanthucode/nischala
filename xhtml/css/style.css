@@ -16059,26 +16059,32 @@ ol.commentlist li .star-rating {
 #loading-area {
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #f5f7f6;
     position: fixed;
     left: 0;
     top: 0;
     opacity: 1;
     z-index: 999999999;
-    background-image: url(../images/loading.gif);
-    background-repeat: no-repeat;
-    background-size: 80px;
-    background-position: center;
+    background-image: none;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#loading-area.loading4 {
-    background-image: url(../images/loading2.gif);
+#loading-area::after {
+    content: "";
+    width: 150px;
+    height: 100px;
+    background-image: url(../images/logo.png);
     background-repeat: no-repeat;
-    background-size: 150px;
-    background-color: #f5f7f6;
+    background-size: contain;
+    background-position: center;
+    animation: pulseLogo 1.2s infinite ease-in-out alternate;
+}
+
+@keyframes pulseLogo {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; }
 }
 
 #loading-area.loading3,
@@ -19827,4 +19833,22 @@ pre {
 textarea.form-control {
     min-height: unset;
     height: auto !important;
+}
+
+/* Footer Bottom Social Icons */
+.footer-bottom .dlab-social-icon ul {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-bottom .dlab-social-icon ul li {
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.footer-bottom .dlab-social-icon ul li a.site-button {
+    background-color: #f77024;
+    color: white;
+    border-radius: 50%;
+    border: none;
 }

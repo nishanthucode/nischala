@@ -1,0 +1,253 @@
+<?php
+require_once __DIR__ . '/../backend/functions.php';
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$event = $id > 0 ? backend_fetch_one('events', $id) : null;
+
+if (!$event) {
+    header('Location: all-events.html?error=Event+not+found');
+    exit;
+}
+
+function event_image_src(?string $imagePath): string
+{
+    if (!$imagePath) return '';
+    if (str_starts_with($imagePath, 'uploads/')) return '../' . $imagePath;
+    return $imagePath;
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>EduZone - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <div class="nav-header">
+            <a href="index.html" class="brand-logo">
+                <img class="logo-abbr" src="images/logo-white.png" alt="">
+                <img class="logo-compact" src="images/logo-text-white.png" alt="">
+                <img class="brand-title" src="images/logo-text-white.png" alt="">
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left"></div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <img src="images/profile/pic1.jpg" width="20" alt="" />
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-log-out">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                            <polyline points="16 17 21 12 16 7"></polyline>
+                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                        </svg>
+                                        <span class="ml-2">Logout </span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="deznav">
+            <div class="deznav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label first">Main Menu</li>
+                    <li><a class="ai-icon" href="index.html" aria-expanded="false">
+                            <i class="la la-home"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-graduation-cap"></i>
+                            <span class="nav-text">Classes</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-courses.html">All Classes</a></li>
+                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="edit-courses.html">Edit Classes</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-image"></i>
+                            <span class="nav-text">Gallery</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-gallery.html">All Gallery</a></li>
+                            <li><a href="add-gallery.html">Add Gallery</a></li>
+                            <li><a href="edit-gallery.html">Edit Gallery</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-file-text"></i>
+                            <span class="nav-text">Blog</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-blogs.html">All Blogs</a></li>
+                            <li><a href="add-blog.html">Add Blog</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Edit Event</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Events</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Event</a></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Event Details</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="../backend/save.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="module" value="events">
+                                    <input type="hidden" name="id"
+                                        value="<?php echo htmlspecialchars((string)$event['id']); ?>">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Event Title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    value="<?php echo htmlspecialchars($event['title']); ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Event Date</label>
+                                                <input type="date" class="form-control" name="event_date"
+                                                    value="<?php echo htmlspecialchars($event['event_date']); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Event Time</label>
+                                                <input type="time" class="form-control" name="event_time"
+                                                    value="<?php echo htmlspecialchars($event['event_time']); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Location</label>
+                                                <input type="text" class="form-control" name="location"
+                                                    value="<?php echo htmlspecialchars($event['location']); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Event Description</label>
+                                                <textarea class="form-control" rows="5"
+                                                    name="description"><?php echo htmlspecialchars($event['description']); ?></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group fallback w-100">
+                                                <label class="form-label d-block">Event Image</label>
+                                                <input type="file" class="dropify"
+                                                    data-default-file="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>"
+                                                    name="image_path">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="button" onclick="history.back()"
+                                                class="btn btn-light">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="js/custom.min.js"></script>
+
+</body>
+
+</html>

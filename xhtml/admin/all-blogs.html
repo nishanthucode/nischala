@@ -1,3 +1,33 @@
+<?php
+require_once __DIR__ . '/../backend/functions.php';
+$blogs = backend_fetch_all('blogs');
+
+function blog_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/courses/pic1.jpg';
+    }
+
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, '../') || str_starts_with($imagePath, 'images/')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return '../' . $imagePath;
+    }
+
+    if (strpos($imagePath, '/') === false) {
+        return '../uploads/blogs/' . $imagePath;
+    }
+
+    return '../' . ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,10 +214,15 @@
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
+					 <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
+                        </ul>
                     </li>
 					
 					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -198,7 +233,7 @@
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
                             <li><a href="edit-courses.html">Edit Classes</a></li>
-                            <li><a href="about-courses.html">About Classes</a></li>
+                            
                         </ul>
                     </li>
 					
@@ -219,7 +254,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
-                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                            <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -272,50 +307,30 @@
                     </div>
                 </div>
 				
-				<div class="row">
-					<div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic1.jpg" alt="">
-							<div class="card-body">
-								<h4><a href="javascript:void(0);">Innovative learning techniques for students</a></h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Author :</span><strong>John Doe</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Date :</span><strong>05 Jan 2024</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Category :</span><strong>Education</strong></li>
-								</ul>
-								<a href="edit-blog.html" class="btn btn-primary">Edit Blog</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic2.jpg" alt="">
-							<div class="card-body">
-								<h4><a href="javascript:void(0);">How to prepare for competitive exams</a></h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Author :</span><strong>Jane Smith</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Date :</span><strong>10 Jan 2024</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Category :</span><strong>Tips & Tricks</strong></li>
-								</ul>
-								<a href="edit-blog.html" class="btn btn-primary">Edit Blog</a>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-						<div class="card">
-							<img class="img-fluid" src="images/courses/pic3.jpg" alt="">
-							<div class="card-body">
-								<h4><a href="javascript:void(0);">The future of technology in classrooms</a></h4>
-								<ul class="list-group mb-3 list-group-flush">
-									<li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Author :</span><strong>Sam Wilson</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Date :</span><strong>15 Jan 2024</strong></li>
-									<li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Category :</span><strong>Technology</strong></li>
-								</ul>
-								<a href="edit-blog.html" class="btn btn-primary">Edit Blog</a>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div class="row">
+                    <?php if (!$blogs): ?>
+                        <div class="col-12">
+                            <div class="alert alert-info">No blog posts found yet.</div>
+                        </div>
+                    <?php endif; ?>
+                    <?php foreach ($blogs as $blog): ?>
+                        <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
+                            <div class="card">
+                                <img class="img-fluid" src="<?php echo htmlspecialchars(blog_image_src($blog['image_path'] ?? '')); ?>" alt="" onerror="this.onerror=null;this.src='images/courses/pic1.jpg';">
+                                <div class="card-body">
+                                    <h4><a href="javascript:void(0);"><?php echo htmlspecialchars($blog['title']); ?></a></h4>
+                                    <ul class="list-group mb-3 list-group-flush">
+                                        <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span class="mb-0">Author :</span><strong><?php echo htmlspecialchars($blog['author']); ?></strong></li>
+                                        <li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Date :</span><strong><?php echo htmlspecialchars(date('d M Y', strtotime((string)$blog['publish_date']))); ?></strong></li>
+                                        <li class="list-group-item px-0 d-flex justify-content-between"><span class="mb-0">Category :</span><strong><?php echo htmlspecialchars($blog['category']); ?></strong></li>
+                                    </ul>
+                                    <a href="edit-blog.html?id=<?php echo (int)$blog['id']; ?>" class="btn btn-primary">Update</a>
+                                    <a href="../backend/delete.php?module=blogs&id=<?php echo (int)$blog['id']; ?>" class="btn btn-light" onclick="return confirm('Delete this blog post?');">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
         <!--**********************************

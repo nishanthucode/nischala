@@ -1,3 +1,22 @@
+<?php
+require_once __DIR__ . '/../backend/functions.php';
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    die("No enquiry ID provided.");
+}
+$stmt = pdo()->prepare("SELECT * FROM enquiries WHERE id = ?");
+$stmt->execute([$id]);
+$enquiry = $stmt->fetch(PDO::FETCH_ASSOC);
+if (!$enquiry) {
+    die("Enquiry not found.");
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_replied'])) {
+    $updateStmt = pdo()->prepare("UPDATE enquiries SET status = 'Replied' WHERE id = ?");
+    $updateStmt->execute([$id]);
+    header("Location: view-enquiry.html?id=" . $id);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -170,73 +189,90 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-<div class="deznav">
+<div class="deznav" style="background-color: #1e3a5f;">
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-home"></i>
-							<span class="nav-text">Dashboard</span>
+                    <li class="nav-label first" style="color: #7ba3c0; font-size: 11px; text-transform: uppercase; padding: 20px 20px 15px; letter-spacing: 1px;">Main Menu</li>
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+							<span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+								<i class="la la-home" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+								<span class="nav-text" style="color: #fff; font-size: 14px;">Dashboard</span>
+							</span>
 						</a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
                             <li><a href="index.html">Dashboard 1</a></li>
                             <li><a href="index-2.html">Dashboard 2</a></li>
                             <li><a href="index-3.html">Dashboard 3</a></li>
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
-                    </li>
-					
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-graduation-cap"></i>
-							<span class="nav-text">Classes</span>
-						</a>
+					 <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
                         <ul aria-expanded="false">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Classes</a></li>
-                            <li><a href="edit-courses.html">Edit Classes</a></li>
-                            <li><a href="about-courses.html">About Classes</a></li>
+                            <li><a href="all-events.html">All Events</a></li>
+                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="event-management.html">Calendar View</a></li>
                         </ul>
                     </li>
 					
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-image"></i>
-                            <span class="nav-text">Gallery</span>
+					<li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+							<span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+								<i class="la la-graduation-cap" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+								<span class="nav-text" style="color: #fff; font-size: 14px;">Classes</span>
+							</span>
+						</a>
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                            <li><a href="all-courses.html">All Classes</a></li>
+                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="edit-courses.html">Edit Classes</a></li>
+                            
+                        </ul>
+                    </li>
+					
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+                            <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                                <i class="la la-image" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+                                <span class="nav-text" style="color: #fff; font-size: 14px;">Gallery</span>
+                            </span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
                             <li><a href="edit-gallery.html">Edit Gallery</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-file-text"></i>
-                            <span class="nav-text">Blog</span>
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+                            <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                                <i class="la la-file-text" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+                                <span class="nav-text" style="color: #fff; font-size: 14px;">Blog</span>
+                            </span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
-                            <li><a href="edit-blog.html">Edit Blog</a></li>
+                            <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-envelope"></i>
-                            <span class="nav-text">Enquiry</span>
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+                            <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                                <i class="la la-envelope" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+                                <span class="nav-text" style="color: #fff; font-size: 14px;">Enquiry</span>
+                            </span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
                             <li><a href="all-enquiries.html">All Enquiries</a></li>
                             <li><a href="view-enquiry.html">View Enquiry</a></li>
                         </ul>
                     </li>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-users"></i>
-							<span class="nav-text">Students</span>
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+							<span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+								<i class="la la-users" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+								<span class="nav-text" style="color: #fff; font-size: 14px;">Students</span>
+							</span>
 						</a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
                             <li><a href="all-students.html">All Patients</a></li>
                             <li><a href="add-student.html">Add Patient</a></li>
                             <li><a href="edit-student.html">Edit Patient</a></li>
@@ -283,33 +319,35 @@
                                     <div class="media pt-3">
 										<img class="mr-3 rounded-circle" src="images/avatar/1.jpg" alt="image">
 										<div class="media-body">
-											<h5 class="text-primary">John Doe</h5>
-											<p class="mb-0">john@example.com</p>
+											<h5 class="text-primary"><?php echo htmlspecialchars($enquiry['name']); ?></h5>
+											<p class="mb-0"><?php echo htmlspecialchars($enquiry['email']); ?></p>
+                                            <?php if(!empty($enquiry['phone'])): ?>
+                                                <p class="mb-0"><i class="fa fa-phone"></i> <?php echo htmlspecialchars($enquiry['phone']); ?></p>
+                                            <?php endif; ?>
 										</div>
-										<a href="javascript:void()" class="btn btn-primary px-3 light"><i class="fa fa-reply"></i> Reply</a>
+										<a href="mailto:<?php echo htmlspecialchars($enquiry['email']); ?>" class="btn btn-primary px-3 light"><i class="fa fa-reply"></i> Reply by Email</a>
 									</div>
 									<hr>
 									<div class="media mb-4 mt-1">
-                                        <div class="media-body"><span class="pull-right">08:23 AM</span>
-                                            <h4 class="my-1 text-primary">Admission Enquiry</h4>
+                                        <div class="media-body"><span class="pull-right"><?php echo date('h:i A', strtotime($enquiry['created_at'])); ?></span>
+                                            <h4 class="my-1 text-primary"><?php echo htmlspecialchars($enquiry['subject']); ?></h4>
                                             <p class="read-content-email">
-                                                To: Me, info@example.com</p>
+                                                Date: <?php echo date('Y/m/d', strtotime($enquiry['created_at'])); ?> | Status: <?php echo $enquiry['status']; ?>
+                                            </p>
                                         </div>
                                     </div>
 									<div class="read-content-body">
-                                        <p>Hi,</p>
-                                        <p>I would like to inquire about the admission process for the upcoming academic year. Could you please provide information regarding the eligibility criteria, required documents, and important dates?</p>
-                                        <p>Looking forward to your response.</p>
-                                        <p>Regards,<br>John Doe</p>
+                                        <p><?php echo nl2br(htmlspecialchars($enquiry['message'])); ?></p>
                                         <hr>
                                     </div>
-									<div class="form-group pt-4">
-                                        <textarea name="write-email" id="write-email" cols="30" rows="5" class="form-control" placeholder="Type your reply here..."></textarea>
-                                    </div>
 								</div>
+                                <?php if($enquiry['status'] !== 'Replied'): ?>
 								<div class="text-right">
-                                    <button class="btn btn-primary w-md m-b-30" type="button">Send Reply</button>
+                                    <form method="POST">
+                                        <button name="mark_replied" value="1" class="btn btn-success w-md m-b-30" type="submit"><i class="fa fa-check"></i> Mark as Replied</button>
+                                    </form>
                                 </div>
+                                <?php endif; ?>
 							</div>
 						</div>
 					</div>
