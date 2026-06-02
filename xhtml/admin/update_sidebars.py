@@ -32,8 +32,8 @@ new_sidebar = """        <!--**********************************
 						</a>
                         <ul aria-expanded="false">
                             <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index-2.html">Dashboard 2</a></li>
-                            <li><a href="index-3.html">Dashboard 3</a></li>
+                            
+                            
                         </ul>
                     </li>
 					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
@@ -48,7 +48,7 @@ new_sidebar = """        <!--**********************************
                         <ul aria-expanded="false">
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
-                            <li><a href="edit-courses.html">Edit Classes</a></li>
+                            
                             
                         </ul>
                     </li>
@@ -59,7 +59,7 @@ new_sidebar = """        <!--**********************************
                         <ul aria-expanded="false">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
-                            <li><a href="edit-gallery.html">Edit Gallery</a></li>
+                            
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">

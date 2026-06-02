@@ -1,3 +1,33 @@
+<?php
+require_once __DIR__ . '/backend/functions.php';
+$gallery = backend_fetch_all('gallery');
+
+function gallery_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/portfolio/img1.jpg';
+    }
+
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'images/')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return $imagePath;
+    }
+
+    if (strpos($imagePath, '/') === false) {
+        return 'uploads/gallery/' . $imagePath;
+    }
+
+    return ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -154,7 +184,7 @@
 		<!-- Content -->
 		<div class="page-content bg-gray">
 			<!-- inner page banner -->
-			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/bnr4.jpg);">
+			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/2.jpeg);">
 				<div class="container">
 					<div class="dlab-bnr-inr-entry">
 						<h1 class="text-white">Gallery Grid 4 Icon</h1>
@@ -179,34 +209,54 @@
 							<ul class="filters" data-toggle="buttons">
 								<li data-filter="" class="btn active"><input type="radio"><a
 										href="javascript:void(0);"><span>All</span></a></li>
-								<li data-filter="web" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span>Web Design</span></a></li>
-								<li data-filter="advertising" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span>Photography</span></a></li>
-								<li data-filter="branding" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span>Management</span></a></li>
-								<li data-filter="design" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span>Advertising</span></a></li>
-								<li data-filter="photography" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span>Collage</span></a></li>
+								<?php 
+									$categories = [
+										'Yoga Session Photos',
+										'Workshop Highlights',
+										'Event Gallery Archive',
+										'Transformation Stories',
+										'Video Gallery',
+										'Retreat Experiences'
+									];
+									foreach ($categories as $cat):
+										$catSlug = strtolower(str_replace(' ', '-', $cat));
+								?>
+								<li data-filter="<?php echo $catSlug; ?>" class="btn"><input type="radio"><a
+										href="javascript:void(0);"><span><?php echo htmlspecialchars($cat); ?></span></a></li>
+								<?php endforeach; ?>
 							</ul>
 						</div>
 						<div class="clearfix" id="lightgallery">
 							<ul id="masonry"
 								class=" portfolio-ic dlab-gallery-listing gallery-grid-4 gallery lightgallery">
-								<li class="web design card-container col-lg-3 col-md-6 col-sm-6">
+								<?php if (empty($gallery)): ?>
+									<div class="col-12 text-center">
+										<p>No gallery images found.</p>
+									</div>
+								<?php endif; ?>
+								<?php foreach ($gallery as $item): ?>
+								<?php
+									$catClass = strtolower(str_replace(' ', '-', $item['category'] ?? 'all'));
+									$imgSrc = htmlspecialchars(gallery_image_src($item['image_path'] ?? ''));
+								?>
+								<li class="<?php echo $catClass; ?> card-container col-lg-3 col-md-6 col-sm-6">
 									<div class="dlab-box dlab-gallery-box">
 										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img1.jpg" alt="">
+											<a href="javascript:void(0);"> 
+												<?php if (!empty($item['video_path'])): ?>
+													<video src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;" muted loop autoplay playsinline></video>
+												<?php else: ?>
+													<img src="<?php echo $imgSrc; ?>" alt="" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+												<?php endif; ?>
 											</a>
 											<div class="overlay-bx">
 												<div class="overlay-icon">
 													<div class="text-white">
 														<a href="javascript:void(0);"><i
 																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img1.jpg"
-															data-src="images/portfolio/image_1.jpg" class="check-km"
-															title="School Library">
+														<span data-exthumbimage="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>"
+															data-src="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>" class="check-km"
+															title="<?php echo htmlspecialchars($item['title'] ?? ''); ?>">
 															<i class="fa fa-picture-o icon-bx-xs"></i>
 														</span>
 													</div>
@@ -214,286 +264,12 @@
 											</div>
 										</div>
 										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">School Library</a></h6> -->
-											<p class="category"><small>Library</small></p>
+											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);"><?php echo htmlspecialchars($item['title'] ?? ''); ?></a></h6> -->
+											<p class="category"><small><?php echo htmlspecialchars($item['category'] ?? ''); ?></small></p>
 										</div>
 									</div>
 								</li>
-								<li class="advertising branding photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect dlab-img-effect ">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img2.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img2.jpg"
-															data-src="images/portfolio/image_2.jpg" class="check-km"
-															title="Coaching centers">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Coaching centers</a></h6> -->
-											<p class="category"><small>School / Collage</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="branding design photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img3.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img3.jpg"
-															data-src="images/portfolio/image_3.jpg" class="check-km"
-															title="Educational Institution">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Educational Institution</a></h6> -->
-											<p class="category"><small>Education</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="web design card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img4.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img4.jpg"
-															data-src="images/portfolio/image_4.jpg" class="check-km"
-															title="Language centers">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Language centers</a></h6> -->
-											<p class="category"><small>Knowledge</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="web branding card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img5.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img5.jpg"
-															data-src="images/portfolio/image_5.jpg" class="check-km"
-															title="Schools and Universities">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Schools and Universities</a></h6> -->
-											<p class="category"><small>Universities</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="advertising design photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect ">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img6.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img6.jpg"
-															data-src="images/portfolio/image_6.jpg" class="check-km"
-															title="Web Development">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Web Development</a></h6> -->
-											<p class="category"><small>Development</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="web branding card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img7.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img7.jpg"
-															data-src="images/portfolio/image_7.jpg" class="check-km"
-															title="Computer Science">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Computer Science</a></h6> -->
-											<p class="category"><small>Computer</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="advertising design photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect dlab-img-effect ">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img8.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img8.jpg"
-															data-src="images/portfolio/image_8.jpg" class="check-km"
-															title="School Library">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">School Library</a></h6> -->
-											<p class="category"><small>Library</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="web photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img9.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img9.jpg"
-															data-src="images/portfolio/image_9.jpg" class="check-km"
-															title="Coaching centers">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Coaching centers</a></h6> -->
-											<p class="category"><small>School / Collage</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="advertising branding card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img10.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img10.jpg"
-															data-src="images/portfolio/image_10.jpg" class="check-km"
-															title="Educational Institution">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title 	m-t0"><a href="javascript:void(0);">Educational Institution</a></h6> -->
-											<p class="category"><small>Education</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="web design card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img11.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img11.jpg"
-															data-src="images/portfolio/image_11.jpg" class="check-km"
-															title="Language centers">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Language centers</a></h6> -->
-											<p class="category"><small>Knowledge</small></p>
-										</div>
-									</div>
-								</li>
-								<li class="advertising branding photography card-container col-lg-3 col-md-6 col-sm-6">
-									<div class="dlab-box dlab-gallery-box">
-										<div class="dlab-media dlab-img-overlay1 dlab-img-effect ">
-											<a href="javascript:void(0);"> <img src="images/portfolio/img12.jpg" alt="">
-											</a>
-											<div class="overlay-bx">
-												<div class="overlay-icon">
-													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="images/portfolio/img12.jpg"
-															data-src="images/portfolio/image_12.jpg" class="check-km"
-															title="Web Development">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);">Web Development</a></h6> -->
-											<p class="category"><small>Development</small></p>
-										</div>
-									</div>
-								</li>
+								<?php endforeach; ?>
 							</ul>
 						</div>
 					</div>
@@ -532,44 +308,94 @@
 		</div>
 	</div> -->
 		<!-- Footer -->
-		<footer class="site-footer">
-			<div class="footer-top" style="background-image:url(images/pattern/pt15.png);">
-				<div class="container">
-					<div class="row">
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 footer-col-4 col-12">
-							<div class="widget widget_about border-0">
-								<h5 class="footer-title">About Us</h5>
-								<p class="mm-t5">Contrary to popular belief, Lorem simply random text. It has roots in a
-									piece of classical Latin literature.</p>
-								<ul class="contact-info-bx">
-									<li><i class="las la-map-marker"></i><strong>Address</strong> 20 , New York 10010
-									</li>
-									<li><i class="las la-phone-volume"></i><strong>Phone</strong> 0800-123456</li>
-									<li><i class="las la-envelope-open"></i><strong>Email</strong> info@example.com</li>
-								</ul>
+		<footer class="site-footer"
+			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
+			<div class="footer-top" style="background: transparent;">
+				<div class="container saf-footer" style="max-width: 1300px;">
+					<div class="row justify-content-between">
+						<div class="col-lg-5 col-md-12 footer-col-4">
+							<div class="widget widget_about d-flex" style="align-items: flex-start;">
+								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
+									<a href="index.html"><img src="images/logo.png" alt=""
+											style="max-width: 120px;"></a>
+								</div>
+								<p
+									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
+									Experience authentic yogic practices designed to bring harmony to your body, clarity
+									to
+									your mind, and balance to your life. At Nischala, yoga is taught as a complete path
+									towards wellbeing, mindfulness, and inner transformation.</p>
 							</div>
 						</div>
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 footer-col-4 col-12">
+
+						<div class="col-lg-3 col-md-6 footer-col-4">
 							<div class="widget widget_services border-0">
-								<h5 class="footer-title">Usefull Link</h5>
+								<h5 class="m-b30 text-white">Usefull Link</h5>
+								<div
+									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
+								</div>
 								<div class="row">
 									<div class="col-6">
-										<ul class="mm-t10 m-b0">
-											<li><a href="index.html">Home</a></li>
-											<li><a href="about-1.html">About Us</a></li>
-											<li><a href="courses.html">Classes</a></li>
-											<li><a href="services-1.html">Services</a></li>
+										<ul style="list-style: none; padding-left: 0; color: #f77024;">
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="index.html"
+													style="text-transform: none; color: #cccccc;">Home</a>
+											</li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="about-1.html"
+													style="text-transform: none; color: #cccccc;">About
+													Us</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="courses.html"
+													style="text-transform: none; color: #cccccc;">Classes</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="services-1.html"
+													style="text-transform: none; color: #cccccc;">Services</a></li>
 										</ul>
 									</div>
 									<div class="col-6">
-										<ul class="mm-t10 m-b0">
-											<li><a href="event.html">Events</a></li>
-											<li><a href="gallery-grid-4.html">Gallery</a></li>
-											<li><a href="blog-grid-4.html">Blog</a></li>
-											<li><a href="contact-4.html">Contact Us</a></li>
+										<ul style="list-style: none; padding-left: 0; color: #f77024;">
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="event.html"
+													style="text-transform: none; color: #cccccc;">Events</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="gallery-grid-4.html"
+													style="text-transform: none; color: #cccccc;">Gallery</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="blog-grid-4.html"
+													style="text-transform: none; color: #cccccc;">Blog</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="contact-4.html"
+													style="text-transform: none; color: #cccccc;">Contact Us</a></li>
 										</ul>
 									</div>
 								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 footer-col-4">
+							<div class="widget">
+								<h5 class="m-b30 text-white">Contact</h5>
+								<div
+									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
+								</div>
+								<ul style="text-transform: none; color: #cccccc; list-style: none; padding-left: 0;">
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-map-marker"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Address 20 , New York 10010</span>
+									</li>
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-phone-volume"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Phone 0800-123456</span>
+									</li>
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-envelope"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Email info@example.com</span>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>

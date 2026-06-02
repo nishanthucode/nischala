@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -48,11 +48,14 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-white.png" alt="">
-                <img class="logo-compact" src="images/logo-text-white.png" alt="">
-                <img class="brand-title" src="images/logo-text-white.png" alt="">
+        <div class="nav-header" style="background-color: #ffffff;">
+            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+                </style>
+                <span class="brand-title"
+                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
             </a>
 
             <div class="nav-control">
@@ -215,11 +218,11 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index-2.html">Dashboard 2</a></li>
-                            <li><a href="index-3.html">Dashboard 3</a></li>
+
+
                         </ul>
                     </li>
-                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                    <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
                             <span class="nav-text">Event Management</span>
                         </a>
@@ -237,7 +240,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
-                            <li><a href="edit-courses.html">Edit Classes</a></li>
+
 
                         </ul>
                     </li>
@@ -249,7 +252,7 @@
                         <ul aria-expanded="false">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
-                            <li><a href="edit-gallery.html">Edit Gallery</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -262,14 +265,11 @@
                             <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <li><a class="has-arrow" href="all-enquiries.html" aria-expanded="false">
                             <i class="la la-envelope"></i>
                             <span class="nav-text">Enquiry</span>
                         </a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-enquiries.html">All Enquiries</a></li>
-                            <li><a href="view-enquiry.html">View Enquiry</a></li>
-                        </ul>
+
                     </li>
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -321,37 +321,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-intro-title">Calendar</h4>
-
-                                <div class="">
-                                    <div id="external-events" class="my-3">
-                                        <p>Drag and drop your event or click in the calendar</p>
-                                        <div class="external-event" data-class="bg-primary"><i
-                                                class="fa fa-move"></i>New Theme Release</div>
-                                        <div class="external-event" data-class="bg-success"><i class="fa fa-move"></i>My
-                                            Event
-                                        </div>
-                                        <div class="external-event" data-class="bg-warning"><i
-                                                class="fa fa-move"></i>Meet manager</div>
-                                        <div class="external-event" data-class="bg-dark"><i
-                                                class="fa fa-move"></i>Create New theme</div>
-                                    </div>
-                                    <!-- checkbox -->
-                                    <div class="checkbox form-check checkbox-event custom-checkbox pt-3 pb-5">
-                                        <input type="checkbox" class="form-check-input" id="drop-remove">
-                                        <label class="form-check-label" for="drop-remove">Remove After Drop</label>
-                                    </div>
-                                    <a href="add-events.html" class="btn btn-primary btn-event w-100">
-                                        <span class="align-middle"><i class="ti-plus"></i></span> Create New
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- BEGIN MODAL -->
                     <div class="modal fade none-border" id="event-modal">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -372,7 +341,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Modal Add Category -->
                     <div class="modal fade none-border" id="add-category">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -425,7 +393,9 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
+                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                        target="_blank">Oneplanets360</a></p>
+
             </div>
         </div>
         <!--**********************************

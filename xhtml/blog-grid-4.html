@@ -1,3 +1,36 @@
+<?php
+require_once __DIR__ . '/backend/functions.php';
+$blogs = backend_fetch_all('blogs');
+usort($blogs, function($a, $b) {
+    return strtotime($b['publish_date'] ?? 'now') < strtotime($a['publish_date'] ?? 'now') ? 1 : -1;
+});
+
+function blog_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/blog/grid/pic1.jpg';
+    }
+
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'images/')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return $imagePath;
+    }
+
+    if (strpos($imagePath, '/') === false) {
+        return 'uploads/blogs/' . $imagePath;
+    }
+
+    return ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -155,15 +188,15 @@
 		<!-- Content -->
 		<div class="page-content bg-gray">
 			<!-- inner page banner -->
-			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/bnr1.jpg);">
+			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/2.jpeg);">
 				<div class="container">
 					<div class="dlab-bnr-inr-entry">
-						<h1 class="text-white">Blog grid 4</h1>
+						<h1 class="text-white">Blog</h1>
 						<!-- Breadcrumb row -->
 						<div class="breadcrumb-row">
 							<ul class="list-inline">
 								<li><a href="index.html">Home</a></li>
-								<li>Blog grid 4</li>
+								<li>Blog</li>
 							</ul>
 						</div>
 						<!-- Breadcrumb row END -->
@@ -176,269 +209,42 @@
 
 					<!-- blog grid -->
 					<div id="masonry" class="dlab-blog-grid-3 row">
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
+						<?php if (empty($blogs)): ?>
+							<div class="col-12 text-center">
+								<p>No blog posts found.</p>
+							</div>
+						<?php endif; ?>
+						<?php foreach ($blogs as $blog): ?>
+						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6" onclick="window.location.href='blog-list.html';" style="cursor: pointer;">
 							<div class="blog-post blog-grid blog-rounded blog-effect1">
 								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic1.jpg" alt=""></a>
+									<a href="blog-list.html"><img src="<?php echo htmlspecialchars(blog_image_src($blog['image_path'] ?? '')); ?>" alt="" style="width: 100%; height: 250px; object-fit: cover;"></a>
 								</div>
 								<div class="dlab-info p-a20">
 									<div class="dlab-post-meta">
 										<ul>
 											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Jamie</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">KNOWLEDGE</a> </li>
+													href="javascript:void(0);"><?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?></a> </li>
+											<li class="post-tag"> <a href="javascript:void(0);"><?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?></a> </li>
 										</ul>
 									</div>
 									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">Why is Early Education
-												Essential?</a></h5>
+										<h5 class="post-title"><a href="blog-list.html"><?php echo htmlspecialchars($blog['title']); ?></a></h5>
 									</div>
 									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
+										<p><?php echo htmlspecialchars(mb_strimwidth(strip_tags((string)($blog['content'] ?? '')), 0, 100, "...")); ?></p>
 									</div>
 									<div class="post-footer">
 										<div class="dlab-post-meta">
 											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
+												<li class="post-date"> <i class="la la-clock"></i> <strong><?php echo date('d F', strtotime((string)$blog['publish_date'])); ?></strong> <span> <?php echo date('Y', strtotime((string)$blog['publish_date'])); ?></span> </li>
 											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic2.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Reuben</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">Event</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title">
-										<h5 class="post-title"><a href="blog-single.html">The Shocking Revelation of
-												Education.</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic3.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Caroline</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">Education</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">Five Things Nobody Told You
-												About</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic4.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Harry</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">knowledge</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">Here's What People Are Saying
-												About</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic4.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Anna</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">event</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">How Education Can Ease Your
-												Pain </a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic3.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Oliver</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">education</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">Why You Should Not Go To
-												Education</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic1.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Jamie</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">KNOWLEDGE</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title ">
-										<h5 class="post-title"><a href="blog-single.html">Why is Early Education
-												Essential?</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6">
-							<div class="blog-post blog-grid blog-rounded blog-effect1">
-								<div class="dlab-post-media dlab-img-effect">
-									<a href="blog-single.html"><img src="images/blog/grid/pic2.jpg" alt=""></a>
-								</div>
-								<div class="dlab-info p-a20">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);">Reuben</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">Event</a> </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title">
-										<h5 class="post-title"><a href="blog-single.html">The Shocking Revelation of
-												Education.</a></h5>
-									</div>
-									<div class="dlab-post-text">
-										<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-											chunks as necessary.</p>
-									</div>
-									<div class="post-footer">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong>01
-														June</strong> <span> 2020</span> </li>
-											</ul>
-										</div>
-
-									</div>
-								</div>
-							</div>
-						</div>
+						<?php endforeach; ?>
 					</div>
 					<!-- blog grid END -->
 					<!-- Pagination -->

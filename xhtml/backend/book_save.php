@@ -1,7 +1,10 @@
 <?php
 declare(strict_types=1);
+ob_start(); // buffer any stray output (PHP warnings/notices) so JSON stays clean
 
 require_once __DIR__ . '/functions.php';
+
+header('Content-Type: application/json; charset=utf-8');
 
 // Expect JSON or form POST
 $data = $_POST ?: json_decode(file_get_contents('php://input'), true) ?: [];
@@ -89,4 +92,6 @@ try {
 }
 
 header('Content-Type: application/json; charset=utf-8');
+ob_end_clean(); // discard any stray PHP output before JSON
 echo json_encode(['success' => true, 'booking_id' => $bookingId, 'message' => 'Booking confirmed']);
+

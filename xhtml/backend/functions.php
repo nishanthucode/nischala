@@ -74,25 +74,32 @@ function backend_save(string $moduleName, array $post, array $files = [], ?int $
     $module = backend_module($moduleName);
     $fields = $module['fields'];
     $data = [];
-    $fileField = null;
+    $fileFields = [];
 
     foreach ($fields as $fieldName => $definition) {
-        if ($definition['type'] === 'file') {
-            $fileField = $fieldName;
+        if (($definition['type'] ?? '') === 'file') {
+            $fileFields[] = $fieldName;
             continue;
         }
 
-        $value = trim((string)($post[$fieldName] ?? ''));
+        $val = $post[$fieldName] ?? '';
+        if (is_array($val)) {
+            $value = implode(',', array_map('trim', $val));
+        } else {
+            $value = trim((string)$val);
+        }
         if (($definition['required'] ?? false) && $value === '') {
             throw new InvalidArgumentException($definition['label'] . ' is required.');
         }
         $data[$fieldName] = $value === '' ? null : $value;
     }
 
-    if ($fileField !== null && isset($files[$fileField])) {
-        $uploadedPath = backend_upload_file($files[$fileField], $moduleName);
-        if ($uploadedPath !== null) {
-            $data[$fileField] = $uploadedPath;
+    foreach ($fileFields as $fileField) {
+        if (isset($files[$fileField])) {
+            $uploadedPath = backend_upload_file($files[$fileField], $moduleName);
+            if ($uploadedPath !== null) {
+                $data[$fileField] = $uploadedPath;
+            }
         }
     }
 

@@ -42,11 +42,14 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-white.png" alt="">
-                <img class="logo-compact" src="images/logo-text-white.png" alt="">
-                <img class="brand-title" src="images/logo-text-white.png" alt="">
+        <div class="nav-header" style="background-color: #ffffff;">
+            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+                </style>
+                <span class="brand-title"
+                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
             </a>
 
             <div class="nav-control">
@@ -120,7 +123,7 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
-                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
+                    <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
                             <span class="nav-text">Event Management</span>
                         </a>
@@ -137,7 +140,7 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
                         <ul aria-expanded="false">
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
-                            <li><a href="edit-courses.html">Edit Classes</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -147,7 +150,7 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
                         <ul aria-expanded="false">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
-                            <li><a href="edit-gallery.html">Edit Gallery</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -203,36 +206,86 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
                                             <div class="form-group">
                                                 <label class="form-label">Event Title</label>
                                                 <input type="text" class="form-control" name="title"
-                                                    value="<?php echo htmlspecialchars($event['title']); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Event Date</label>
-                                                <input type="date" class="form-control" name="event_date"
-                                                    value="<?php echo htmlspecialchars($event['event_date']); ?>"
+                                                    value="<?php echo htmlspecialchars($event['title'] ?? ''); ?>"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Event Time</label>
+                                                <label class="form-label">Delivery Mode</label>
+                                                <select class="form-control" name="delivery_mode">
+                                                    <option value="Private">Private</option>
+                                                    <option value="Public">Public</option>
+                                                    <option value="Group Workshops">Group Workshops</option>
+                                                    <option value="Yoga Retreat Programs">Yoga Retreat Programs</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Start Date</label>
+                                                <input type="date" class="form-control" name="event_date"
+                                                    value="<?php echo htmlspecialchars($event['event_date'] ?? ''); ?>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Start Time</label>
                                                 <input type="time" class="form-control" name="event_time"
-                                                    value="<?php echo htmlspecialchars($event['event_time']); ?>">
+                                                    value="<?php echo htmlspecialchars($event['event_time'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">End Date</label>
+                                                <input type="date" class="form-control" name="end_date" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">End Time</label>
+                                                <input type="time" class="form-control" name="end_time" value="">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Location</label>
                                                 <input type="text" class="form-control" name="location"
-                                                    value="<?php echo htmlspecialchars($event['location']); ?>">
+                                                    value="<?php echo htmlspecialchars($event['location'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Ticket Price</label>
+                                                <input type="number" step="0.01" class="form-control"
+                                                    name="ticket_price" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Total Seats</label>
+                                                <input type="number" class="form-control" name="total_seats" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Available Seats</label>
+                                                <input type="number" class="form-control" name="available_seats"
+                                                    value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Highlights / Key Features</label>
+                                                <textarea class="form-control" rows="3" name="highlights"><?php echo htmlspecialchars($event['highlights'] ?? ''); ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Event Description</label>
                                                 <textarea class="form-control" rows="5"
-                                                    name="description"><?php echo htmlspecialchars($event['description']); ?></textarea>
+                                                    name="description"><?php echo htmlspecialchars($event['description'] ?? ''); ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -264,7 +317,9 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
+                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                        target="_blank">Oneplanets360</a></p>
+
             </div>
         </div>
         <!--**********************************

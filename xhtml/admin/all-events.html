@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/../backend/functions.php';
 $events = backend_fetch_all('events');
 
@@ -37,12 +37,16 @@ function event_image_src(?string $imagePath): string
 
     <div id="main-wrapper">
 
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-white.png" alt="">
-                <img class="logo-compact" src="images/logo-text-white.png" alt="">
-                <img class="brand-title" src="images/logo-text-white.png" alt="">
+        <div class="nav-header" style="background-color: #ffffff;">
+            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+                </style>
+                <span class="brand-title"
+                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
             </a>
+
             <div class="nav-control">
                 <div class="hamburger">
                     <span class="line"></span><span class="line"></span><span class="line"></span>
@@ -106,7 +110,7 @@ function event_image_src(?string $imagePath): string
                         <ul aria-expanded="false">
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
-                            <li><a href="edit-courses.html">Edit Classes</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -116,7 +120,7 @@ function event_image_src(?string $imagePath): string
                         <ul aria-expanded="false">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
-                            <li><a href="edit-gallery.html">Edit Gallery</a></li>
+
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -175,6 +179,14 @@ function event_image_src(?string $imagePath): string
                                             <?php echo htmlspecialchars((string)$event['event_time']); ?>
                                         </strong></li>
                                     <li class="list-group-item px-0 d-flex justify-content-between"><span
+                                            class="mb-0">Delivery Mode :</span><strong>
+                                            <?php echo htmlspecialchars($event['delivery_mode'] ?? 'N/A'); ?>
+                                        </strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between"><span
+                                            class="mb-0">Price :</span><strong>
+                                            <?php echo htmlspecialchars($event['ticket_price'] ? 'Rs ' . $event['ticket_price'] : 'Free'); ?>
+                                        </strong></li>
+                                    <li class="list-group-item px-0 d-flex justify-content-between"><span
                                             class="mb-0">Location :</span><strong>
                                             <?php echo htmlspecialchars((string)$event['location']); ?>
                                         </strong></li>
@@ -193,7 +205,9 @@ function event_image_src(?string $imagePath): string
 
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
+                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                        target="_blank">Oneplanets360</a></p>
+
             </div>
         </div>
 

@@ -1,3 +1,18 @@
+<?php
+require_once __DIR__ . '/backend/functions.php';
+$classes = backend_fetch_all('classes');
+$recent_blogs = array_slice(backend_fetch_all('blogs'), 0, 3);
+
+function class_image_src(?string $imagePath): string {
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') return 'images/our-services/pic1.jpg';
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) return $imagePath;
+    if (str_starts_with($imagePath, 'images/')) return $imagePath;
+    if (str_starts_with($imagePath, 'uploads/')) return $imagePath;
+    if (strpos($imagePath, '/') === false) return 'uploads/classes/' . $imagePath;
+    return ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -154,15 +169,15 @@
 		<!-- Content -->
 		<div class="page-content bg-gray">
 			<!-- inner page banner -->
-			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/bnr4.jpg);">
+			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/2.jpeg);">
 				<div class="container">
 					<div class="dlab-bnr-inr-entry">
-						<h1 class="text-white">Courses</h1>
+						<h1 class="text-white">Classes</h1>
 						<!-- Breadcrumb row -->
 						<div class="breadcrumb-row">
 							<ul class="list-inline">
 								<li><a href="index.html">Home</a></li>
-								<li>Courses</li>
+								<li>Classes</li>
 							</ul>
 						</div>
 						<!-- Breadcrumb row END -->
@@ -175,71 +190,31 @@
 					<div class="row">
 						<!-- Side bar start -->
 						<div class="col-lg-3 col-md-5">
-							<!-- <aside class="side-bar sticky-top">
-                            <div class="widget">
-                                <h5 class="widget-title style-1">Search</h5>
-                                <div class="search-bx style-1">
-                                    <form role="search" method="post">
-                                        <div class="input-group">
-                                            <input name="text" class="form-control" placeholder="Enter your keywords..." type="text">
-                                            <span class="input-group-btn">
-												<button type="submit" class="fa fa-search site-button sharp radius-no"></button>
-                                            </span> 
-										</div>
-                                    </form>
-                                </div>
-                            </div>
+							<aside class="side-bar sticky-top">
                             <div class="widget recent-posts-entry">
                                 <h5 class="widget-title style-1">Recent Posts</h5>
                                 <div class="widget-post-bx">
+									<?php foreach ($recent_blogs as $blog): ?>
                                     <div class="widget-post clearfix">
                                         <div class="dlab-post-media"> 
-											<img src="images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> 
+											<img src="<?php echo htmlspecialchars(class_image_src($blog['image_path'] ?? '')); ?>" width="200" height="143" style="object-fit: cover;" alt=""> 
 										</div>
                                         <div class="dlab-post-info">
                                             <div class="dlab-post-meta">
 												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01 June</strong> <span> 2020</span> </li>
+													<?php $b_ts = strtotime($blog['publish_date'] ?? 'now'); ?>
+													<li class="post-date"> <i class="la la-clock"></i> <strong><?php echo date('d F', $b_ts); ?></strong> <span> <?php echo date('Y', $b_ts); ?></span> </li>
 												</ul>
 											</div>
 											<div class="dlab-post-header">
-                                                <h6 class="post-title"><a href="blog-single-left-sidebar.html">Why is Early Education Essential?</a></h6>
+                                                <h6 class="post-title"><a href="blog-details.html?id=<?php echo $blog['id']; ?>"><?php echo htmlspecialchars($blog['title'] ?? ''); ?></a></h6>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="widget-post clearfix">
-                                        <div class="dlab-post-media"> 
-											<img src="images/blog/recent-blog/pic2.jpg" width="200" height="160" alt=""> 
-										</div>
-                                        <div class="dlab-post-info">
-                                            <div class="dlab-post-meta">
-												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01 June</strong> <span> 2020</span> </li>
-												</ul>
-											</div>
-											<div class="dlab-post-header">
-                                                <h6 class="post-title"><a href="blog-single-left-sidebar.html">Here's What People Are Saying About</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="widget-post clearfix">
-                                        <div class="dlab-post-media"> 
-											<img src="images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> 
-										</div>
-                                        <div class="dlab-post-info">
-                                            <div class="dlab-post-meta">
-												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01 June</strong> <span> 2020</span> </li>
-												</ul>
-											</div>
-											<div class="dlab-post-header">
-                                                <h6 class="post-title"><a href="blog-single-left-sidebar.html">Five Things Nobody Told You About</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
+									<?php endforeach; ?>
                                 </div>
                             </div>
-							<div class="widget widget_gallery gallery-grid-4">
+							<!-- <div class="widget widget_gallery gallery-grid-4">
                                 <h5 class="widget-title style-1">Our Gallery</h5>
                                 <ul id="lightgallery" class="lightgallery">
                                     <li>
@@ -299,334 +274,64 @@
 										</div>
                                     </li>
                                 </ul>
-                            </div>
-                            <div class="widget widget_archive">
-                                <h5 class="widget-title style-1">Categories List</h5>
-                                <ul>
-                                    <li><a href="javascript:void(0);">Lifestyle</a></li>
-                                    <li><a href="javascript:void(0);">Creative</a></li>
-                                    <li><a href="javascript:void(0);">Education</a></li>
-                                    <li><a href="javascript:void(0);">Events</a></li>
-                                    <li><a href="javascript:void(0);">Sports</a></li>
-                                </ul>
-                            </div>
-							<div class="widget widget_tag_cloud radius">
-                                <h5 class="widget-title style-1">Tags</h5>
-                                <div class="tagcloud"> 
-									<a href="javascript:void(0);">Design</a> 
-									<a href="javascript:void(0);">User interface</a> 
-									<a href="javascript:void(0);">SEO</a> 
-									<a href="javascript:void(0);">WordPress</a> 
-									<a href="javascript:void(0);">Development</a> 
-									<a href="javascript:void(0);">Joomla</a> 
-									<a href="javascript:void(0);">Design</a> 
-									<a href="javascript:void(0);">User interface</a> 
-									<a href="javascript:void(0);">SEO</a> 
-									<a href="javascript:void(0);">WordPress</a> 
-									<a href="javascript:void(0);">Development</a> 
-									<a href="javascript:void(0);">Joomla</a> 
-									<a href="javascript:void(0);">Design</a> 
-									<a href="javascript:void(0);">User interface</a> 
-									<a href="javascript:void(0);">SEO</a> 
-									<a href="javascript:void(0);">WordPress</a> 
-									<a href="javascript:void(0);">Development</a> 
-									<a href="javascript:void(0);">Joomla</a> 
-								</div>
-                            </div>
-                        </aside> -->
+                            </div> -->
+                            
+                        </aside>
 						</div>
 						<!-- Side bar END -->
 						<!-- left part start -->
 						<div class="col-lg-9 col-md-7">
 							<div class="row">
+								<?php if (empty($classes)): ?>
+									<div class="col-12 text-center">
+										<p>No classes are currently available.</p>
+									</div>
+								<?php endif; ?>
+								<?php foreach ($classes as $class): ?>
 								<div class="col-lg-4">
 									<div class="dlab-box courses-bx">
 										<div class="dlab-media">
-											<img src="images/our-services/pic1.jpg" alt="">
+											<img src="<?php echo htmlspecialchars(class_image_src($class['image_path'] ?? '')); ?>" alt="" style="width: 100%; height: 220px; object-fit: cover;">
 											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
+												<h6 class="title"><?php echo htmlspecialchars($class['instructor'] ?? 'Instructor'); ?></h6>
 												<div class="review">
 													<ul class="item-review">
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star"></i></li>
 														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
+														<li><i class="fa fa-star"></i></li>
+														<li><i class="fa fa-star"></i></li>
 													</ul>
-													<span>10 Review</span>
+													<span>5.0</span>
 												</div>
 											</div>
 										</div>
 										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+											<h6 class="dlab-title"><a href="courses-details.html?id=<?php echo $class['id']; ?>"><?php echo htmlspecialchars($class['name'] ?? ''); ?></a></h6>
+											<p><?php echo !empty($class['description']) ? nl2br(htmlspecialchars(substr($class['description'], 0, 110))) . (strlen($class['description']) > 110 ? '...' : '') : 'Details coming soon.'; ?></p>
 											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
+												<ul>
+													<?php if (!empty($class['slot_capacity'])): ?>
+													<li><i class="fa fa-users"></i> <?php echo htmlspecialchars((string)$class['slot_capacity']); ?> Slots </li>
+													<?php endif; ?>
+												</ul>
+												<?php if (!empty($class['price'])): ?>
+												<span class="price">₹<?php echo htmlspecialchars((string)$class['price']); ?></span>
+												<?php endif; ?>
+											</div>
+											<div class="mt-3 text-center">
+												<button class="site-button btn-register-now" style="width:100%; letter-spacing:1px;"
+													data-id="<?php echo (int)$class['id']; ?>"
+													data-name="<?php echo htmlspecialchars($class['name'] ?? ''); ?>"
+													data-price="<?php echo htmlspecialchars((string)($class['price'] ?? '')); ?>"
+													data-mode="<?php echo htmlspecialchars($class['booking_type'] ?? 'Group'); ?>">
+													<i class="fa fa-calendar-check-o"></i> Register Now
+												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic2.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic3.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic4.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic1.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic2.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic3.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic4.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
-										<div class="dlab-media">
-											<img src="images/our-services/pic1.jpg" alt="">
-											<div class="user-info">
-												<img src="images/testimonials/pic1.jpg" alt="">
-												<h6 class="title">Jack Ronan</h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star-half-o"></i></li>
-														<li><i class="fa fa-star-o"></i></li>
-													</ul>
-													<span>10 Review</span>
-												</div>
-											</div>
-										</div>
-										<div class="dlab-info">
-											<h6 class="dlab-title"><a href="courses-details.html">Learn Python –
-													Interactive Python Tutorial</a></h6>
-											<p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
-											<div class="courses-info">
-												<!-- <ul>
-												<li><i class="fa fa-users"></i> 20 Student </li>
-											</ul>
-											<span class="price">$79.00</span> -->
-											</div>
-										</div>
-									</div>
-								</div>
+								<?php endforeach; ?>
 								<!-- Pagination start -->
 								<div class="pagination-bx rounded-sm primary clearfix m-b30 text-center col-md-12">
 									<ul class="pagination">
@@ -648,6 +353,266 @@
 			</div>
 		</div>
 		<!-- Content END-->
+
+		<!-- ===== Registration Modal ===== -->
+		<div id="nischala-reg-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(20,25,15,0.82); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+			<div id="nischala-reg-modal" style="background:#fff; border-radius:16px; max-width:560px; width:94%; max-height:92vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.35); position:relative; animation:regSlideIn .3s ease;">
+				<!-- Header -->
+				<div style="background:linear-gradient(135deg,#4a7c59,#2d5a27); padding:28px 32px 20px; border-radius:16px 16px 0 0; position:relative;">
+					<button onclick="closeRegModal()" style="position:absolute;top:14px;right:18px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:50%;cursor:pointer;line-height:1;">&#x2715;</button>
+					<div style="display:flex;align-items:center;gap:12px;">
+						<div style="width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+							<i class="fa fa-leaf" style="color:#fff;font-size:20px;"></i>
+						</div>
+						<div>
+							<p style="color:rgba(255,255,255,.7);margin:0;font-size:12px;letter-spacing:2px;text-transform:uppercase;">Nischala Yoga</p>
+							<h4 id="reg-class-title" style="color:#fff;margin:2px 0 0;font-size:20px;font-weight:700;">Class Registration</h4>
+						</div>
+					</div>
+					<div style="margin-top:14px;background:rgba(255,255,255,.12);border-radius:8px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+						<span id="reg-mode-badge" style="color:#fff;font-size:13px;"><i class="fa fa-users"></i> Group</span>
+						<span id="reg-price-badge" style="color:#a8f0c0;font-weight:700;font-size:16px;"></span>
+					</div>
+				</div>
+				<!-- Body -->
+				<div style="padding:28px 32px;">
+					<div id="reg-alert" style="display:none;padding:12px 16px;border-radius:8px;margin-bottom:18px;font-size:14px;"></div>
+					<form id="nischala-reg-form" autocomplete="on">
+						<input type="hidden" id="rf_class_id" name="class_id">
+						<!-- Personal Info -->
+						<p style="font-size:11px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:12px;">Your Details</p>
+						<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+							<div style="grid-column:1/-1;">
+								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Full Name <span style="color:#e05555;">*</span></label>
+								<input type="text" id="rf_name" name="customer_name" required placeholder="Your full name"
+									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+							</div>
+							<div>
+								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Email <span style="color:#e05555;">*</span></label>
+								<input type="email" id="rf_email" name="customer_email" required placeholder="you@email.com"
+									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+							</div>
+							<div>
+								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Phone</label>
+								<input type="tel" id="rf_phone" name="customer_phone" placeholder="+91 98765 43210"
+									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+							</div>
+						</div>
+						<!-- Schedule -->
+						<p style="font-size:11px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;margin:18px 0 12px;">Schedule</p>
+						<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+							<div>
+								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Date <span style="color:#e05555;">*</span></label>
+								<input type="date" id="rf_date" name="booking_date" required
+									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+							</div>
+							<div>
+								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Program Tier</label>
+								<select id="rf_tier" name="program_tier" style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:#fff;">
+									<option value="General">General</option>
+									<option value="Premium">Premium</option>
+									<option value="VIP">VIP</option>
+								</select>
+							</div>
+						</div>
+						<!-- Time Slots -->
+						<div id="rf_timeslot_wrap" style="display:none;margin-bottom:18px;">
+							<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:10px;">Available Time Slots <span style="color:#e05555;">*</span></label>
+							<div id="rf_timeslots" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+						</div>
+						<!-- Quantity -->
+						<div style="margin-bottom:22px;">
+							<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Number of Participants</label>
+							<div style="display:flex;align-items:center;gap:10px;">
+								<button type="button" onclick="changeQty(-1)" style="width:34px;height:34px;border:1.5px solid #4a7c59;border-radius:50%;background:#fff;color:#4a7c59;font-size:18px;cursor:pointer;line-height:1;">-</button>
+								<span id="rf_qty_display" style="font-size:18px;font-weight:700;min-width:30px;text-align:center;">1</span>
+								<button type="button" onclick="changeQty(1)" style="width:34px;height:34px;border:1.5px solid #4a7c59;border-radius:50%;background:#fff;color:#4a7c59;font-size:18px;cursor:pointer;line-height:1;">+</button>
+								<input type="hidden" id="rf_qty" name="quantity" value="1">
+							</div>
+						</div>
+						<button type="submit" id="rf_submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#4a7c59,#2d5a27);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:opacity .2s;">
+							<i class="fa fa-check-circle"></i> Confirm Registration
+						</button>
+					</form>
+					<!-- Success state -->
+					<div id="reg-success" style="display:none;text-align:center;padding:20px 0;">
+						<div style="width:70px;height:70px;background:#e8f5e9;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+							<i class="fa fa-check" style="color:#4a7c59;font-size:32px;"></i>
+						</div>
+						<h4 style="color:#2d5a27;margin-bottom:8px;">Registration Confirmed!</h4>
+						<p style="color:#666;font-size:14px;">Thank you! We've received your registration. Check your email for details.</p>
+						<button onclick="closeRegModal()" style="margin-top:12px;padding:10px 28px;background:#4a7c59;color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer;">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<style>
+		@keyframes regSlideIn { from { transform: translateY(30px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+		#nischala-reg-form input:focus, #nischala-reg-form select:focus { border-color: #4a7c59 !important; box-shadow: 0 0 0 3px rgba(74,124,89,.12); }
+		.slot-btn { padding:7px 14px; border:1.5px solid #ccc; border-radius:20px; background:#fff; font-size:13px; cursor:pointer; transition:all .2s; }
+		.slot-btn:hover:not(:disabled) { border-color:#4a7c59; color:#4a7c59; }
+		.slot-btn.selected { background:#4a7c59; color:#fff; border-color:#4a7c59; }
+		.slot-btn:disabled { opacity:.45; cursor:not-allowed; text-decoration:line-through; }
+		</style>
+		<script>
+		var _regQty = 1;
+		var _regSelectedSlot = '';
+
+		function openRegModal(id, name, price, mode) {
+			document.getElementById('rf_class_id').value = id;
+			document.getElementById('reg-class-title').textContent = name;
+			document.getElementById('reg-mode-badge').innerHTML = '<i class="fa fa-tags"></i> ' + (mode || 'Group');
+			document.getElementById('reg-price-badge').textContent = price ? '₹' + price : '';
+			document.getElementById('rf_name').value = '';
+			document.getElementById('rf_email').value = '';
+			document.getElementById('rf_phone').value = '';
+			document.getElementById('rf_date').value = '';
+			document.getElementById('rf_timeslot_wrap').style.display = 'none';
+			document.getElementById('rf_timeslots').innerHTML = '';
+			document.getElementById('reg-alert').style.display = 'none';
+			document.getElementById('reg-success').style.display = 'none';
+			document.getElementById('nischala-reg-form').style.display = '';
+			_regQty = 1;
+			document.getElementById('rf_qty').value = 1;
+			document.getElementById('rf_qty_display').textContent = 1;
+			_regSelectedSlot = '';
+			var overlay = document.getElementById('nischala-reg-overlay');
+			overlay.style.display = 'flex';
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeRegModal() {
+			document.getElementById('nischala-reg-overlay').style.display = 'none';
+			document.body.style.overflow = '';
+		}
+
+		function changeQty(delta) {
+			_regQty = Math.max(1, _regQty + delta);
+			document.getElementById('rf_qty').value = _regQty;
+			document.getElementById('rf_qty_display').textContent = _regQty;
+		}
+
+		document.getElementById('rf_date').addEventListener('change', function() {
+			var classId = document.getElementById('rf_class_id').value;
+			var date = this.value;
+			if (!classId || !date) return;
+			var wrap = document.getElementById('rf_timeslot_wrap');
+			var container = document.getElementById('rf_timeslots');
+			wrap.style.display = 'block';
+			container.innerHTML = '<span style="color:#999;font-size:13px;"><i class="fa fa-spinner fa-spin"></i> Loading slots...</span>';
+			_regSelectedSlot = '';
+			fetch('backend/book_timeslots.php?class_id=' + encodeURIComponent(classId) + '&date=' + encodeURIComponent(date))
+				.then(function(r) { return r.json(); })
+				.then(function(data) {
+					container.innerHTML = '';
+					if (!data.success || !data.timeslots.length) {
+						container.innerHTML = '<span style="color:#999;font-size:13px;">No slots available for this date.</span>';
+						return;
+					}
+					if (data.tiers && data.tiers.length) {
+						var sel = document.getElementById('rf_tier');
+						sel.innerHTML = '';
+						data.tiers.forEach(function(t) {
+							var o = document.createElement('option'); o.value = t; o.textContent = t; sel.appendChild(o);
+						});
+					}
+					data.timeslots.forEach(function(ts) {
+						var btn = document.createElement('button');
+						btn.type = 'button';
+						btn.className = 'slot-btn';
+						btn.textContent = ts.time + (ts.available ? '' : ' (Full)');
+						btn.disabled = !ts.available;
+						if (ts.available) {
+							btn.addEventListener('click', function() {
+								document.querySelectorAll('.slot-btn').forEach(function(b) { b.classList.remove('selected'); });
+								this.classList.add('selected');
+								_regSelectedSlot = ts.time;
+							});
+						}
+						container.appendChild(btn);
+					});
+				}).catch(function() {
+					container.innerHTML = '<span style="color:#e05555;">Error loading slots. Please try again.</span>';
+				});
+		});
+
+		document.getElementById('nischala-reg-form').addEventListener('submit', function(e) {
+			e.preventDefault();
+			var alertEl = document.getElementById('reg-alert');
+			if (!_regSelectedSlot) {
+				alertEl.style.display = 'block';
+				alertEl.style.background = '#fff3f3';
+				alertEl.style.color = '#c0392b';
+				alertEl.style.border = '1px solid #f5c6cb';
+				alertEl.textContent = 'Please select a time slot to continue.';
+				return;
+			}
+			var btn = document.getElementById('rf_submit');
+			btn.disabled = true;
+			btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+			var fd = new FormData(this);
+			fd.set('time_slot', _regSelectedSlot);
+			fetch('backend/book_save.php', { method: 'POST', body: fd })
+			.then(function(r) {
+				var status = r.status;
+				return r.text().then(function(text) {
+					try {
+						var data = JSON.parse(text);
+						return { data: data, status: status };
+					} catch(e) {
+						return { data: null, raw: text, status: status };
+					}
+				});
+			})
+			.then(function(result) {
+				btn.disabled = false;
+				btn.innerHTML = '<i class="fa fa-check-circle"></i> Confirm Registration';
+				if (result.data === null) {
+					alertEl.style.display = 'block';
+					alertEl.style.background = '#fff3f3';
+					alertEl.style.color = '#c0392b';
+					alertEl.style.border = '1px solid #f5c6cb';
+					alertEl.textContent = 'Server error (HTTP ' + result.status + '). Please contact support.';
+					console.error('Server raw response:', result.raw);
+					return;
+				}
+				if (result.data.success) {
+					document.getElementById('nischala-reg-form').style.display = 'none';
+					document.getElementById('reg-success').style.display = 'block';
+				} else {
+					alertEl.style.display = 'block';
+					alertEl.style.background = '#fff3f3';
+					alertEl.style.color = '#c0392b';
+					alertEl.style.border = '1px solid #f5c6cb';
+					alertEl.textContent = result.data.message || 'Registration failed. Please try again.';
+				}
+			}).catch(function(err) {
+				alertEl.style.display = 'block';
+				alertEl.style.background = '#fff3f3';
+				alertEl.style.color = '#c0392b';
+				alertEl.style.border = '1px solid #f5c6cb';
+				alertEl.textContent = 'Could not reach the server. Check your connection.';
+				console.error('Fetch error:', err);
+				btn.disabled = false;
+				btn.innerHTML = '<i class="fa fa-check-circle"></i> Confirm Registration';
+			});
+		});
+
+		document.getElementById('nischala-reg-overlay').addEventListener('click', function(e) {
+			if (e.target === this) closeRegModal();
+		});
+
+		document.querySelectorAll('.btn-register-now').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				openRegModal(
+					this.getAttribute('data-id'),
+					this.getAttribute('data-name'),
+					this.getAttribute('data-price'),
+					this.getAttribute('data-mode')
+				);
+			});
+		});
+		</script>
 		<!-- Footer -->
 		<footer class="site-footer"
 			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">

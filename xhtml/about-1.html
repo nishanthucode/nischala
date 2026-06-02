@@ -1,3 +1,36 @@
+<?php
+require_once __DIR__ . '/backend/functions.php';
+$blogs = backend_fetch_all('blogs');
+usort($blogs, function($a, $b) {
+    return strtotime($b['publish_date'] ?? 'now') < strtotime($a['publish_date'] ?? 'now') ? 1 : -1;
+});
+
+function blog_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/blog/grid/pic1.jpg';
+    }
+
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'images/')) {
+        return $imagePath;
+    }
+
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return $imagePath;
+    }
+
+    if (strpos($imagePath, '/') === false) {
+        return 'uploads/blogs/' . $imagePath;
+    }
+
+    return ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -225,8 +258,8 @@
 		<div class="page-content bg-white">
 			<!-- inner page banner -->
 			<div class="dlab-bnr-inr overlay-black-middle text-center bg-pt"
-				style="background-image: linear-gradient(rgba(3,37,76,0.6), rgba(3,37,76,0.6)), url(images/banner/bnr3.jpg); position:relative;">
-				<div class="hero-overlay" style="position:absolute;inset:0;background:rgba(8,34,64,0.65);z-index:1;">
+				style="background-image: url(images/banner/2.jpeg); position:relative;">
+				<div class="hero-overlay" style="position:absolute;inset:0;z-index:1;">
 				</div>
 				<div class="container" style="position:relative;z-index:2;">
 					<div class="dlab-bnr-inr-entry align-m text-center">
@@ -235,7 +268,7 @@
 						<div class="breadcrumb-row">
 							<ul class="list-inline">
 								<li><a href="index.html">Home</a></li>
-								<li>About us 1</li>
+								<li>About Us</li>
 							</ul>
 						</div>
 						<!-- Breadcrumb row END -->
@@ -255,7 +288,7 @@
 									<img src="images/about/about-new.jpg" alt="">
 									<div class="video-bx">
 										<a href="https://www.youtube.com/watch?v=_FRZVScwggM"
-											class="popup-youtube bg-primary"><i class="fas fa-play"></i></a>
+											class=""></a>
 									</div>
 									<div class="info-bx">
 										<p>About Nischala</p>
@@ -655,132 +688,37 @@
 								industry's standard dummy text ever since the been when an unknown printer.</p>
 						</div>
 						<div class="blog-carousel owl-none owl-carousel">
+							<?php foreach ($blogs as $blog): ?>
 							<div class="item">
-								<div class="blog-post blog-grid blog-rounded blog-effect1 post-style-1">
+								<div class="blog-post blog-grid blog-rounded blog-effect1 post-style-1" onclick="window.location.href='blog-list.html';" style="cursor: pointer;">
 									<div class="dlab-post-media dlab-img-effect">
-										<a href="javascript:void(0);"><img src="images/blog/grid/pic2.jpg" alt=""></a>
+										<a href="blog-list.html"><img src="<?php echo htmlspecialchars(blog_image_src($blog['image_path'] ?? '')); ?>" alt="" style="width: 100%; height: 250px; object-fit: cover;"></a>
 									</div>
 									<div class="dlab-info p-a20">
 										<div class="dlab-post-meta">
 											<ul>
 												<li class="post-author"> <i class="la la-user-circle"></i> By <a
-														href="javascript:void(0);">Reuben</a> </li>
-												<li class="post-tag"> <a href="javascript:void(0);">Event</a> </li>
+														href="javascript:void(0);"><?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?></a> </li>
+												<li class="post-tag"> <a href="javascript:void(0);"><?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?></a> </li>
 											</ul>
 										</div>
 										<div class="dlab-post-title">
-											<h4 class="post-title"><a href="javascript:void(0);">The Shocking Revelation
-													of Education.</a></h4>
+											<h4 class="post-title"><a href="blog-list.html"><?php echo htmlspecialchars($blog['title']); ?></a></h4>
 										</div>
 										<div class="dlab-post-text">
-											<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-												chunks as necessary.</p>
+											<p><?php echo htmlspecialchars(mb_strimwidth(strip_tags((string)($blog['content'] ?? '')), 0, 100, "...")); ?></p>
 										</div>
 										<div class="post-footer">
 											<div class="dlab-post-meta">
 												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01
-															June</strong> <span> 2024</span> </li>
+													<li class="post-date"> <i class="la la-clock"></i> <strong><?php echo date('d F', strtotime((string)$blog['publish_date'])); ?></strong> <span> <?php echo date('Y', strtotime((string)$blog['publish_date'])); ?></span> </li>
 												</ul>
 											</div>
-											<ul class="dlab-social-icon dez-border">
-												<li><a class="site-button facebook circle-sm fab fa-facebook-f"
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button twitter circle-sm fab fa-twitter "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button linkedin circle-sm fab fa-linkedin-in "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button instagram circle-sm fab fa-instagram  "
-														href="javascript:void(0);"></a></li>
-											</ul>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="item">
-								<div class="blog-post blog-grid blog-rounded blog-effect1 post-style-1">
-									<div class="dlab-post-media dlab-img-effect">
-										<a href="javascript:void(0);"><img src="images/blog/grid/pic3.jpg" alt=""></a>
-									</div>
-									<div class="dlab-info p-a20">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-author"> <i class="la la-user-circle"></i> By <a
-														href="javascript:void(0);">Caroline</a> </li>
-												<li class="post-tag"> <a href="javascript:void(0);">Education</a> </li>
-											</ul>
-										</div>
-										<div class="dlab-post-title ">
-											<h4 class="post-title"><a href="javascript:void(0);">Five Things Nobody Told
-													You About</a></h4>
-										</div>
-										<div class="dlab-post-text">
-											<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-												chunks as necessary.</p>
-										</div>
-										<div class="post-footer">
-											<div class="dlab-post-meta">
-												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01
-															June</strong> <span> 2024</span> </li>
-												</ul>
-											</div>
-											<ul class="dlab-social-icon dez-border">
-												<li><a class="site-button facebook circle-sm fab fa-facebook-f"
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button twitter circle-sm fab fa-twitter "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button linkedin circle-sm fab fa-linkedin-in "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button instagram circle-sm fab fa-instagram  "
-														href="javascript:void(0);"></a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="blog-post blog-grid blog-rounded blog-effect1 post-style-1">
-									<div class="dlab-post-media dlab-img-effect">
-										<a href="javascript:void(0);"><img src="images/blog/grid/pic4.jpg" alt=""></a>
-									</div>
-									<div class="dlab-info p-a20">
-										<div class="dlab-post-meta">
-											<ul>
-												<li class="post-author"> <i class="la la-user-circle"></i> By <a
-														href="javascript:void(0);">Harry</a> </li>
-												<li class="post-tag"> <a href="javascript:void(0);">knowledge</a> </li>
-											</ul>
-										</div>
-										<div class="dlab-post-title ">
-											<h4 class="post-title"><a href="javascript:void(0);">Here's What People Are
-													Saying About</a></h4>
-										</div>
-										<div class="dlab-post-text">
-											<p>All the Lorem Ipsum generators on the Internet tend to repeat predefined
-												chunks as necessary.</p>
-										</div>
-										<div class="post-footer">
-											<div class="dlab-post-meta">
-												<ul>
-													<li class="post-date"> <i class="la la-clock"></i> <strong>01
-															June</strong> <span> 2024</span> </li>
-												</ul>
-											</div>
-											<ul class="dlab-social-icon dez-border">
-												<li><a class="site-button facebook circle-sm fab fa-facebook-f"
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button twitter circle-sm fab fa-twitter "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button linkedin circle-sm fab fa-linkedin-in "
-														href="javascript:void(0);"></a></li>
-												<li><a class="site-button instagram circle-sm fab fa-instagram  "
-														href="javascript:void(0);"></a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
@@ -790,7 +728,7 @@
 		</div>
 		<!-- Content END -->
 		<!-- Newsletter -->
-		<div class="section-full p-tb50 bg-primary text-white">
+		<!-- <div class="section-full p-tb50 bg-primary text-white">
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-md-7 m-md-b30">
@@ -814,7 +752,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- Footer -->
 		<footer class="site-footer"
 			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">

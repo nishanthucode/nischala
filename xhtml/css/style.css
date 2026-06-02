@@ -11267,7 +11267,7 @@ ul[class*="list-"] {
 .list-check.circle li:before {
     content: "\f00c";
     font-family: 'Font Awesome 5 Free';
-    font-weight: 600;
+    font-weight: 900;
     width: 32px;
     height: 32px;
     background: #fff;
@@ -19852,3 +19852,10 @@ textarea.form-control {
     border-radius: 50%;
     border: none;
 }
+/* Center inner-text div */
+.inner-text { margin: 0 auto; }
+
+/* Custom Yoga Icons for List */
+ul.list-check.circle.yoga-icons li:nth-child(1):before { content: "\f679"; }
+ul.list-check.circle.yoga-icons li:nth-child(2):before { content: "\f72e"; }
+ul.list-check.circle.yoga-icons li:nth-child(3):before { content: "\f4d8"; }

@@ -17,4 +17,4 @@ $stmt->execute($params);
 $rows = $stmt->fetchAll();
 
 header('Content-Type: application/json; charset=utf-8');
-echo json_encode($rows, JSON_UNESCAPED_SLASHES);
+echo json_encode(['success' => true, 'bookings' => $rows], JSON_UNESCAPED_SLASHES);

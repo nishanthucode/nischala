@@ -1,23 +1,23 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="keywords" content="" />
-	<meta name="author" content="" />
-	<meta name="robots" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:title" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
-	<meta name="format-detection" content="telephone=no">
+    <meta name="description" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:title" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
+    <meta name="format-detection" content="telephone=no">
     <title>EduZone - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    	<link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -47,11 +47,14 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
-            <a href="index.html" class="brand-logo">
-                <img class="logo-abbr" src="images/logo-white.png" alt="">
-                <img class="logo-compact" src="images/logo-text-white.png" alt="">
-                <img class="brand-title" src="images/logo-text-white.png" alt="">
+        <div class="nav-header" style="background-color: #ffffff;">
+            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
+                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
+                </style>
+                <span class="brand-title"
+                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
             </a>
 
             <div class="nav-control">
@@ -78,7 +81,8 @@
                                 </span>
                                 <div class="dropdown-menu p-0 m-0">
                                     <form>
-                                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control" type="search" placeholder="Search"
+                                            aria-label="Search">
                                     </form>
                                 </div>
                             </div>
@@ -87,10 +91,12 @@
                         <ul class="navbar-nav header-right">
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
-                                    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-									</svg>
+                                    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
                                     <div class="pulse-css"></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
@@ -99,7 +105,8 @@
                                             <span class="success"><i class="ti-user"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                                    <p><strong>Martin</strong> has added a <strong>customer</strong>
+                                                        Successfully
                                                     </p>
                                                 </a>
                                             </div>
@@ -118,7 +125,8 @@
                                             <span class="danger"><i class="ti-bookmark"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as
+                                                        unsolved.
                                                     </p>
                                                 </a>
                                             </div>
@@ -137,7 +145,8 @@
                                             <span class="success"><i class="ti-image"></i></span>
                                             <div class="media-body">
                                                 <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                    <p><strong> James.</strong> has added a<strong>customer</strong>
+                                                        Successfully
                                                     </p>
                                                 </a>
                                             </div>
@@ -150,19 +159,38 @@
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="images/profile/pic1.jpg" width="20" alt=""/>
+                                    <img src="images/profile/pic1.jpg" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
                                         <span class="ms-2">Profile </span>
                                     </a>
                                     <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+                                            <path
+                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                            </path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
                                         <span class="ms-2">Inbox </span>
                                     </a>
                                     <a href="page-login.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-log-out">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                            <polyline points="16 17 21 12 16 7"></polyline>
+                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                        </svg>
                                         <span class="ms-2">Logout </span>
                                     </a>
                                 </div>
@@ -184,24 +212,24 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-home"></i>
-							<span class="nav-text">Dashboard</span>
-						</a>
+                            <i class="la la-home"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="index.html">Dashboard 1</a></li>
-                            <li><a href="index-2.html">Dashboard 2</a></li>
-                            <li><a href="index-3.html">Dashboard 3</a></li>
+
+
                         </ul>
                     </li>
-					<li><a class="ai-icon" href="event-management.html" aria-expanded="false">
-							<i class="la la-calendar"></i>
-							<span class="nav-text">Event Management</span>
-						</a>
+                    <li><a class="ai-icon" href="event-management.html" aria-expanded="false">
+                            <i class="la la-calendar"></i>
+                            <span class="nav-text">Event Management</span>
+                        </a>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-user"></i>
-							<span class="nav-text">Professors</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Professors</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-professors.html">All Professor</a></li>
                             <li><a href="add-professor.html">Add Professor</a></li>
@@ -209,10 +237,10 @@
                             <li><a href="professor-profile.html">Professor Profile</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-users"></i>
-							<span class="nav-text">Students</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-users"></i>
+                            <span class="nav-text">Students</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-students.html">All Patients</a></li>
                             <li><a href="add-student.html">Add Patient</a></li>
@@ -220,10 +248,10 @@
                             <li><a href="about-student.html">About Student</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-graduation-cap"></i>
-							<span class="nav-text">Courses</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-graduation-cap"></i>
+                            <span class="nav-text">Courses</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-courses.html">All Courses</a></li>
                             <li><a href="add-courses.html">Add Courses</a></li>
@@ -231,30 +259,30 @@
                             <li><a href="about-courses.html">About Courses</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-book"></i>
-							<span class="nav-text">Library</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-book"></i>
+                            <span class="nav-text">Library</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-library.html">All Library</a></li>
                             <li><a href="add-library.html">Add Library</a></li>
                             <li><a href="edit-library.html">Edit Library</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-building"></i>
-							<span class="nav-text">Departments</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-building"></i>
+                            <span class="nav-text">Departments</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-departments.html">All Departments</a></li>
                             <li><a href="add-departments.html">Add Departments</a></li>
                             <li><a href="edit-departments.html">Edit Departments</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-users"></i>
-							<span class="nav-text">Staff</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-users"></i>
+                            <span class="nav-text">Staff</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-staff.html">All Staff</a></li>
                             <li><a href="add-staff.html">Add Staff</a></li>
@@ -262,10 +290,10 @@
                             <li><a href="staff-profile.html">Staff Profile</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-gift"></i>
-							<span class="nav-text">Holiday</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-gift"></i>
+                            <span class="nav-text">Holiday</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="all-holiday.html">All Holiday</a></li>
                             <li><a href="add-holiday.html">Add Holiday</a></li>
@@ -273,21 +301,21 @@
                             <li><a href="holiday-calendar.html">Holiday Calendar</a></li>
                         </ul>
                     </li>
-					<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-dollar"></i>
-							<span class="nav-text">Fees</span>
-						</a>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="la la-dollar"></i>
+                            <span class="nav-text">Fees</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="fees-collection.html">Fees Collection</a></li>
                             <li><a href="add-fees.html">Add Fees</a></li>
                             <li><a href="fees-receipt.html">Fees Receipt</a></li>
                         </ul>
-                    </li>					
+                    </li>
                     <li class="nav-label">Apps</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-users"></i>
-							<span class="nav-text">Apps</span>
-						</a>
+                            <i class="la la-users"></i>
+                            <span class="nav-text">Apps</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="app-profile.html">Profile</a></li>
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
@@ -298,12 +326,12 @@
                                 </ul>
                             </li>
                             <li><a href="app-calender.html">Calendar</a></li>
-						</ul>
+                        </ul>
                     </li>
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="la la-signal"></i>
-							<span class="nav-text">Charts</span>
-						</a>
+                            <i class="la la-signal"></i>
+                            <span class="nav-text">Charts</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="chart-flot.html">Flot</a></li>
                             <li><a href="chart-morris.html">Morris</a></li>
@@ -314,10 +342,11 @@
                         </ul>
                     </li>
                     <li class="nav-label">Components</li>
-                    <li class="mega-menu mega-menu-xl"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-							<i class="la la-globe"></i>
-							<span class="nav-text">Bootstrap</span>
-						</a>
+                    <li class="mega-menu mega-menu-xl"><a class="has-arrow ai-icon" href="javascript:void()"
+                            aria-expanded="false">
+                            <i class="la la-globe"></i>
+                            <span class="nav-text">Bootstrap</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="ui-accordion.html">Accordion</a></li>
                             <li><a href="ui-alert.html">Alert</a></li>
@@ -339,20 +368,20 @@
                         </ul>
                     </li>
                     <li><a href="widget-basic.html" aria-expanded="false">
-							<i class="la la-desktop"></i>
-							<span class="nav-text">Widget</span>
-						</a></li>
+                            <i class="la la-desktop"></i>
+                            <span class="nav-text">Widget</span>
+                        </a></li>
                     <li class="nav-label">Forms</li>
                     <li><a href="form-element.html" aria-expanded="false">
-							<i class="la la-file-text"></i>
-							<span class="nav-text">Forms</span>
-						</a>
+                            <i class="la la-file-text"></i>
+                            <span class="nav-text">Forms</span>
+                        </a>
                     </li>
                     <li class="nav-label">Table</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-table"></i>
-							<span class="nav-text">Table</span>
-						</a>
+                            <i class="la la-table"></i>
+                            <span class="nav-text">Table</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
                             <li><a href="table-datatable-basic.html">Datatable</a></li>
@@ -360,9 +389,9 @@
                     </li>
                     <li class="nav-label">Extra</li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-							<i class="la la-th-list"></i>
-							<span class="nav-text">Pages</span>
-						</a>
+                            <i class="la la-th-list"></i>
+                            <span class="nav-text">Pages</span>
+                        </a>
                         <ul aria-expanded="false">
                             <li><a href="page-register.html">Register</a></li>
                             <li><a href="page-login.html">Login</a></li>
@@ -370,7 +399,7 @@
                             <li><a href="page-lock-screen.html">Lock Screen</a></li>
                         </ul>
                     </li>
-				</ul>
+                </ul>
             </div>
         </div>
         <!--**********************************
@@ -400,14 +429,17 @@
                 <div class="row">
                     <div class="col-xl-4">
                         <div class="card">
-							<div class="card-body p-4">
-                            <h4 class="card-intro-title">Slides only</h4>
+                            <div class="card-body p-4">
+                                <h4 class="card-intro-title">Slides only</h4>
                                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                     <ol class="carousel-indicators">
-                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active">
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                            class="active">
                                         </li>
-                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class=""></li>
-                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class=""></li>
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="">
+                                        </li>
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" class="">
+                                        </li>
                                     </ol>
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
@@ -419,8 +451,10 @@
                                         <div class="carousel-item">
                                             <img class="d-block w-100" src="images/big/img8.jpg" alt="Third slide">
                                         </div>
-                                    </div><a class="carousel-control-prev" href="#carouselExampleIndicators" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span> <span
-                                            class="sr-only">Previous</span> </a><a class="carousel-control-next" href="#carouselExampleIndicators" data-bs-slide="next"><span
+                                    </div><a class="carousel-control-prev" href="#carouselExampleIndicators"
+                                        data-bs-slide="prev"><span class="carousel-control-prev-icon"></span> <span
+                                            class="sr-only">Previous</span> </a><a class="carousel-control-next"
+                                        href="#carouselExampleIndicators" data-bs-slide="next"><span
                                             class="carousel-control-next-icon"></span>
                                         <span class="sr-only">Next</span></a>
                                 </div>
@@ -430,7 +464,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body p-4">
-                            <h4 class="card-intro-title">With Captions</h4>
+                                <h4 class="card-intro-title">With Captions</h4>
                                 <div class="bootstrap-carousel">
                                     <div class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
@@ -464,7 +498,7 @@
                     <div class="col-xl-4">
                         <div class="card">
                             <div class="card-body p-4">
-								<h4 class="card-intro-title">Slides only</h4>
+                                <h4 class="card-intro-title">Slides only</h4>
                                 <div class="bootstrap-carousel">
                                     <div class="carousel slide" data-bs-ride="carousel">
                                         <div class="carousel-inner">
@@ -492,7 +526,8 @@
                                 <div class="bootstrap-carousel">
                                     <div id="carouselExampleIndicators2" class="carousel slide" data-bs-ride="carousel">
                                         <ol class="carousel-indicators">
-                                            <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0" class="active"></li>
+                                            <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="0"
+                                                class="active"></li>
                                             <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="1"></li>
                                             <li data-bs-target="#carouselExampleIndicators2" data-bs-slide-to="2"></li>
                                         </ol>
@@ -506,8 +541,10 @@
                                             <div class="carousel-item">
                                                 <img class="d-block w-100" src="images/big/img8.jpg" alt="Third slide">
                                             </div>
-                                        </div><a class="carousel-control-prev" href="#carouselExampleIndicators2" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span> <span
-                                                class="sr-only">Previous</span> </a><a class="carousel-control-next" href="#carouselExampleIndicators2" data-bs-slide="next"><span
+                                        </div><a class="carousel-control-prev" href="#carouselExampleIndicators2"
+                                            data-bs-slide="prev"><span class="carousel-control-prev-icon"></span> <span
+                                                class="sr-only">Previous</span> </a><a class="carousel-control-next"
+                                            href="#carouselExampleIndicators2" data-bs-slide="next"><span
                                                 class="carousel-control-next-icon"></span>
                                             <span class="sr-only">Next</span></a>
                                     </div>
@@ -522,10 +559,13 @@
                                 <div class="bootstrap-carousel">
                                     <div data-bs-ride="carousel" class="carousel slide" id="carouselExampleCaptions">
                                         <ol class="carousel-indicators">
-                                            <li class="active" data-bs-slide-to="0" data-bs-target="#carouselExampleCaptions">
+                                            <li class="active" data-bs-slide-to="0"
+                                                data-bs-target="#carouselExampleCaptions">
                                             </li>
-                                            <li data-bs-slide-to="1" data-bs-target="#carouselExampleCaptions" class=""></li>
-                                            <li data-bs-slide-to="2" data-bs-target="#carouselExampleCaptions" class=""></li>
+                                            <li data-bs-slide-to="1" data-bs-target="#carouselExampleCaptions" class="">
+                                            </li>
+                                            <li data-bs-slide-to="2" data-bs-target="#carouselExampleCaptions" class="">
+                                            </li>
                                         </ol>
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
@@ -550,10 +590,12 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                        </div><a data-bs-slide="prev" href="#carouselExampleCaptions" class="carousel-control-prev"><span
+                                        </div><a data-bs-slide="prev" href="#carouselExampleCaptions"
+                                            class="carousel-control-prev"><span
                                                 class="carousel-control-prev-icon"></span> <span
                                                 class="sr-only">Previous</span>
-                                        </a><a data-bs-slide="next" href="#carouselExampleCaptions" class="carousel-control-next"><span
+                                        </a><a data-bs-slide="next" href="#carouselExampleCaptions"
+                                            class="carousel-control-next"><span
                                                 class="carousel-control-next-icon"></span> <span
                                                 class="sr-only">Next</span></a>
                                     </div>
@@ -575,7 +617,9 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">DexignZone</a> 2022</p>
+                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                        target="_blank">Oneplanets360</a></p>
+
             </div>
         </div>
         <!--**********************************
@@ -590,7 +634,7 @@
            Support ticket button end
         ***********************************-->
 
-        
+
     </div>
     <!--**********************************
         Main wrapper end
@@ -601,14 +645,14 @@
     ***********************************-->
     <!-- Required vendors -->
     <script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/custom.min.js"></script>
-    
 
 
 
-	<!-- Svganimation scripts -->
+
+    <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
 </body>

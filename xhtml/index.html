@@ -1,3 +1,20 @@
+<?php
+require_once __DIR__ . '/backend/functions.php';
+$events = backend_fetch_all('events');
+usort($events, function ($a, $b) {
+    return strtotime((string)$a['event_date']) - strtotime((string)$b['event_date']);
+});
+
+function event_image_src(?string $imagePath): string {
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') return 'images/events/default/thum1.jpg';
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) return $imagePath;
+    if (str_starts_with($imagePath, 'images/')) return $imagePath;
+    if (str_starts_with($imagePath, 'uploads/')) return $imagePath;
+    if (strpos($imagePath, '/') === false) return 'uploads/events/' . $imagePath;
+    return ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,176 +69,288 @@
 	<link rel="stylesheet" type="text/css" href="css/templete.css">
 	<!-- Google Font -->
 	<style>
-	@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
 	<style>
-	/* Typing cursor */
-	.typed-cursor { display: inline-block; margin-left: 3px; opacity: 1; animation: blink 1s steps(2,start) infinite; }
-	@keyframes blink { to { opacity: 0 } }
+		/* Typing cursor */
+		.typed-cursor {
+			display: inline-block;
+			margin-left: 3px;
+			opacity: 1;
+			animation: blink 1s steps(2, start) infinite;
+		}
 
-	/* About / Yoga custom styles */
-	.about-section .title { color: #224b3a; font-weight:700; }
-	.about-media img { box-shadow: 0 8px 30px rgba(34,75,58,0.12); border-radius:8px; }
-	.about-content p { color: #333; line-height:1.75; }
-	.about-features { list-style:none; padding:0; margin:18px 0; display:flex; gap:18px; flex-wrap:wrap; }
-	.about-features li { display:flex; gap:12px; align-items:flex-start; min-width:220px; }
-	.about-features i { font-size:22px; color:#2b6b4a; margin-top:4px; }
-	.site-button.green { background:#2b6b4a; border-color:#2b6b4a; }
-	.site-button.green:hover { background:#244f3d; border-color:#244f3d; }
+		@keyframes blink {
+			to {
+				opacity: 0
+			}
+		}
 
-	/* Yoga info section - refreshed design */
-	.yoga-info-wrap {
-		background: radial-gradient(circle at top right, #e8f3ee 0%, #f7fbf9 46%, #ffffff 100%);
-		position: relative;
-	}
-	.yoga-panel {
-		background: #ffffff;
-		border: 1px solid #d8e6df;
-		border-radius: 18px;
-		padding: 32px 34px;
-		box-shadow: 0 18px 36px rgba(33, 72, 56, 0.08);
-		overflow: hidden;
-		position: relative;
-		height: 100%;
-	}
-	.yoga-panel:before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 6px;
-		background: linear-gradient(90deg, #2b6b4a 0%, #65a080 100%);
-	}
-	.yoga-panel.panel-2:before {
-		background: linear-gradient(90deg, #356b75 0%, #78aeb7 100%);
-	}
-	.yoga-panel.panel-2 {
-		background: linear-gradient(145deg, #eef7fb 0%, #f9fcff 100%);
-		border-color: #d5e6ee;
-	}
-	.yoga-panel.panel-3:before {
-		background: linear-gradient(90deg, #5f6e3f 0%, #98aa67 100%);
-	}
-	.yoga-kicker {
-		display: inline-block;
-		font-size: 12px;
-		letter-spacing: 1.6px;
-		text-transform: uppercase;
-		font-weight: 700;
-		color: #2b6b4a;
-		background: #eef7f2;
-		padding: 6px 10px;
-		border-radius: 999px;
-		margin-bottom: 14px;
-	}
-	.yoga-panel .title {
-		font-family: 'Merriweather', serif;
-		color: #233d34;
-		font-size: 42px;
-		line-height: 1.2;
-		margin-bottom: 16px;
-	}
-	.yoga-panel p {
-		font-size: 18px;
-		line-height: 1.85;
-		color: #2e3a36;
-		margin-bottom: 18px;
-	}
-	.yoga-quote {
-		font-style: italic;
-		background: #f2f8f5;
-		padding: 22px 24px 22px 28px;
-		border-radius: 10px;
-		border-left: 4px solid #2b6b4a;
-		position: relative;
-		margin: 22px 0;
-	}
-	.yoga-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-	.yoga-list li {
-		font-size: 18px;
-		line-height: 1.75;
-		color: #2e3a36;
-		margin-bottom: 10px;
-		padding-left: 24px;
-		position: relative;
-	}
-	.yoga-list li:before {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 13px;
-		width: 8px;
-		height: 8px;
-		border-radius: 50%;
-		background: #2b6b4a;
-	}
-	.programs-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 14px;
-	}
-	.program-item {
-		display: flex;
-		align-items: flex-start;
-		gap: 12px;
-		background: #ffffff;
-		border: 1px solid #dae8ef;
-		border-radius: 12px;
-		padding: 14px;
-		box-shadow: 0 8px 18px rgba(40, 79, 96, 0.08);
-	}
-	.program-icon {
-		width: 36px;
-		height: 36px;
-		border-radius: 50%;
-		background: #e4f2f7;
-		color: #2e6f80;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 18px;
-		flex-shrink: 0;
-	}
-	.program-item h4 {
-		margin: 0 0 4px;
-		font-size: 18px;
-		line-height: 1.3;
-		color: #1f3f4c;
-	}
-	.program-item p {
-		margin: 0;
-		font-size: 15px;
-		line-height: 1.6;
-		color: #36515c;
-	}
-	@media (max-width: 991px) {
+		/* About / Yoga custom styles */
+		.about-section .title {
+			color: #224b3a;
+			font-weight: 700;
+		}
+
+		.about-media img {
+			box-shadow: 0 8px 30px rgba(34, 75, 58, 0.12);
+			border-radius: 8px;
+		}
+
+		.about-content p {
+			color: #333;
+			line-height: 1.75;
+		}
+
+		.about-features {
+			list-style: none;
+			padding: 0;
+			margin: 18px 0;
+			display: flex;
+			gap: 18px;
+			flex-wrap: wrap;
+		}
+
+		.about-features li {
+			display: flex;
+			gap: 12px;
+			align-items: flex-start;
+			min-width: 220px;
+		}
+
+		.about-features i {
+			font-size: 22px;
+			color: #2b6b4a;
+			margin-top: 4px;
+		}
+
+		.site-button.green {
+			background: #2b6b4a;
+			border-color: #2b6b4a;
+		}
+
+		.site-button.green:hover {
+			background: #244f3d;
+			border-color: #244f3d;
+		}
+
+		/* Yoga info section - refreshed design */
+		.yoga-info-wrap {
+			background: radial-gradient(circle at top right, #e8f3ee 0%, #f7fbf9 46%, #ffffff 100%);
+			position: relative;
+		}
+
 		.yoga-panel {
-			padding: 28px 24px;
+			background: #ffffff;
+			border: 1px solid #d8e6df;
+			border-radius: 18px;
+			padding: 32px 34px;
+			box-shadow: 0 18px 36px rgba(33, 72, 56, 0.08);
+			overflow: hidden;
+			position: relative;
+			height: 100%;
 		}
+
+		.yoga-panel:before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 6px;
+			background: linear-gradient(90deg, #2b6b4a 0%, #65a080 100%);
+		}
+
+		.yoga-panel.panel-2:before {
+			background: linear-gradient(90deg, #356b75 0%, #78aeb7 100%);
+		}
+
+		.yoga-panel.panel-2 {
+			background: linear-gradient(145deg, #eef7fb 0%, #f9fcff 100%);
+			border-color: #d5e6ee;
+		}
+
+		.yoga-panel.panel-3:before {
+			background: linear-gradient(90deg, #5f6e3f 0%, #98aa67 100%);
+		}
+
+		.yoga-kicker {
+			display: inline-block;
+			font-size: 12px;
+			letter-spacing: 1.6px;
+			text-transform: uppercase;
+			font-weight: 700;
+			color: #2b6b4a;
+			background: #eef7f2;
+			padding: 6px 10px;
+			border-radius: 999px;
+			margin-bottom: 14px;
+		}
+
 		.yoga-panel .title {
-			font-size: 32px;
+			font-family: 'Merriweather', serif;
+			color: #233d34;
+			font-size: 42px;
+			line-height: 1.2;
+			margin-bottom: 16px;
 		}
-		.programs-grid {
-			grid-template-columns: 1fr;
+
+		.yoga-panel p {
+			font-size: 18px;
+			line-height: 1.85;
+			color: #2e3a36;
+			margin-bottom: 18px;
 		}
-	}
-	@media (max-width: 767px) {
-		.yoga-panel {
-			padding: 22px 18px;
+
+		.yoga-quote {
+			font-style: italic;
+			background: #f2f8f5;
+			padding: 22px 24px 22px 28px;
+			border-radius: 10px;
+			border-left: 4px solid #2b6b4a;
+			position: relative;
+			margin: 22px 0;
 		}
-		.yoga-panel .title {
-			font-size: 27px;
+
+		.yoga-list {
+			margin: 0;
+			padding: 0;
+			list-style: none;
 		}
-		.yoga-panel p,
+
 		.yoga-list li {
-			font-size: 16px;
+			font-size: 18px;
+			line-height: 1.75;
+			color: #2e3a36;
+			margin-bottom: 10px;
+			padding-left: 24px;
+			position: relative;
 		}
-	}
+
+		.yoga-list li:before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 13px;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #2b6b4a;
+		}
+
+		.list-check.circle.white li:before {
+			background-color: #fff;
+			color: #000;
+		}
+
+
+
+		.about-three .about-video {
+			border: 0;
+			height: 100%;
+			border-radius: 0;
+			margin-right: -5px;
+		}
+
+		.about-three .content-bx:after {
+			content: "";
+			position: absolute;
+			left: -35px;
+			top: 0;
+			width: 80px;
+			height: 100%;
+			background: var(--color-primary);
+			transform: skewX(-7deg);
+			z-index: -1;
+			border-left: 10px solid #fff;
+		}
+
+		.about-three .content-bx {
+			position: relative;
+			z-index: 1;
+		}
+
+		.about-three .edu-list li {
+			color: #fff;
+		}
+
+		.about-three .edu-list li:before {
+			background: #fff;
+			color: #000;
+		}
+
+		.programs-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 14px;
+		}
+
+		.program-item {
+			display: flex;
+			align-items: flex-start;
+			gap: 12px;
+			background: #ffffff;
+			border: 1px solid #dae8ef;
+			border-radius: 12px;
+			padding: 14px;
+			box-shadow: 0 8px 18px rgba(40, 79, 96, 0.08);
+		}
+
+		.program-icon {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background: #e4f2f7;
+			color: #2e6f80;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 18px;
+			flex-shrink: 0;
+		}
+
+		.program-item h4 {
+			margin: 0 0 4px;
+			font-size: 18px;
+			line-height: 1.3;
+			color: #1f3f4c;
+		}
+
+		.program-item p {
+			margin: 0;
+			font-size: 15px;
+			line-height: 1.6;
+			color: #36515c;
+		}
+
+		@media (max-width: 991px) {
+			.yoga-panel {
+				padding: 28px 24px;
+			}
+
+			.yoga-panel .title {
+				font-size: 32px;
+			}
+
+			.programs-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 767px) {
+			.yoga-panel {
+				padding: 22px 18px;
+			}
+
+			.yoga-panel .title {
+				font-size: 27px;
+			}
+
+			.yoga-panel p,
+			.yoga-list li {
+				font-size: 16px;
+			}
+		}
 	</style>
 
 
@@ -232,24 +361,7 @@
 		<div id="loading-area" class="loading4"></div>
 		<!-- header -->
 		<header class="site-header mo-left header">
-			<!-- <div class="top-bar">
-				<div class="container">
-					<div class="row d-flex justify-content-between align-items-center">
-						<div class="dlab-topbar-left">
-							<ul>
-								<li><i class="la la-phone-volume text-white"></i> +01 234 5678901</li>
-								<li><i class="las la-map-marker text-white"></i> 1073 W Stephen Ave, Clawson</li>
-							</ul>
-						</div>
-						<div class="dlab-topbar-right">
-							<ul>
-								<li><i class="la la-clock text-white"></i> Mon - Sat 8.00 - 18.00</li>
-								<li><i class="las la-envelope-open text-white"></i> info@example.com</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div> -->
+
 			<!-- main header -->
 			<div class="sticky-header main-bar-wraper navbar-expand-lg">
 				<div class="main-bar clearfix ">
@@ -268,12 +380,7 @@
 							<span></span>
 						</button>
 						<!-- extra nav -->
-						<!-- <div class="extra-nav">
-                        <div class="extra-cell">
-                            <button id="quik-search-btn" type="button" class="site-button-link"><i class="la la-search"></i></button>
-							<a href="javascript:void(0);" class="site-button">Apply Now</a>
-						</div>
-                    </div> -->
+
 						<!-- Quik search -->
 						<div class="dlab-quik-search ">
 							<form action="#">
@@ -333,315 +440,475 @@
 								</ul>
 							</div>
 						</div>
-                </div>
-            </div>
-        </div>
-        <!-- main header END -->
-    </header>
-    <!-- header END -->
-	<!-- Content -->
-   <div class="page-content bg-white">	
-		<!-- inner page banner -->
-		<div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner" style="background-image:url(images/banner/bnr3.jpg);">
-			<div class="container">
-				<div class="dlab-bnr-inr-entry text-white" style="padding-top:300px;">
-					<h1 class="title"><span id="typed-headline"></span><span class="typed-cursor">|</span></h1>
-					<p class="lead m-t20">Experience authentic yogic practices designed to bring harmony to your body, clarity to your mind, and balance to your life.</p>
-
-					<p class="m-t20"><strong>At Nischala, yoga is taught as a complete path towards wellbeing, mindfulness, and inner transformation.</strong></p>
-
-					<div class="m-t30 m-b30 d-flex flex-wrap justify-content-center" style="gap: 15px;">
-						<a href="classes.html" class="site-button">Join a Class</a>
-						<a href="booking.html" class="site-button">Book a Session</a>
-						<a href="programs.html" class="site-button">Explore Programs</a>
 					</div>
 				</div>
 			</div>
-		</div>
-        <!-- inner page banner END -->
-        <!-- contact area -->
-        <div class="content-block">
-			<!-- Content Section -->
-			<div class="section-full content-inner bg-gray">
+			<!-- main header END -->
+		</header>
+		<!-- header END -->
+		<!-- Content -->
+		<div class="page-content bg-white">
+			<!-- inner page banner -->
+			<div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner"
+				style="background-image:url(images/banner/bnr3.jpg);">
 				<div class="container">
-					<div class="row align-items-center text-center">
-						<div class="col-lg-3 col-md-6 col-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-spa"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">5000+</h5>
-									<p>Yoga Classes</p>
+					<div class="dlab-bnr-inr-entry text-white" style="padding-top:300px;">
+						<h1 class="title"><span id="typed-headline"></span><span class="typed-cursor">|</span></h1>
+						<p class="lead m-t20">Experience authentic yogic practices designed to bring harmony to your
+							body, clarity to your mind, and balance to your life.</p>
+
+						<p class="m-t20"><strong>At Nischala, yoga is taught as a complete path towards wellbeing,
+								mindfulness, and inner transformation.</strong></p>
+
+						<div class="m-t30 m-b30 d-flex flex-wrap justify-content-center" style="gap: 15px;">
+							<a href="classes.html" class="site-button">Join a Class</a>
+							<a href="booking.html" class="site-button">Book a Session</a>
+							<a href="programs.html" class="site-button">Explore Programs</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- inner page banner END -->
+			<!-- contact area -->
+			<div class="content-block">
+				<!-- Content Section -->
+				<div class="section-full content-inner bg-gray">
+					<div class="container">
+						<div class="row align-items-center text-center">
+							<div class="col-lg-3 col-md-6 col-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-spa"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">5000+</h5>
+										<p>Yoga Classes</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-user-graduate"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">3</h5>
-									<p>Certified Teachers</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-users"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">50,000+</h5>
-									<p>Participants</p>
+							<div class="col-lg-3 col-md-6 col-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-user-graduate"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">3</h5>
+										<p>Certified Teachers</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
+							<div class="col-lg-3 col-md-6 col-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-users"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">50,000+</h5>
+										<p>Participants</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3 col-md-6 col-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
 									<div class="icon-lg text-primary radius icon-up">
 										<span class="icon-cell"><i class="las la-map-marker"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">3</h5>
+										<p>Locations</p>
+									</div>
 								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">3</h5>
-									<p>Locations</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- About / Welcome Section -->
+				<div class="section-full bg-white content-inner about-section">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-lg-6 col-md-12 m-b30">
+								<div class="about-media">
+									<img src="images/about/about.jpg" alt="Welcome to Nischala"
+										style="width:100%; height:auto; border-radius:6px; object-fit:cover;">
+								</div>
+							</div>
+							<div class="col-lg-6 col-md-12 m-b30">
+								<div class="section-head">
+									<h2 class="title">Welcome to Nischala</h2>
+								</div>
+								<div class="about-content">
+									<p>Nischala is a space dedicated to helping individuals experience yoga beyond
+										physical exercise. Our programs are thoughtfully designed to support physical
+										wellbeing, emotional balance, mental clarity, and conscious living.</p>
+									<p>Through traditional Hatha practices, guided meditation, breathwork (pranayama),
+										and mindful living guidance, we create a safe, supportive environment for
+										personal transformation.</p>
+									<ul class="about-features">
+										<li><i class="las la-spa"></i>
+											<div><strong>Traditional Hatha</strong>
+												<div class="text-muted">Authentic postures and alignment</div>
+											</div>
+										</li>
+										<li><i class="las la-heart"></i>
+											<div><strong>Meditation & Breathwork</strong>
+												<div class="text-muted">Calm the mind, balance emotions</div>
+											</div>
+										</li>
+										<li><i class="las la-users"></i>
+											<div><strong>Small, Guided Classes</strong>
+												<div class="text-muted">Personal attention and safe progress</div>
+											</div>
+										</li>
+									</ul>
+									<p class="m-t20 d-flex flex-wrap" style="gap: 15px;"><a href="booking.html"
+											class="site-button green">Book a Trial Class</a> <a href="about-1.html"
+											class="site-button">Learn More</a></p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- About / Welcome Section -->
-			<div class="section-full bg-white content-inner about-section">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-lg-6 col-md-12 m-b30">
-							<div class="about-media">
-								<img src="images/about/about.jpg" alt="Welcome to Nischala" style="width:100%; height:auto; border-radius:6px; object-fit:cover;">
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-12 m-b30">
-							<div class="section-head">
-								<h2 class="title">Welcome to Nischala</h2>
-							</div>
-							<div class="about-content">
-								<p>Nischala is a space dedicated to helping individuals experience yoga beyond physical exercise. Our programs are thoughtfully designed to support physical wellbeing, emotional balance, mental clarity, and conscious living.</p>
-								<p>Through traditional Hatha practices, guided meditation, breathwork (pranayama), and mindful living guidance, we create a safe, supportive environment for personal transformation.</p>
-								<ul class="about-features">
-									<li><i class="las la-spa"></i><div><strong>Traditional Hatha</strong><div class="text-muted">Authentic postures and alignment</div></div></li>
-									<li><i class="las la-heart"></i><div><strong>Meditation & Breathwork</strong><div class="text-muted">Calm the mind, balance emotions</div></div></li>
-									<li><i class="las la-users"></i><div><strong>Small, Guided Classes</strong><div class="text-muted">Personal attention and safe progress</div></div></li>
-								</ul>
-								<p class="m-t20 d-flex flex-wrap" style="gap: 15px;"><a href="booking.html" class="site-button green">Book a Trial Class</a> <a href="about-1.html" class="site-button">Learn More</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- About / Welcome Section End -->
-			<!-- Call To Action -->
-			<!-- <div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-9">
-							<h2 class="title text-white">Transform Your Life with Nischala Yoga</h2>
-						</div>
-						<div class="col-lg-3 d-flex">
-							<a href="contact-1.html" class="site-button white outline align-self-center ms-auto btnhover14">Contact Us</a>
-						</div>
-					</div>
-				</div>
-			</div> -->
-			<!-- Call To Action End -->
-			<!-- Yoga Knowledge Section -->
-			<div class="section-full content-inner yoga-info-wrap wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
-				<div class="container">
-					<div class="row m-b30">
-						<div class="col-lg-12">
-							<div class="yoga-panel panel-1">
-								<span class="yoga-kicker">Foundations</span>
-								<h2 class="title">Understanding True Yoga</h2>
-								<p>When you utter the word Yoga, everyone has a notion of what it could be or should be. In other words, people have a lot of misunderstanding or misconception about the word "Yoga". One of the first things that people normally think when you say Yoga is that it means standing on your head, or twisting and turning the body into impossible postures. Some even believe that if you start doing Yoga, you will have to leave everything and everybody, become a Sanyasi, and settle down in an ashram or Himalayan cave.</p>
-								<p class="yoga-quote">"No, please understand, Yoga doesn't mean any of the above descriptions. Yoga is not about doing anything in particular. It is a way of being, it is a certain way in which a person can be. It is a state you can experience beyond body and mind."</p>
-								<p>Now there are many ways to reach this state. Isha Hatha Yoga is one of the ways. As there are tools and technologies to create and enhance external well-being, there are tools and technologies to create and enhance our internal well-being. Hatha Yoga is a science of asanas.</p>
-							</div>
-						</div>
-					</div>
 
-					<div class="row m-b30">
-						<div class="col-lg-12">
-							<div class="yoga-panel panel-2">
-								<span class="yoga-kicker">Programs</span>
-								<h2 class="title">Featured Programs Summary</h2>
-								<div class="programs-grid">
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-spa"></i></span>
-										<div>
-											<h4>Isha Hatha Yoga</h4>
-											<p>Authentic classical practices taught in utmost purity.</p>
-										</div>
+				<div class="section-full bg-primary">
+					<div class="container-fluid">
+						<div class="row align-item-center about-three">
+							<div class="col-lg-6 p-lr0">
+								<div class="video-bx about-video">
+									<img src="image" class="img-cover" alt="">
+									<div class="video-play-icon">
+										<a href="https://www.youtube.com/watch?v=f4Bts39jimI"
+											class="popup-youtube video"><i class="fas fa-play"></i></a>
 									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-dharmachakra"></i></span>
-										<div>
-											<h4>Classical Hatha Yoga</h4>
-											<p>Traditional alignment and core structural flows.</p>
-										</div>
+								</div>
+							</div>
+							<div class="col-lg-6 content-inner-2 content-bx">
+								<div class="max-w600 p-lr15">
+									<div class="section-head text-white m-b20">
+										<h5 class="title-small">Welcome to Nischala</h5>
+										<h2 class="title">Experience True Yoga</h2>
+										<div class="dlab-separator bg-white"></div>
 									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-wind"></i></span>
-										<div>
-											<h4>Vinyasa Yoga</h4>
-											<p>Dynamic flow-based synchronization of breath and movement.</p>
-										</div>
-									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-brain"></i></span>
-										<div>
-											<h4>Meditation &amp; Breathwork</h4>
-											<p>Guided sessions for mindfulness and deep relaxation.</p>
-										</div>
-									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-laptop"></i></span>
-										<div>
-											<h4>Online Yoga Classes</h4>
-											<p>High-quality remote interactive instruction.</p>
-										</div>
-									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-child"></i></span>
-										<div>
-											<h4>Kids Yoga</h4>
-											<p>Fun, confidence-building activities for mental focus and agility.</p>
-										</div>
-									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-briefcase-medical"></i></span>
-										<div>
-											<h4>Corporate Wellness Programs</h4>
-											<p>Targeted stress-relief modules built for modern work environments.</p>
-										</div>
-									</div>
-									<div class="program-item">
-										<span class="program-icon"><i class="las la-user-check"></i></span>
-										<div>
-											<h4>Personal Training Sessions</h4>
-											<p>Customized 1-on-1 private goal alignment.</p>
-										</div>
-									</div>
+									<p>Nischala is a space dedicated to helping individuals experience yoga beyond
+										physical exercise. Our programs
+										are thoughtfully designed to support physical wellbeing, emotional balance,
+										mental clarity, and conscious
+										living.</p>
+									<ul class="list-check circle white yoga-icons">
+										<li>Traditional yogic practices</li>
+										<li>Meditation, breathwork, and mindful guidance</li>
+										<li>Reconnect with yourself and experience life more deeply</li>
+									</ul>
+									<!-- <a href="javascript:void(0);" class="site-button btnhover14 white">Read More</a> -->
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="yoga-panel panel-3">
-								<span class="yoga-kicker">Why Nischala</span>
-								<h2 class="title">Why Choose Nischala</h2>
-								<ul class="yoga-list">
-									<li>Authentic and traditional approach to yoga rooted in timeless lineages.</li>
-									<li>No previous yoga experience required for foundational practices.</li>
-									<li>Uniqueness of practices: No external systems or props used. Experience the exuberance of stillness using only a 6x6 space and your body.</li>
-									<li>Beginner-friendly and advanced programs appropriately structured.</li>
-									<li>Guided by intensively trained and certified teachers who have undergone over 1,750 hours of meticulous training.</li>
+				<br></br>
+				<div class="col-lg-8 col-md-7 col-sm-12 inner-text mx-auto">
+
+					<h4 class="title">Featured Programs Summary</h4>
+					<ul class="list-check primary">
+						<li><strong>Isha Hatha Yoga:</strong> Authentic classical practices taught in utmost purity.
+						</li>
+						<li><strong>Classical Hatha Yoga:</strong> Traditional alignment and core structural flows.</li>
+						<li><strong>Vinyasa Yoga:</strong> Dynamic flow-based synchronization of breath and movement.
+						</li>
+						<li><strong>Meditation & Breathwork:</strong> Guided sessions for mindfulness and deep
+							relaxation.</li>
+						<li><strong>Online Yoga Classes:</strong> High-quality remote interactive instruction.</li>
+						<li><strong>Kids Yoga:</strong> Fun, confidence-building activities for mental focus and
+							agility.</li>
+						<li><strong>Corporate Wellness Programs:</strong> Targeted stress-relief modules built for
+							modern work environments.</li>
+						<li><strong>Personal Training Sessions:</strong> Customized 1-on-1 private goal alignment.</li>
+					</ul>
+
+				</div>
+
+				<div class="section-full content-inner bg-white">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-lg-6 col-md-12 m-b30 about-two align-self-start">
+								<div class="row sp10">
+									<div class="col-md-12 m-b10">
+										<img src="images/about/about2/pic1.jpg" class="img-cover" alt="">
+									</div>
+									<div class="col-md-7 m-b10">
+										<img src="images/about/about2/pic2.jpg" class="img-cover" alt="">
+									</div>
+									<div class="col-md-5 m-b10">
+										<div class="about-year bg-primary">
+											<div>
+												<h2 class="no-title">15+</h2>
+												<h4 class="title">Years Experience Working</h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 m-b30 about-two">
+								<div class="section-head m-b20">
+									<h2 class="title">Why Choose Nischala</h2>
+									<h5 class="title-small">Authentic and traditional approach to yoga rooted in
+										timeless lineages.</h5>
+									<div class="dlab-separator bg-primary"></div>
+								</div>
+								<p>No previous yoga experience is required for foundational practices. Our
+									beginner-friendly and advanced programs are appropriately structured to guide you on
+									your journey.</p>
+
+								<ul class="list-check primary text-black circle">
+									<li><strong>Uniqueness of practices:</strong> No external systems or props used.
+										Experience the exuberance of stillness using only a 6x6 space and your body.
+									</li>
+									<li>Guided by intensively trained and certified teachers who have undergone over
+										1,750 hours of meticulous training.</li>
 									<li>Both online and offline environments available for flexible learning.</li>
 									<li>Supportive and community-driven environment fostering collaborative growth.</li>
 								</ul>
+								<!-- <a href="javascript:void(0);" class="site-button">Read More</a> -->
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- Yoga Knowledge Section End -->
-			<!-- Class Schedule -->
-			<div class="section-full content-inner bg-white">
-				<div class="container">
-					<div class="section-head text-center">
-						<h2 class="title">Class Schedule</h2>
-						<p>Find a class that fits your day — gentle mornings, energising evenings, and relaxed weekend workshops.</p>
-					</div>
-					<div class="row">
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-sun"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">Morning Flow</h5>
-									<p>Mon, Wed, Fri — 7:00 AM to 8:00 AM<br>Beginner-friendly slow vinyasa & breathwork</p>
-								</div>
+				<!-- About / Welcome Section End -->
+				<!-- Call To Action -->
+				<div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s"
+					data-wow-delay="0.2s">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-9">
+								<h2 class="title text-white">Transform Your Life with Nischala Yoga</h2>
 							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-moon"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">Evening Restore</h5>
-									<p>Tue, Thu — 6:30 PM to 7:30 PM<br>Gentle Hatha for relaxation and alignment</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="icon-bx-wraper left counter-style-6">
-								<div class="icon-lg text-primary radius icon-up">
-									<span class="icon-cell"><i class="las la-leaf"></i></span>
-								</div>
-								<div class="icon-content">
-									<h5 class="dlab-tilte">Weekend Workshop</h5>
-									<p>Saturday — 9:30 AM to 12:00 PM<br>Deep practice, pranayama and guided meditation</p>
-								</div>
+							<div class="col-lg-3 d-flex">
+								<a href="contact-1.html"
+									class="site-button white outline align-self-center ms-auto btnhover14">Contact
+									Us</a>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+				<!-- Call To Action End -->
+				<!-- Yoga Knowledge Section -->
+				<!-- <div class="section-full content-inner yoga-info-wrap wow fadeIn" data-wow-duration="2s"
+					data-wow-delay="0.6s">
+					<div class="container">
+						<div class="row m-b30">
+							<div class="col-lg-12">
+								<div class="yoga-panel panel-1">
+									<span class="yoga-kicker">Foundations</span>
+									<h2 class="title">Understanding True Yoga</h2>
+									<p>When you utter the word Yoga, everyone has a notion of what it could be or should
+										be. In other words, people have a lot of misunderstanding or misconception about
+										the word "Yoga". One of the first things that people normally think when you say
+										Yoga is that it means standing on your head, or twisting and turning the body
+										into impossible postures. Some even believe that if you start doing Yoga, you
+										will have to leave everything and everybody, become a Sanyasi, and settle down
+										in an ashram or Himalayan cave.</p>
+									<p class="yoga-quote">"No, please understand, Yoga doesn't mean any of the above
+										descriptions. Yoga is not about doing anything in particular. It is a way of
+										being, it is a certain way in which a person can be. It is a state you can
+										experience beyond body and mind."</p>
+									<p>Now there are many ways to reach this state. Isha Hatha Yoga is one of the ways.
+										As there are tools and technologies to create and enhance external well-being,
+										there are tools and technologies to create and enhance our internal well-being.
+										Hatha Yoga is a science of asanas.</p>
+								</div>
+							</div>
+						</div>
 
-			<!-- Meet Our Instructors -->
-			<div class="section-full content-inner bg-gray">
-				<div class="container">
-					<div class="section-head text-center">
-						<h2 class="title">Meet Our Instructors</h2>
-						<p>Our teachers combine traditional lineages with contemporary teaching methods.</p>
+						<div class="row m-b30">
+							<div class="col-lg-12">
+								<div class="yoga-panel panel-2">
+									<span class="yoga-kicker">Programs</span>
+									<h2 class="title">Featured Programs Summary</h2>
+									<div class="programs-grid">
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-spa"></i></span>
+											<div>
+												<h4>Isha Hatha Yoga</h4>
+												<p>Authentic classical practices taught in utmost purity.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-dharmachakra"></i></span>
+											<div>
+												<h4>Classical Hatha Yoga</h4>
+												<p>Traditional alignment and core structural flows.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-wind"></i></span>
+											<div>
+												<h4>Vinyasa Yoga</h4>
+												<p>Dynamic flow-based synchronization of breath and movement.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-brain"></i></span>
+											<div>
+												<h4>Meditation &amp; Breathwork</h4>
+												<p>Guided sessions for mindfulness and deep relaxation.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-laptop"></i></span>
+											<div>
+												<h4>Online Yoga Classes</h4>
+												<p>High-quality remote interactive instruction.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-child"></i></span>
+											<div>
+												<h4>Kids Yoga</h4>
+												<p>Fun, confidence-building activities for mental focus and agility.</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-briefcase-medical"></i></span>
+											<div>
+												<h4>Corporate Wellness Programs</h4>
+												<p>Targeted stress-relief modules built for modern work environments.
+												</p>
+											</div>
+										</div>
+										<div class="program-item">
+											<span class="program-icon"><i class="las la-user-check"></i></span>
+											<div>
+												<h4>Personal Training Sessions</h4>
+												<p>Customized 1-on-1 private goal alignment.</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="yoga-panel panel-3">
+									<span class="yoga-kicker">Why Nischala</span>
+									<h2 class="title">Why Choose Nischala</h2>
+									<ul class="yoga-list">
+										<li>Authentic and traditional approach to yoga rooted in timeless lineages.</li>
+										<li>No previous yoga experience required for foundational practices.</li>
+										<li>Uniqueness of practices: No external systems or props used. Experience the
+											exuberance of stillness using only a 6x6 space and your body.</li>
+										<li>Beginner-friendly and advanced programs appropriately structured.</li>
+										<li>Guided by intensively trained and certified teachers who have undergone over
+											1,750 hours of meticulous training.</li>
+										<li>Both online and offline environments available for flexible learning.</li>
+										<li>Supportive and community-driven environment fostering collaborative growth.
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="row">
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="faculty-box text-center">
-								<div class="faculty-media"><img src="images/about/instructor1.jpg" alt="Instructor 1" style="border-radius:8px; width:100%; height:240px; object-fit:cover;"></div>
-								<div class="faculty-info">
-									<h5>Rama Sundar</h5>
-									<p class="text-muted">Senior Hatha Teacher — 1,750+ training hours</p>
+				</div>  -->
+				<!-- Yoga Knowledge Section End -->
+				<!-- Class Schedule -->
+				<div class="section-full content-inner bg-white">
+					<div class="container">
+						<div class="section-head text-center">
+							<h2 class="title">Class Schedule</h2>
+							<p>Find a class that fits your day — gentle mornings, energising evenings, and relaxed
+								weekend workshops.</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-sun"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">Morning Flow</h5>
+										<p>Mon, Wed, Fri — 7:00 AM to 8:00 AM<br>Beginner-friendly slow vinyasa &
+											breathwork</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="faculty-box text-center">
-								<div class="faculty-media"><img src="images/about/instructor2.jpg" alt="Instructor 2" style="border-radius:8px; width:100%; height:240px; object-fit:cover;"></div>
-								<div class="faculty-info">
-									<h5>Meera Patel</h5>
-									<p class="text-muted">Breathwork & Meditation Guide — 10+ years teaching</p>
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-moon"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">Evening Restore</h5>
+										<p>Tue, Thu — 6:30 PM to 7:30 PM<br>Gentle Hatha for relaxation and alignment
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg-4 col-md-6 m-b30">
-							<div class="faculty-box text-center">
-								<div class="faculty-media"><img src="images/about/instructor3.jpg" alt="Instructor 3" style="border-radius:8px; width:100%; height:240px; object-fit:cover;"></div>
-								<div class="faculty-info">
-									<h5>Kiran Rao</h5>
-									<p class="text-muted">Vinyasa & Alignment Specialist</p>
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="icon-bx-wraper left counter-style-6">
+									<div class="icon-lg text-primary radius icon-up">
+										<span class="icon-cell"><i class="las la-leaf"></i></span>
+									</div>
+									<div class="icon-content">
+										<h5 class="dlab-tilte">Weekend Workshop</h5>
+										<p>Saturday — 9:30 AM to 12:00 PM<br>Deep practice, pranayama and guided
+											meditation</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- Testimonials -->
-			<!-- <div class="section-full content-inner bg-gray bg-img-fix">
+				<!-- Meet Our Instructors -->
+				<!-- <div class="section-full content-inner bg-gray">
+					<div class="container">
+						<div class="section-head text-center">
+							<h2 class="title">Meet Our Instructors</h2>
+							<p>Our teachers combine traditional lineages with contemporary teaching methods.</p>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="faculty-box text-center">
+									<div class="faculty-media"><img src="images/about/instructor1.jpg"
+											alt="Instructor 1"
+											style="border-radius:8px; width:100%; height:240px; object-fit:cover;">
+									</div>
+									<div class="faculty-info">
+										<h5>Rama Sundar</h5>
+										<p class="text-muted">Senior Hatha Teacher — 1,750+ training hours</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="faculty-box text-center">
+									<div class="faculty-media"><img src="images/about/instructor2.jpg"
+											alt="Instructor 2"
+											style="border-radius:8px; width:100%; height:240px; object-fit:cover;">
+									</div>
+									<div class="faculty-info">
+										<h5>Meera Patel</h5>
+										<p class="text-muted">Breathwork & Meditation Guide — 10+ years teaching</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 m-b30">
+								<div class="faculty-box text-center">
+									<div class="faculty-media"><img src="images/about/instructor3.jpg"
+											alt="Instructor 3"
+											style="border-radius:8px; width:100%; height:240px; object-fit:cover;">
+									</div>
+									<div class="faculty-info">
+										<h5>Kiran Rao</h5>
+										<p class="text-muted">Vinyasa & Alignment Specialist</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>  -->
+
+				<!-- Testimonials -->
+				<!-- <div class="section-full content-inner bg-gray bg-img-fix">
 				<div class="container">
 					<div class="section-head text-center ">
 						<h2 class="title">Our Awesome Pricing Plans For You</h2>
@@ -727,72 +994,59 @@
 					</div>
 				</div>
 			</div> -->
-			<!-- Testimonials End -->
-			<!-- Latest blog -->
-			<div class="section-full content-inner bg-white">
-				<div class="container">
-					<div class="section-head text-center">
-						<h2 class="title">Upcoming Events</h2>
-						<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since the been when an unknown printer.</p>
-					</div>
-					<div class="row">
-						<div class="col-lg-12 m-b30">
-							<div class="event-post event-list">
-								<div class="event-date">
-									<strong>09 </strong> 
-									<span>June </span>
-								</div>
-								<div class="dlab-post-info">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-clock"></i> 05:00 PM </li>
-											<li class="post-tag"> <i class="ti-location-pin"></i> Marmora Road </li>
-										</ul>
-									</div>
-									<div class="dlab-post-title">
-										<h4 class="post-title"><a href="event-details.html">Things You Most Likely Didn't Know About</a></h4>
-									</div>
-									<div class="post-content">
-										<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since.</p>
-									</div>
-								</div>
-								<div class="dlab-post-media">
-									<a href="event-details.html"><img src="images/events/list/pic1.jpg" alt=""></a>
-								</div>
-							</div>
+				<!-- Testimonials End -->
+				<!-- Latest blog -->
+				<div class="section-full content-inner bg-white">
+					<div class="container">
+						<div class="section-head text-center">
+							<h2 class="title">Upcoming Events</h2>
+							<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the
+								industry's standard dummy text ever since the been when an unknown printer.</p>
 						</div>
-						<div class="col-lg-12 m-b30">
-							<div class="event-post event-list">
-								<div class="event-date">
-									<strong>08 </strong> 
-									<span>June </span>
+						<div class="row">
+							<?php if (empty($events)): ?>
+								<div class="col-12 text-center">
+									<p>No upcoming events currently scheduled.</p>
 								</div>
-								<div class="dlab-post-info">
-									<div class="dlab-post-meta">
-										<ul>
-											<li class="post-author"> <i class="la la-clock"></i> 05:00 PM </li>
-											<li class="post-tag"> <i class="ti-location-pin"></i> Marmora Road </li>
-										</ul>
+							<?php endif; ?>
+							<?php foreach (array_slice($events, 0, 3) as $event): ?>
+							<div class="col-lg-12 m-b30">
+								<div class="event-post event-list">
+									<div class="event-date">
+										<strong><?php echo date('d', strtotime((string)$event['event_date'])); ?> </strong>
+										<span><?php echo date('F', strtotime((string)$event['event_date'])); ?> </span>
 									</div>
-									<div class="dlab-post-title">
-										<h4 class="post-title"><a href="event-details.html">Things You Most Likely Didn't Know About</a></h4>
+									<div class="dlab-post-info">
+										<div class="dlab-post-meta">
+											<ul>
+												<?php if (!empty($event['event_time'])): ?>
+												<li class="post-author"> <i class="la la-clock"></i> <?php echo date('h:i A', strtotime((string)$event['event_time'])); ?> </li>
+												<?php endif; ?>
+												<?php if (!empty($event['location'])): ?>
+												<li class="post-tag"> <i class="ti-location-pin"></i> <?php echo htmlspecialchars($event['location']); ?> </li>
+												<?php endif; ?>
+											</ul>
+										</div>
+										<div class="dlab-post-title">
+											<h4 class="post-title"><a href="event-details.html?id=<?php echo $event['id']; ?>"><?php echo htmlspecialchars($event['title'] ?? ''); ?></a></h4>
+										</div>
+										<div class="post-content">
+											<p><?php echo !empty($event['description']) ? nl2br(htmlspecialchars(substr($event['description'], 0, 150))) . (strlen($event['description']) > 150 ? '...' : '') : 'Details coming soon.'; ?></p>
+										</div>
 									</div>
-									<div class="post-content">
-										<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since.</p>
+									<div class="dlab-post-media" style="display: none;">
+										<a href="event-details.html?id=<?php echo $event['id']; ?>"><img src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>" alt=""></a>
 									</div>
-								</div>
-								<div class="dlab-post-media">
-									<a href="event-details.html"><img src="images/events/list/pic2.jpg" alt=""></a>
 								</div>
 							</div>
+							<?php endforeach; ?>
 						</div>
 					</div>
 				</div>
+				<!-- Latest blog END -->
 			</div>
-			<!-- Latest blog END -->
+			<!-- contact area END -->
 		</div>
-		<!-- contact area END -->
-    </div>
 		<!-- contact area END -->
 	</div>
 	<!-- Content END -->
@@ -912,7 +1166,7 @@
 			</div>
 		</div>
 		<!-- footer bottom part -->
-				<div class="footer-bottom">
+		<div class="footer-bottom">
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-md-6 col-sm-6 text-left">
@@ -956,31 +1210,31 @@
 	<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
 
 
-<script src="js/jquery.lazy.min.js"></script>
+	<script src="js/jquery.lazy.min.js"></script>
 
-<script>
-// Simple typing animation for the hero headline
-;(function(){
-	var el = document.getElementById('typed-headline');
-	if(!el) return;
-	var text = 'Classical Hatha Yoga in its Purest Form';
-	var idx = 0;
-	var speed = 40; // ms per char
-	function type(){
-		if(idx <= text.length){
-			el.textContent = text.slice(0, idx);
-			idx++;
-			setTimeout(type, speed);
-		} else {
-			// stop cursor blink after finished
-			var cursor = el.nextElementSibling;
-			if(cursor) cursor.style.opacity = '0';
-		}
-	}
-	// Start typing after a short delay so background loads
-	window.addEventListener('load', function(){ setTimeout(type, 400); });
-})();
-</script>
+	<script>
+		// Simple typing animation for the hero headline
+		; (function () {
+			var el = document.getElementById('typed-headline');
+			if (!el) return;
+			var text = 'Classical Hatha Yoga in its Purest Form';
+			var idx = 0;
+			var speed = 40; // ms per char
+			function type() {
+				if (idx <= text.length) {
+					el.textContent = text.slice(0, idx);
+					idx++;
+					setTimeout(type, speed);
+				} else {
+					// stop cursor blink after finished
+					var cursor = el.nextElementSibling;
+					if (cursor) cursor.style.opacity = '0';
+				}
+			}
+			// Start typing after a short delay so background loads
+			window.addEventListener('load', function () { setTimeout(type, 400); });
+		})();
+	</script>
 </body>
 
 </html>
