@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,9 +15,9 @@
     <meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
     <meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
     <meta name="format-detection" content="telephone=no">
-    <title>EduZone - Bootstrap Admin Dashboard </title>
+    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -47,14 +48,9 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header" style="background-color: #ffffff;">
-            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
-                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
-                <style>
-                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
-                </style>
-                <span class="brand-title"
-                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
+        <div class="nav-header" style="background-color: #143b64;">
+            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; padding: 15px 10px;">
+                <img class="logo-abbr" src="images/logo-1.png" alt="" style="width: 100%; max-width: 180px; height: auto;">
             </a>
 
             <div class="nav-control">
@@ -70,25 +66,12 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
+        <div class="header" style="background-color: #143b64;">
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            <div class="search_bar dropdown">
-                                <span class="search_icon p-3 c-pointer" data-bs-toggle="dropdown">
-                                    <i class="mdi mdi-magnify"></i>
-                                </span>
-                                <div class="dropdown-menu p-0 m-0">
-                                    <form>
-                                        <input class="form-control" type="search" placeholder="Search"
-                                            aria-label="Search">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="navbar-nav header-right">
+                        <ul class="navbar-nav header-right ms-auto">
+                              <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank" class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live View</a></li>
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -99,89 +82,13 @@
                                     </svg>
                                     <div class="pulse-css"></div>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong>
-                                                        Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as
-                                                        unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong>
-                                                        Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                    <a class="all-notification" href="#">See all notifications <i
-                                            class="ti-arrow-right"></i></a>
-                                </div>
+                                <div class="dropdown-menu dropdown-menu-end"><ul class="list-unstyled"></ul></div>
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
-                                        <span class="ms-2">Profile </span>
-                                    </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-                                            <path
-                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                            </path>
-                                            <polyline points="22,6 12,13 2,6"></polyline>
-                                        </svg>
-                                        <span class="ms-2">Inbox </span>
-                                    </a>
                                     <a href="page-login.html" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -207,7 +114,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="deznav">
+        <div class="deznav" style="background-color: #143b64;">
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
@@ -215,7 +122,7 @@
                             <i class="la la-home"></i>
                             <span class="nav-text">Dashboard</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="index.html">Dashboard 1</a></li>
 
 
@@ -230,7 +137,7 @@
                             <i class="la la-user"></i>
                             <span class="nav-text">Professors</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-professors.html">All Professor</a></li>
                             <li><a href="add-professor.html">Add Professor</a></li>
                             <li><a href="edit-professor.html">Edit Professor</a></li>
@@ -241,7 +148,7 @@
                             <i class="la la-users"></i>
                             <span class="nav-text">Students</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-students.html">All Patients</a></li>
                             <li><a href="add-student.html">Add Patient</a></li>
                             <li><a href="edit-student.html">Edit Patient</a></li>
@@ -252,7 +159,7 @@
                             <i class="la la-graduation-cap"></i>
                             <span class="nav-text">Courses</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-courses.html">All Courses</a></li>
                             <li><a href="add-courses.html">Add Courses</a></li>
                             <li><a href="edit-courses.html">Edit Courses</a></li>
@@ -263,7 +170,7 @@
                             <i class="la la-book"></i>
                             <span class="nav-text">Library</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-library.html">All Library</a></li>
                             <li><a href="add-library.html">Add Library</a></li>
                             <li><a href="edit-library.html">Edit Library</a></li>
@@ -273,7 +180,7 @@
                             <i class="la la-building"></i>
                             <span class="nav-text">Departments</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-departments.html">All Departments</a></li>
                             <li><a href="add-departments.html">Add Departments</a></li>
                             <li><a href="edit-departments.html">Edit Departments</a></li>
@@ -283,7 +190,7 @@
                             <i class="la la-users"></i>
                             <span class="nav-text">Staff</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-staff.html">All Staff</a></li>
                             <li><a href="add-staff.html">Add Staff</a></li>
                             <li><a href="edit-staff.html">Edit Staff</a></li>
@@ -294,7 +201,7 @@
                             <i class="la la-gift"></i>
                             <span class="nav-text">Holiday</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-holiday.html">All Holiday</a></li>
                             <li><a href="add-holiday.html">Add Holiday</a></li>
                             <li><a href="edit-holiday.html">Edit Holiday</a></li>
@@ -305,7 +212,7 @@
                             <i class="la la-dollar"></i>
                             <span class="nav-text">Fees</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="fees-collection.html">Fees Collection</a></li>
                             <li><a href="add-fees.html">Add Fees</a></li>
                             <li><a href="fees-receipt.html">Fees Receipt</a></li>
@@ -316,10 +223,10 @@
                             <i class="la la-users"></i>
                             <span class="nav-text">Apps</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="app-profile.html">Profile</a></li>
                             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Email</a>
-                                <ul aria-expanded="false">
+                                <ul aria-expanded="false" style="background-color: #1e3a5f;">
                                     <li><a href="email-compose.html">Compose</a></li>
                                     <li><a href="email-inbox.html">Inbox</a></li>
                                     <li><a href="email-read.html">Read</a></li>
@@ -332,7 +239,7 @@
                             <i class="la la-signal"></i>
                             <span class="nav-text">Charts</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="chart-flot.html">Flot</a></li>
                             <li><a href="chart-morris.html">Morris</a></li>
                             <li><a href="chart-chartjs.html">Chartjs</a></li>
@@ -347,7 +254,7 @@
                             <i class="la la-globe"></i>
                             <span class="nav-text">Bootstrap</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="ui-accordion.html">Accordion</a></li>
                             <li><a href="ui-alert.html">Alert</a></li>
                             <li><a href="ui-badge.html">Badge</a></li>
@@ -382,7 +289,7 @@
                             <i class="la la-table"></i>
                             <span class="nav-text">Table</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="table-bootstrap-basic.html">Bootstrap</a></li>
                             <li><a href="table-datatable-basic.html">Datatable</a></li>
                         </ul>
@@ -392,7 +299,7 @@
                             <i class="la la-th-list"></i>
                             <span class="nav-text">Pages</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="page-register.html">Register</a></li>
                             <li><a href="page-login.html">Login</a></li>
                             <li><a href="page-error-404.html" aria-expanded="false">Error</a></li>
@@ -654,7 +561,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                <p>Copyright � 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
                         target="_blank">Oneplanets360</a></p>
 
             </div>
@@ -689,6 +596,44 @@
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
+<script>
+// Dynamic Notifications Inject
+document.addEventListener('DOMContentLoaded', function() {
+    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+    if(notifList) {
+        fetch('../backend/dashboard_api.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data && data.recentRegistrations) {
+                let html = '';
+                data.recentRegistrations.forEach(reg => {
+                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+                });
+                if(html === '') {
+                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+                }
+                notifList.innerHTML = html;
+            }
+        })
+        .catch(err => console.error("Error loading notifications:", err));
+    }
+});
+</script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

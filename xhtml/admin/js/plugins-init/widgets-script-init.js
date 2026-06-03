@@ -1290,3 +1290,4 @@ if(jQuery('#widget_composite-bar').length > 0 ){
         width: '100%'
     });
 }	
+

@@ -78,4 +78,17 @@ return [
             'transaction_id' => ['label' => 'Transaction ID', 'type' => 'text', 'required' => false],
         ],
     ],
+    'enquiries' => [
+        'table' => 'enquiries',
+        'primary_key' => 'id',
+        'title' => 'subject',
+        'fields' => [
+            'name' => ['label' => 'Name', 'type' => 'text', 'required' => true],
+            'email' => ['label' => 'Email', 'type' => 'text', 'required' => true],
+            'subject' => ['label' => 'Subject', 'type' => 'text', 'required' => true],
+            'message' => ['label' => 'Message', 'type' => 'textarea', 'required' => true],
+            'status' => ['label' => 'Status', 'type' => 'text', 'required' => false],
+            'created_at' => ['label' => 'Created At', 'type' => 'text', 'required' => false],
+        ],
+    ],
 ];

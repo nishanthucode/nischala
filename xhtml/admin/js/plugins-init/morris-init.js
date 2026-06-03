@@ -5,14 +5,14 @@
     Morris.Donut({
         element: 'morris_donught',
         data: [{
-            label: "\xa0 \xa0 Download Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Online Classes \xa0 \xa0",
             value: 12,
 
         }, {
-            label: "\xa0 \xa0 In-Store Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Studio Classes \xa0 \xa0",
             value: 30
         }, {
-            label: "\xa0 \xa0 Mail-Order Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Private Sessions \xa0 \xa0",
             value: 20
         }],
         resize: true,
@@ -24,14 +24,14 @@
     Morris.Donut({
         element: 'morris_donught_2',
         data: [{
-            label: "\xa0 \xa0 Download Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Online Classes \xa0 \xa0",
             value: 12,
 
         }, {
-            label: "\xa0 \xa0 In-Store Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Studio Classes \xa0 \xa0",
             value: 30
         }, {
-            label: "\xa0 \xa0 Mail-Order Sales \xa0 \xa0",
+            label: "\xa0 \xa0 Private Sessions \xa0 \xa0",
             value: 20
         }],
         resize: true,
@@ -441,3 +441,4 @@
 
 
 })(jQuery);
+

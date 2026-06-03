@@ -12,3 +12,4 @@ jQuery(document).ready(function() {
 }, window.save = function() {
     $(".click2edit").summernote("destroy")
 };
+

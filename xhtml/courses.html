@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/backend/functions.php';
 $classes = backend_fetch_all('classes');
 $recent_blogs = array_slice(backend_fetch_all('blogs'), 0, 3);
@@ -65,13 +65,13 @@ function class_image_src(?string $imagePath): string {
 					<div class="dlab-topbar-left">
 						<ul>
 							<li><i class="la la-phone-volume"></i> +00 888 6668811</li>
-							<li><i class="las la-map-marker"></i> 1073 W Stephen Ave, Clawson</li>
+							<li><i class="la la-map-marker"></i> 1073 W Stephen Ave, Clawson</li>
 						</ul>
 					</div>
 					<div class="dlab-topbar-right">
 						<ul>
 							<li><i class="la la-clock"></i>  Mon - Sat 8.00 - 18.00</li>
-							<li><i class="las la-envelope-open"></i> info@example.com</li>
+							<li><i class="la la-envelope-open"></i> info@example.com</li>
 						</ul>				
 					</div>
 				</div>
@@ -288,31 +288,44 @@ function class_image_src(?string $imagePath): string {
 									</div>
 								<?php endif; ?>
 								<?php foreach ($classes as $class): ?>
+								<?php
+									$cap = (int)($class['slot_capacity'] ?? 0);
+									$booked_count = 0;
+									if ($cap > 0) {
+										$bstmt = pdo()->prepare('SELECT COALESCE(SUM(quantity),0) FROM bookings WHERE class_id = ? AND payment_status != "cancelled"');
+										$bstmt->execute([(int)$class['id']]);
+										$booked_count = (int)$bstmt->fetchColumn();
+									}
+									$is_full = ($cap > 0 && $booked_count >= $cap);
+									$seats_left = ($cap > 0) ? max(0, $cap - $booked_count) : null;
+								?>
 								<div class="col-lg-4">
-									<div class="dlab-box courses-bx">
+									<div class="dlab-box courses-bx" style="position:relative;<?php echo $is_full ? 'opacity:.85;' : ''; ?>">
+										<?php if ($is_full): ?>
+										<div style="position:absolute;top:12px;right:12px;z-index:10;background:#c0392b;color:#fff;font-size:11px;font-weight:800;letter-spacing:2px;padding:5px 12px;border-radius:20px;text-transform:uppercase;box-shadow:0 3px 10px rgba(192,57,43,.4);">&#x25CF; CLOSED</div>
+										<?php elseif ($seats_left !== null && $seats_left <= 5): ?>
+										<!-- <div style="position:absolute;top:12px;right:12px;z-index:10;background:#e67e22;color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;padding:5px 12px;border-radius:20px;text-transform:uppercase;box-shadow:0 3px 10px rgba(230,126,34,.4);">&#x26A1; <?php echo $seats_left; ?> LEFT</div> -->
+										<?php elseif ($seats_left !== null): ?>
+										<div style="position:absolute;top:12px;right:12px;z-index:10;background:#27ae60;color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 12px;border-radius:20px;text-transform:uppercase;box-shadow:0 3px 10px rgba(39,174,96,.35);">&#x2713; OPEN</div>
+										<?php endif; ?>
 										<div class="dlab-media">
-											<img src="<?php echo htmlspecialchars(class_image_src($class['image_path'] ?? '')); ?>" alt="" style="width: 100%; height: 220px; object-fit: cover;">
-											<div class="user-info">
-												<h6 class="title"><?php echo htmlspecialchars($class['instructor'] ?? 'Instructor'); ?></h6>
-												<div class="review">
-													<ul class="item-review">
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-														<li><i class="fa fa-star"></i></li>
-													</ul>
-													<span>5.0</span>
-												</div>
-											</div>
+											<img src="<?php echo htmlspecialchars(class_image_src($class['image_path'] ?? '')); ?>" alt="" style="width: 100%; height: 220px; object-fit: cover;<?php echo $is_full ? 'filter:grayscale(40%);' : ''; ?>">
 										</div>
 										<div class="dlab-info">
 											<h6 class="dlab-title"><a href="courses-details.html?id=<?php echo $class['id']; ?>"><?php echo htmlspecialchars($class['name'] ?? ''); ?></a></h6>
 											<p><?php echo !empty($class['description']) ? nl2br(htmlspecialchars(substr($class['description'], 0, 110))) . (strlen($class['description']) > 110 ? '...' : '') : 'Details coming soon.'; ?></p>
 											<div class="courses-info">
 												<ul>
-													<?php if (!empty($class['slot_capacity'])): ?>
-													<li><i class="fa fa-users"></i> <?php echo htmlspecialchars((string)$class['slot_capacity']); ?> Slots </li>
+													<?php if ($cap > 0): ?>
+													<li>
+														<?php if ($is_full): ?>
+															<i class="fa fa-times-circle" style="color:#c0392b;"></i> <span style="color:#c0392b;font-weight:700;">Closed</span>
+														<?php elseif ($seats_left <= 5): ?>
+															<i class="fa fa-fire" style="color:#e67e22;"></i> <span style="color:#e67e22;font-weight:700;"><?php echo $seats_left; ?> seats left</span>
+														<?php else: ?>
+															<i class="fa fa-users"></i> <?php echo $seats_left; ?> / <?php echo $cap; ?> seats available
+														<?php endif; ?>
+													</li>
 													<?php endif; ?>
 												</ul>
 												<?php if (!empty($class['price'])): ?>
@@ -320,13 +333,20 @@ function class_image_src(?string $imagePath): string {
 												<?php endif; ?>
 											</div>
 											<div class="mt-3 text-center">
-												<button class="site-button btn-register-now" style="width:100%; letter-spacing:1px;"
-													data-id="<?php echo (int)$class['id']; ?>"
-													data-name="<?php echo htmlspecialchars($class['name'] ?? ''); ?>"
-													data-price="<?php echo htmlspecialchars((string)($class['price'] ?? '')); ?>"
-													data-mode="<?php echo htmlspecialchars($class['booking_type'] ?? 'Group'); ?>">
-													<i class="fa fa-calendar-check-o"></i> Register Now
-												</button>
+												<?php if ($is_full): ?>
+													<button disabled style="width:100%;padding:12px;background:#bdc3c7;color:#7f8c8d;border:none;border-radius:6px;font-size:14px;font-weight:700;letter-spacing:1px;cursor:not-allowed;">
+														<i class="fa fa-lock"></i> Registrations Closed
+													</button>
+												<?php else: ?>
+													<button class="site-button btn-register-now" style="width:100%; letter-spacing:1px;"
+														data-id="<?php echo (int)$class['id']; ?>"
+														data-name="<?php echo htmlspecialchars($class['name'] ?? ''); ?>"
+														data-price="<?php echo htmlspecialchars((string)($class['price'] ?? '')); ?>"
+														data-mode="<?php echo htmlspecialchars($class['booking_type'] ?? 'Group'); ?>"
+														data-date="<?php echo htmlspecialchars((string)($class['start_date'] ?? '')); ?>">
+														<i class="fa fa-calendar-check-o"></i> Register Now
+													</button>
+												<?php endif; ?>
 											</div>
 										</div>
 									</div>
@@ -356,16 +376,16 @@ function class_image_src(?string $imagePath): string {
 
 		<!-- ===== Registration Modal ===== -->
 		<div id="nischala-reg-overlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(20,25,15,0.82); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
-			<div id="nischala-reg-modal" style="background:#fff; border-radius:16px; max-width:560px; width:94%; max-height:92vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.35); position:relative; animation:regSlideIn .3s ease;">
+			<div id="nischala-reg-modal" style="background:#fff; border-radius:12px; max-width:480px; width:94%; max-height:92vh; overflow-y:auto; box-shadow:0 24px 80px rgba(0,0,0,0.35); position:relative; animation:regSlideIn .3s ease;">
 				<!-- Header -->
-				<div style="background:linear-gradient(135deg,#4a7c59,#2d5a27); padding:28px 32px 20px; border-radius:16px 16px 0 0; position:relative;">
-					<button onclick="closeRegModal()" style="position:absolute;top:14px;right:18px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:50%;cursor:pointer;line-height:1;">&#x2715;</button>
-					<div style="display:flex;align-items:center;gap:12px;">
-						<div style="width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-							<i class="fa fa-leaf" style="color:#fff;font-size:20px;"></i>
+				<div style="background:linear-gradient(135deg,#4a7c59,#2d5a27); padding:20px 24px 16px; border-radius:12px 12px 0 0; position:relative;">
+					<button onclick="closeRegModal()" style="position:absolute;top:10px;right:14px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:18px;width:30px;height:30px;border-radius:50%;cursor:pointer;line-height:1;display:flex;align-items:center;justify-content:center;">&#x2715;</button>
+					<div style="display:flex;align-items:center;gap:10px;">
+						<div style="width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+							<i class="fa fa-leaf" style="color:#fff;font-size:18px;"></i>
 						</div>
 						<div>
-							<p style="color:rgba(255,255,255,.7);margin:0;font-size:12px;letter-spacing:2px;text-transform:uppercase;">Nischala Yoga</p>
+							<p style="color:rgba(255,255,255,.7);margin:0;font-size:11px;letter-spacing:2px;text-transform:uppercase;">Nischala Yoga</p>
 							<h4 id="reg-class-title" style="color:#fff;margin:2px 0 0;font-size:20px;font-weight:700;">Class Registration</h4>
 						</div>
 					</div>
@@ -375,7 +395,7 @@ function class_image_src(?string $imagePath): string {
 					</div>
 				</div>
 				<!-- Body -->
-				<div style="padding:28px 32px;">
+				<div style="padding:20px 24px;">
 					<div id="reg-alert" style="display:none;padding:12px 16px;border-radius:8px;margin-bottom:18px;font-size:14px;"></div>
 					<form id="nischala-reg-form" autocomplete="on">
 						<input type="hidden" id="rf_class_id" name="class_id">
@@ -383,32 +403,38 @@ function class_image_src(?string $imagePath): string {
 						<p style="font-size:11px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;margin-bottom:12px;">Your Details</p>
 						<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
 							<div style="grid-column:1/-1;">
-								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Full Name <span style="color:#e05555;">*</span></label>
+								<label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:4px;">Full Name <span style="color:#e05555;">*</span></label>
 								<input type="text" id="rf_name" name="customer_name" required placeholder="Your full name"
-									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+									style="width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;transition:border .2s;box-sizing:border-box;">
 							</div>
 							<div>
-								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Email <span style="color:#e05555;">*</span></label>
+								<label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:4px;">Email <span style="color:#e05555;">*</span></label>
 								<input type="email" id="rf_email" name="customer_email" required placeholder="you@email.com"
-									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+								pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+								title="Enter a valid email address (e.g. name@example.com)"
+								style="width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;transition:border .2s;box-sizing:border-box;">
+							<small style="color:#999;font-size:10px;margin-top:2px;display:block;">e.g. name@example.com</small>
 							</div>
 							<div>
-								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Phone</label>
-								<input type="tel" id="rf_phone" name="customer_phone" placeholder="+91 98765 43210"
-									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+								<label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:4px;">Phone</label>
+								<input type="tel" id="rf_phone" name="customer_phone" placeholder="98765 43210"
+									pattern="[6-9][0-9]{9}" minlength="10" maxlength="10"
+									title="Enter a valid 10-digit Indian mobile number starting with 6-9"
+									style="width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;transition:border .2s;box-sizing:border-box;">
+								<small style="color:#999;font-size:10px;margin-top:2px;display:block;">10-digit number without +91</small>
 							</div>
 						</div>
 						<!-- Schedule -->
 						<p style="font-size:11px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase;margin:18px 0 12px;">Schedule</p>
 						<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
 							<div>
-								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Date <span style="color:#e05555;">*</span></label>
+								<label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:4px;">Date <span style="color:#e05555;">*</span></label>
 								<input type="date" id="rf_date" name="booking_date" required
-									style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;transition:border .2s;box-sizing:border-box;">
+									style="width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;transition:border .2s;box-sizing:border-box;">
 							</div>
 							<div>
-								<label style="font-size:13px;font-weight:600;color:#333;display:block;margin-bottom:5px;">Program Tier</label>
-								<select id="rf_tier" name="program_tier" style="width:100%;padding:11px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:#fff;">
+								<label style="font-size:12px;font-weight:600;color:#333;display:block;margin-bottom:4px;">Program Tier</label>
+								<select id="rf_tier" name="program_tier" style="width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;outline:none;box-sizing:border-box;background:#fff;">
 									<option value="General">General</option>
 									<option value="Premium">Premium</option>
 									<option value="VIP">VIP</option>
@@ -458,7 +484,7 @@ function class_image_src(?string $imagePath): string {
 		var _regQty = 1;
 		var _regSelectedSlot = '';
 
-		function openRegModal(id, name, price, mode) {
+		function openRegModal(id, name, price, mode, dateStr) {
 			document.getElementById('rf_class_id').value = id;
 			document.getElementById('reg-class-title').textContent = name;
 			document.getElementById('reg-mode-badge').innerHTML = '<i class="fa fa-tags"></i> ' + (mode || 'Group');
@@ -466,12 +492,24 @@ function class_image_src(?string $imagePath): string {
 			document.getElementById('rf_name').value = '';
 			document.getElementById('rf_email').value = '';
 			document.getElementById('rf_phone').value = '';
-			document.getElementById('rf_date').value = '';
+			
 			document.getElementById('rf_timeslot_wrap').style.display = 'none';
 			document.getElementById('rf_timeslots').innerHTML = '';
 			document.getElementById('reg-alert').style.display = 'none';
 			document.getElementById('reg-success').style.display = 'none';
 			document.getElementById('nischala-reg-form').style.display = '';
+
+			var dateInput = document.getElementById('rf_date');
+			if (dateStr) {
+				dateInput.value = dateStr;
+				dateInput.min = dateStr;
+				dateInput.max = dateStr;
+				dateInput.dispatchEvent(new Event('change'));
+			} else {
+				dateInput.value = '';
+				dateInput.removeAttribute('min');
+				dateInput.removeAttribute('max');
+			}
 			_regQty = 1;
 			document.getElementById('rf_qty').value = 1;
 			document.getElementById('rf_qty_display').textContent = 1;
@@ -608,7 +646,8 @@ function class_image_src(?string $imagePath): string {
 					this.getAttribute('data-id'),
 					this.getAttribute('data-name'),
 					this.getAttribute('data-price'),
-					this.getAttribute('data-mode')
+					this.getAttribute('data-mode'),
+					this.getAttribute('data-date')
 				);
 			});
 		});

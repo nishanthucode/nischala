@@ -1,3 +1,4 @@
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,9 +16,9 @@
     <meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
     <meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
     <meta name="format-detection" content="telephone=no">
-    <title>EduZone - Bootstrap Admin Dashboard </title>
+    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon1.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <link rel="stylesheet" href="vendor/jqvmap/css/jqvmap.min.css">
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
     <!-- Summernote -->
@@ -50,14 +51,11 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header" style="background-color: #ffffff;">
-            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; text-decoration: none;">
-                <img class="logo-abbr" src="../images/logo.png" alt="" style="width: 80px; height: 80px;">
-                <style>
-                    @import url('https://fonts.googleapis.com/css2?family=Yatra+One&display=swap');
-                </style>
-                <span class="brand-title"
-                    style="font-size: 32px; font-weight: 400; color: #91c848; margin-left: 5px; font-family: 'Samarkan', 'Yatra One', cursive; letter-spacing: 1px; text-transform: lowercase; margin-top: 5px;">nishchala</span>
+        <div class="nav-header" style="background-color: #143b64;">
+            <a href="index.html" class="brand-logo"
+                style="display: flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; padding: 15px 10px;">
+                <img class="logo-abbr" src="images/logo-1.png" alt=""
+                    style="width: 100%; max-width: 180px; height: auto;">
             </a>
 
             <div class="nav-control">
@@ -73,25 +71,12 @@
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">
+        <div class="header" style="background-color: #143b64;">
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-                        <div class="header-left">
-                            <div class="search_bar dropdown">
-                                <span class="search_icon p-3 c-pointer" data-bs-toggle="dropdown">
-                                    <i class="mdi mdi-magnify"></i>
-                                </span>
-                                <div class="dropdown-menu p-0 m-0">
-                                    <form>
-                                        <input class="form-control" type="search" placeholder="Search"
-                                            aria-label="Search">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="navbar-nav header-right">
+                        <ul class="navbar-nav header-right ms-auto">
+                              <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank" class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live View</a></li>
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -102,89 +87,13 @@
                                     </svg>
                                     <div class="pulse-css"></div>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <ul class="list-unstyled">
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-user"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Martin</strong> has added a <strong>customer</strong>
-                                                        Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="danger"><i class="ti-bookmark"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>Robin</strong> marked a <strong>ticket</strong> as
-                                                        unsolved.
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="primary"><i class="ti-heart"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                        <li class="media dropdown-item">
-                                            <span class="success"><i class="ti-image"></i></span>
-                                            <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong> James.</strong> has added a<strong>customer</strong>
-                                                        Successfully
-                                                    </p>
-                                                </a>
-                                            </div>
-                                            <span class="notify-time">3:20 am</span>
-                                        </li>
-                                    </ul>
-                                    <a class="all-notification" href="#">See all notifications <i
-                                            class="ti-arrow-right"></i></a>
-                                </div>
+                                <div class="dropdown-menu dropdown-menu-end"><ul class="list-unstyled"></ul></div>
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
-                                        <span class="ms-2">Profile </span>
-                                    </a>
-                                    <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-                                            <path
-                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                            </path>
-                                            <polyline points="22,6 12,13 2,6"></polyline>
-                                        </svg>
-                                        <span class="ms-2">Inbox </span>
-                                    </a>
                                     <a href="page-login.html" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -210,7 +119,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="deznav" style="background-color: #1e3a5f;">
+        <div class="deznav" style="background-color: #143b64;">
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first"
@@ -223,7 +132,7 @@
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Dashboard</span>
                             </span>
                         </a>
-                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="index.html">Dashboard 1</a></li>
                             <!-- 
                              -->
@@ -233,7 +142,7 @@
                             <i class="la la-calendar"></i>
                             <span class="nav-text">Event Management</span>
                         </a>
-                        <ul aria-expanded="false">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-events.html">All Events</a></li>
                             <li><a href="add-events.html">Add Event</a></li>
                             <li><a href="event-management.html">Calendar View</a></li>
@@ -248,7 +157,7 @@
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Classes</span>
                             </span>
                         </a>
-                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Classes</a></li>
 
@@ -263,7 +172,7 @@
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Gallery</span>
                             </span>
                         </a>
-                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-gallery.html">All Gallery</a></li>
                             <li><a href="add-gallery.html">Add Gallery</a></li>
 
@@ -276,7 +185,7 @@
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Blog</span>
                             </span>
                         </a>
-                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-blogs.html">All Blogs</a></li>
                             <li><a href="add-blog.html">Add Blog</a></li>
                             <!-- <li><a href="edit-blog.html"></a></li> -->
@@ -289,26 +198,26 @@
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Enquiry</span>
                             </span>
                         </a>
-                        <!-- <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <!-- <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-enquiries.html">All Enquiries</a></li>
                             <li><a href="view-enquiry.html">View Enquiry</a></li>
                         </ul> -->
                     </li>
 
-                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false"
+                    <!-- <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false"
                             style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
                             <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
                                 <i class="la la-users" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
                                 <span class="nav-text" style="color: #fff; font-size: 14px;">Students</span>
                             </span>
                         </a>
-                        <ul aria-expanded="false" style="background-color: #2a4a7f;">
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-students.html">All Patients</a></li>
                             <li><a href="add-student.html">Add Patient</a></li>
                             <li><a href="edit-student.html">Edit Patient</a></li>
                             <li><a href="about-student.html">About Student</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -332,8 +241,8 @@
                                         <i class="la la-users"></i>
                                     </span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Total Students</p>
-                                        <h3 class="text-white">3280</h3>
+                                        <p class="mb-1">Total Members</p>
+                                        <h3 class="text-white" id="stat-members">...</h3>
                                         <div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 80%">
                                             </div>
@@ -352,8 +261,8 @@
                                         <i class="la la-user"></i>
                                     </span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">New Students</p>
-                                        <h3 class="text-white">245</h3>
+                                        <p class="mb-1">New Registrations</p>
+                                        <h3 class="text-white" id="stat-registrations">...</h3>
                                         <div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 50%">
                                             </div>
@@ -372,8 +281,8 @@
                                         <i class="la la-graduation-cap"></i>
                                     </span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Total Course</p>
-                                        <h3 class="text-white">28</h3>
+                                        <p class="mb-1">Active Classes</p>
+                                        <h3 class="text-white" id="stat-classes">...</h3>
                                         <div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 76%">
                                             </div>
@@ -392,8 +301,8 @@
                                         <i class="la la-dollar"></i>
                                     </span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Fees Collection</p>
-                                        <h3 class="text-white">25160$</h3>
+                                        <p class="mb-1">Revenue</p>
+                                        <h3 class="text-white" id="stat-revenue">...</h3>
                                         <div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 30%">
                                             </div>
@@ -407,7 +316,7 @@
                     <div class="col-xl-6 col-xxl-6 col-lg-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">University Survey</h3>
+                                <h3 class="card-title">Studio Analytics</h3>
                             </div>
                             <div class="card-body">
                                 <div id="morris_bar_stalked" class="morris_chart_height"
@@ -418,7 +327,7 @@
                     <div class="col-xl-3 col-xxl-3 col-sm-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Donught Chart</h3>
+                                <h3 class="card-title">Class Popularity</h3>
                             </div>
                             <div class="card-body">
                                 <div id="morris_donught_2" class="morris_chart_height"
@@ -429,7 +338,7 @@
                     <div class="col-xl-3 col-xxl-3 col-sm-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">University Survey</h3>
+                                <h3 class="card-title">Studio Analytics</h3>
                             </div>
                             <div class="card-body">
                                 <div id="morris_area" class="morris_chart_height" style="height: 300px !important;">
@@ -437,250 +346,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                        <div class="card">
-                            <img class="img-fluid" src="images/courses/pic1.jpg" alt="">
-                            <div class="card-body">
-                                <h4>Why is Early Education Essential?</h4>
-                                <ul class="list-group mb-3 list-group-flush">
-                                    <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span
-                                            class="mb-0 text-muted">April 23</span>
-                                        <a href="javascript:void(0);"><i
-                                                class="la la-heart-o me-1"></i><strong>230</strong></a>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Duration :</span><strong>12 Months</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Professor :</span><strong>Jack Ronan</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span><i
-                                                class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong>
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                        <div class="card">
-                            <img class="img-fluid" src="images/courses/pic2.jpg" alt="">
-                            <div class="card-body">
-                                <h4>The Shocking Revelation of Education.</h4>
-                                <ul class="list-group mb-3 list-group-flush">
-                                    <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span
-                                            class="mb-0 text-muted">April 23</span>
-                                        <a href="javascript:void(0);"><i
-                                                class="la la-heart-o me-1"></i><strong>230</strong></a>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Duration :</span><strong>12 Months</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Professor :</span><strong>Jimmy Morris</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span><i
-                                                class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong>
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                        <div class="card">
-                            <img class="img-fluid" src="images/courses/pic3.jpg" alt="">
-                            <div class="card-body">
-                                <h4>Five Things Nobody Told You About</h4>
-                                <ul class="list-group mb-3 list-group-flush">
-                                    <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span
-                                            class="mb-0 text-muted">April 23</span>
-                                        <a href="javascript:void(0);"><i
-                                                class="la la-heart-o me-1"></i><strong>230</strong></a>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Duration :</span><strong>12 Months</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Professor :</span><strong>Konne Backfield</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span><i
-                                                class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong>
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                        <div class="card">
-                            <img class="img-fluid" src="images/courses/pic4.jpg" alt="">
-                            <div class="card-body">
-                                <h4>Learn Python – Interactive Python Tutorial</h4>
-                                <ul class="list-group mb-3 list-group-flush">
-                                    <li class="list-group-item px-0 border-top-0 d-flex justify-content-between"><span
-                                            class="mb-0 text-muted">April 23</span>
-                                        <a href="javascript:void(0);"><i
-                                                class="la la-heart-o me-1"></i><strong>230</strong></a>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Duration :</span><strong>12 Months</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span class="mb-0">Professor :</span><strong>Nashid Martines</strong>
-                                    </li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between">
-                                        <span><i
-                                                class="fas fa-graduation-cap text-primary me-2"></i>Student</span><strong>+120</strong>
-                                    </li>
-                                </ul>
-                                <a href="javascript:void(0);" class="btn btn-primary">Read More</a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <form action="#" method="post">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">To</span>
-                                            </div>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">Subject</span>
-                                            </div>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-ekeditor">
-                                            <div id="ckeditor"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-lg-6">
-                                            <div class="fallback w-100">
-                                                <input type="file" class="dropify form-control" data-default-file="">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <button type="button" class="btn btn-primary float-end">
-                                                Send <i class="far fa-paper-plane"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
+
+
+
+
+
+                    <!-- <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Exam Toppers</h4>
+                                <h4 class="card-title">Top Instructors</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table verticle-middle">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Roll No.</th>
+                                                <th scope="col">ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Edit</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>542</td>
-                                                <td>Jack Ronan</td>
-                                                <td><span id="widget_sparklinedash"><canvas></canvas></span></td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>243 </td>
-                                                <td>Jimmy Morris</td>
-                                                <td>
-                                                    <div class="ico-sparkline">
-                                                        <div id="widget_spark-bar"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>452 </td>
-                                                <td>Nashid Martines</td>
-                                                <td>
-                                                    <div class="ico-sparkline">
-                                                        <div id="widget_StackedBarChart"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>124</td>
-                                                <td>Roman Aurora</td>
-                                                <td>
-                                                    <div class="ico-sparkline">
-                                                        <div id="widget_tristate"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>234</td>
-                                                <td>Samantha</td>
-                                                <td>
-                                                    <div class="ico-sparkline">
-                                                        <div id="widget_composite-bar"></div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="table-instructors"></tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">New Student List</h4>
+                                <h4 class="card-title">Recent Registrations</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive recentOrderTable">
@@ -689,91 +386,14 @@
                                             <tr>
                                                 <th scope="col">No.</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Assigned Professor</th>
-                                                <th scope="col">Date Of Admit</th>
+                                                <th scope="col">Instructor</th>
+                                                <th scope="col">Registration Date</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Subject</th>
+                                                <th scope="col">Class</th>
                                                 <th scope="col">Fees</th>
-                                                <th scope="col">Edit</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>Jack Ronan</td>
-                                                <td>Airi Satou</td>
-                                                <td>01 August 2022</td>
-                                                <td><span class="badge badge-rounded badge-primary">Checkin</span></td>
-                                                <td>Commerce</td>
-                                                <td>120$</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>02 </td>
-                                                <td>Jimmy Morris</td>
-                                                <td>Angelica Ramos</td>
-                                                <td>31 July 2022</td>
-                                                <td><span class="badge badge-rounded badge-warning">Panding</span></td>
-                                                <td>Mechanical</td>
-                                                <td>120$</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>03 </td>
-                                                <td>Nashid Martines</td>
-                                                <td>Ashton Cox</td>
-                                                <td>30 July 2022</td>
-                                                <td><span class="badge badge-rounded badge-danger">Canceled</span></td>
-                                                <td>Science</td>
-                                                <td>520$</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>04</td>
-                                                <td>Roman Aurora</td>
-                                                <td>Cara Stevens</td>
-                                                <td>29 July 2022</td>
-                                                <td><span class="badge badge-rounded badge-success">Checkin</span></td>
-                                                <td>Arts</td>
-                                                <td>220$</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>05</td>
-                                                <td>Samantha</td>
-                                                <td>Bruno Nash </td>
-                                                <td>28 July 2022</td>
-                                                <td><span class="badge badge-rounded badge-success">Checkin</span></td>
-                                                <td>Maths</td>
-                                                <td>130$</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i
-                                                            class="la la-pencil"></i></a>
-                                                    <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i
-                                                            class="la la-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="table-registrations"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -793,7 +413,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                <p>Copyright � 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
                         target="_blank">Oneplanets360</a></p>
             </div>
         </div>
@@ -845,6 +465,117 @@
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
 
+        <!-- Dynamic Dashboard JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../backend/dashboard_api.php')
+                .then(response => response.json())
+                .then(res => {
+                    if (res.success) {
+                        const data = res.data;
+                        
+                        // Update Stats
+                        document.getElementById('stat-members').textContent = data.total_members;
+                        document.getElementById('stat-registrations').textContent = data.new_registrations;
+                        document.getElementById('stat-classes').textContent = data.active_classes;
+                        document.getElementById('stat-revenue').textContent = data.revenue + '$';
+                        
+                        // Update Top Instructors
+                        const tbodyInstructors = document.getElementById('table-instructors');
+                        if(tbodyInstructors) {
+                            tbodyInstructors.innerHTML = '';
+                            if (data.top_instructors.length > 0) {
+                                data.top_instructors.forEach((inst, index) => {
+                                    tbodyInstructors.innerHTML += `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${inst.name}</td>
+                                            <td><span class="badge badge-rounded badge-primary">${inst.classes_count} Classes</span></td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    `;
+                                });
+                            } else {
+                                tbodyInstructors.innerHTML = '<tr><td colspan="4" class="text-center">No instructors found</td></tr>';
+                            }
+                        }
+                        
+                        // Update Recent Registrations
+                        const tbodyRegistrations = document.getElementById('table-registrations');
+                        if(tbodyRegistrations) {
+                            tbodyRegistrations.innerHTML = '';
+                            if (data.recent_registrations.length > 0) {
+                                data.recent_registrations.forEach((reg, index) => {
+                                    let badgeClass = 'badge-primary';
+                                    if (reg.status === 'Pending') badgeClass = 'badge-warning';
+                                    else if (reg.status === 'Canceled') badgeClass = 'badge-danger';
+                                    else if (reg.status === 'Confirmed') badgeClass = 'badge-success';
+                                    
+                                    tbodyRegistrations.innerHTML += `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${reg.name}</td>
+                                            <td>${reg.instructor || 'N/A'}</td>
+                                            <td>${reg.booking_date}</td>
+                                            <td><span class="badge badge-rounded ${badgeClass}">${reg.status || 'Confirmed'}</span></td>
+                                            <td>${reg.class_name}</td>
+                                            <td>${reg.price || '0'}$</td>
+                                            <td>
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    `;
+                                });
+                            } else {
+                                tbodyRegistrations.innerHTML = '<tr><td colspan="8" class="text-center">No recent registrations found</td></tr>';
+                            }
+                        }
+                    } else {
+                        console.error('Error fetching dashboard data:', res.error);
+                    }
+                })
+                .catch(err => console.error('Dashboard fetch error:', err));
+        });
+    </script>
+<script>
+// Dynamic Notifications Inject
+document.addEventListener('DOMContentLoaded', function() {
+    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+    if(notifList) {
+        fetch('../backend/dashboard_api.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data && data.recentRegistrations) {
+                let html = '';
+                data.recentRegistrations.forEach(reg => {
+                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+                });
+                if(html === '') {
+                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+                }
+                notifList.innerHTML = html;
+            }
+        })
+        .catch(err => console.error("Error loading notifications:", err));
+    }
+});
+</script>
 </body>
-
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

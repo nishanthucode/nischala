@@ -14,9 +14,9 @@
 	<meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
 	<meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
 	<meta name="format-detection" content="telephone=no">
-    <title>EduZone - Bootstrap Admin Dashboard </title>
+    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo-1.png">
     <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -37,30 +37,30 @@
                                         <?php endif; ?>
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" name="email" class="form-control" value="hello@example.com">
+                                            <input type="email" name="email" class="form-control" placeholder="admin@nischala.com">
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <input type="password" name="password" class="form-control" value="Password">
+                                            <input type="password" name="password" class="form-control" placeholder="Password">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                <div class="form-check custom-checkbox ms-1">
 													<input type="checkbox" class="form-check-input" id="basic_checkbox_1">
 													<label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
 												</div>
-                                            </div>
-                                            <div class="form-group">
+                                            </div> -->
+                                            <!-- <div class="form-group">
                                                 <a href="page-forgot-password.html">Forgot Password?</a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">Sign me in</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                                         </div>
                                     </form>
-                                    <div class="new-account mt-3">
+                                    <!-- <div class="new-account mt-3">
                                         <p>Don't have an account? <a class="text-primary" href="page-register.html">Sign up</a></p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -80,6 +80,44 @@
     <script src="js/deznav-init.js"></script>
     <script src="js/custom.min.js"></script>
 
+<script>
+// Dynamic Notifications Inject
+document.addEventListener('DOMContentLoaded', function() {
+    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+    if(notifList) {
+        fetch('../backend/dashboard_api.php')
+        .then(response => response.json())
+        .then(data => {
+            if(data && data.recentRegistrations) {
+                let html = '';
+                data.recentRegistrations.forEach(reg => {
+                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+                });
+                if(html === '') {
+                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+                }
+                notifList.innerHTML = html;
+            }
+        })
+        .catch(err => console.error("Error loading notifications:", err));
+    }
+});
+</script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

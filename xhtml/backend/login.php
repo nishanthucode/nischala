@@ -3,17 +3,15 @@ session_start();
 require_once __DIR__ . '/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'] ?? '';
+    $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    $pdo = pdo();
-    $stmt = $pdo->prepare("SELECT * FROM admins WHERE email = ?");
-    $stmt->execute([$email]);
-    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Hardcoded credentials for single admin setup
+    $admin_email = 'admin@nischala.com';
+    $admin_password = 'password123';
 
-    if ($admin && password_verify($password, $admin['password_hash'])) {
+    if ($email === $admin_email && $password === $admin_password) {
         $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_id'] = $admin['id'];
         header("Location: ../admin/index.html");
         exit;
     } else {

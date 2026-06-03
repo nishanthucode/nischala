@@ -70,7 +70,7 @@
 			xkey: 'y',
 			ykeys: ['a', 'b'],
 			labels: ['A', 'B'],
-			barColors: ['#1367c8', "#F1F3F7"],
+			barColors: ['#E67527', "#F1F3F7"],
 			hideHover: 'auto',
 			gridLineColor: 'transparent',
 			resize: true,
@@ -87,18 +87,18 @@
 		Morris.Donut({
 			element: 'morris_donught_2',
 			data: [{
-				label: "\xa0 \xa0 Download Sales \xa0 \xa0",
+				label: "\xa0 \xa0 Online Classes \xa0 \xa0",
 				value: 12,
 
 			}, {
-				label: "\xa0 \xa0 In-Store Sales \xa0 \xa0",
+				label: "\xa0 \xa0 Studio Classes \xa0 \xa0",
 				value: 30
 			}, {
-				label: "\xa0 \xa0 Mail-Order Sales \xa0 \xa0",
+				label: "\xa0 \xa0 Private Sessions \xa0 \xa0",
 				value: 20
 			}],
 			resize: true,
-			colors: ['#1367c8', '#1367c8', '#1367c8']
+			colors: ['#E67527', '#99C83D', '#F4A261']
 		});
 	}
 	
@@ -148,7 +148,7 @@
 
 
 			],
-			lineColors: ['#5aa1f2', '#2176d8', '#1565c0'],
+			lineColors: ['#99C83D', '#E67527', '#F4A261'],
 			xkey: 'period',
 			ykeys: ['smartphone', 'windows', 'mac'],
 			labels: ['Phone', 'Windows', 'Mac'],
@@ -166,3 +166,6 @@
 	
 	
 })(jQuery);
+
+
+
