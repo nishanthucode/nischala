@@ -1,4 +1,28 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php
+session_start();
+if(empty($_SESSION['admin_logged_in'])) {
+    header('Location: page-login.html');
+    exit;
+}
+
+function class_admin_image_src(?string $imagePath): string
+{
+    $imagePath = trim((string)$imagePath);
+    if ($imagePath === '') {
+        return 'images/courses/pic1.jpg';
+    }
+    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
+        return $imagePath;
+    }
+    if (str_starts_with($imagePath, '../')) {
+        return $imagePath;
+    }
+    if (str_starts_with($imagePath, 'uploads/')) {
+        return '../' . $imagePath;
+    }
+    return '../uploads/classes/' . ltrim($imagePath, '/');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +42,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- Pick date -->
@@ -368,8 +392,13 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Course Photo</label>
-                                                <input type="file" class="dropify form-control" data-default-file=""
-                                                    name="image_path">
+<?php if (!empty($course['image_path'])): ?>
+    <div style="margin-bottom: 15px;">
+        <span style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current Image:</span>
+        <img src="<?php echo htmlspecialchars(class_admin_image_src((string)($course['image_path'] ?? ''))); ?>" style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
+    </div>
+<?php endif; ?>
+<input type="file" class="form-control" name="image_path">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -637,19 +666,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

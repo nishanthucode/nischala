@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/backend/functions.php';
 $events = backend_fetch_all('events');
 usort($events, function ($a, $b) {
@@ -188,7 +188,7 @@ function event_image_src(?string $imagePath): string {
 		}
 
 		.yoga-panel .title {
-			font-family: 'Merriweather', serif;
+			font-family: 'Manrope', sans-serif;
 			color: #233d34;
 			font-size: 42px;
 			line-height: 1.2;
@@ -259,7 +259,7 @@ function event_image_src(?string $imagePath): string {
 			top: 0;
 			width: 80px;
 			height: 100%;
-			background: var(--color-primary);
+			background: #E67527;
 			transform: skewX(-7deg);
 			z-index: -1;
 			border-left: 10px solid #fff;
@@ -354,6 +354,18 @@ function event_image_src(?string $imagePath): string {
 	</style>
 
 
+
+	<style>
+		:root {
+			--color-primary: #E67527;
+			--color-secondry: #99C83D;
+			--color-hover: #99C83D;
+		}
+	</style>
+
+	<link
+		href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;700&family=Source+Sans+3:wght@400;500&family=JetBrains+Mono:wght@500&display=swap"
+		rel="stylesheet">
 </head>
 
 <body id="bg">
@@ -367,9 +379,11 @@ function event_image_src(?string $imagePath): string {
 				<div class="main-bar clearfix ">
 					<div class="container clearfix">
 						<!-- website logo -->
-						<div class="logo-header mostion logo-dark">
-							<a href="index.html"><img src="images/logo.png" alt=""
-									style="width: 100px; height:60px;"></a>
+						<div class="logo-header mostion logo-dark"
+							style="height: 80px; display: flex; align-items: center;">
+							<a href="index.html" style="display: flex; align-items: center; height: 100%;"><img
+									src="images/logo.png" alt=""
+									style="width: 100px; height: 60px; object-fit: contain; transition: none !important; margin: 0; padding: 0;"></a>
 						</div>
 						<!-- nav toggle button -->
 						<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
@@ -406,10 +420,10 @@ function event_image_src(?string $imagePath): string {
 								<li class="has-mega-menu">
 									<a href="courses.html">Classes</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="services-1.html">Services</a>
 
-								</li>
+								</li> -->
 								<li class="has-mega-menu">
 									<a href="event.html">Events</a>
 								</li>
@@ -448,137 +462,265 @@ function event_image_src(?string $imagePath): string {
 		<!-- header END -->
 		<!-- Content -->
 		<div class="page-content bg-white">
-			<!-- inner page banner -->
-			<div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner"
-				style="background-image:url(images/banner/bnr3.jpg);">
+			<!-- Premium Hero Section -->
+			<div class="hero-section"
+				style="position: relative; background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6)), url(images/banner/bnr3.jpg) center/cover no-repeat; min-height: 85vh; display: flex; align-items: center; padding: 100px 0;">
 				<div class="container">
-					<div class="dlab-bnr-inr-entry text-white" style="padding-top:300px;">
-						<h1 class="title"><span id="typed-headline"></span><span class="typed-cursor">|</span></h1>
-						<p class="lead m-t20">Experience authentic yogic practices designed to bring harmony to your
-							body, clarity to your mind, and balance to your life.</p>
+					<div class="row">
+						<div class="col-lg-8 col-md-10 mx-auto text-center text-white" style="margin: 0 auto;">
+							<h6 class="text-uppercase"
+								style="letter-spacing: 4px; font-weight: 600; margin-bottom: 25px; color: #99C83D; font-size: 14px;">
+								CLASSICAL HATHA YOGA &bull; MYSURU</h6>
 
-						<p class="m-t20"><strong>At Nischala, yoga is taught as a complete path towards wellbeing,
-								mindfulness, and inner transformation.</strong></p>
+							<h1 class="title"
+								style="font-size: 3.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 25px;">
+								<span id="typed-headline"></span><span class="typed-cursor">|</span>
+							</h1>
 
-						<div class="m-t30 m-b30 d-flex flex-wrap justify-content-center" style="gap: 15px;">
-							<a href="courses.html" class="site-button">Join a Class</a>
-							<a href="courses.html" class="site-button">Book a Session</a>
-							<a href="services-1.html" class="site-button">Explore Programs</a>
+							<p class="lead"
+								style="font-size: 1.15rem; font-weight: 300; line-height: 1.8; opacity: 0.9; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">
+								Whether you seek healing, daily practice, or a restorative retreat &mdash; Nischala
+								offers an authentic yogic journey rooted in classical Hatha tradition.
+							</p>
+
+							<div class="d-flex flex-wrap justify-content-center" style="gap: 20px;">
+								<a href="#upcoming-sessions" class="site-button"
+									style="background: #E67527; border: none; padding: 15px 35px; font-weight: 600; font-size: 15px; border-radius: 50px; box-shadow: 0 10px 20px rgba(230, 117, 39, 0.3); transition: all 0.3s ease;"
+									onmouseover="this.style.background='#fff'; this.style.color='#E67527'"
+									onmouseout="this.style.background='#E67527'; this.style.color='#fff'">View Upcoming
+									Classes</a>
+
+								<a href="#upcoming-sessions" class="site-button"
+									style="background: transparent; border: 2px solid #fff; color: #fff; padding: 13px 35px; font-weight: 600; font-size: 15px; border-radius: 50px; transition: all 0.3s ease;"
+									onmouseover="this.style.background='#99C83D'; this.style.color='#0f172a'"
+									onmouseout="this.style.background='transparent'; this.style.color='#fff'">Enquire
+									Now</a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- inner page banner END -->
+			<!-- Premium Hero Section END -->
+
 			<!-- contact area -->
 			<div class="content-block">
-				<!-- Content Section -->
-				<div class="section-full content-inner bg-gray">
+				<!-- Overlapping Counters Section -->
+				<div class="section-full bg-transparent" style="margin-top: -60px; position: relative; z-index: 10;">
 					<div class="container">
-						<div class="row align-items-center text-center">
-							<div class="col-lg-3 col-md-6 col-6 m-b30">
-								<div class="icon-bx-wraper left counter-style-6">
-									<div class="icon-lg text-primary radius icon-up">
-										<span class="icon-cell"><i class="la la-leaf"></i></span>
+						<div class="row justify-content-center">
+							<div class="col-lg-10">
+								<div class="row text-center align-items-center"
+									style="background: #ffffff; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); margin: 0; padding: 40px 20px;">
+									<div class="col-lg-4 col-md-4 col-12 m-b30 m-md-b0"
+										style="border-right: 1px solid #eee;">
+										<div class="icon-content">
+											<h2 class="dlab-tilte"
+												style="color: #E67527; font-size: 3rem; font-weight: 700; margin-bottom: 5px; line-height: 1;">
+												5,000+</h2>
+											<p
+												style="color: #99C83D; font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin: 0;">
+												Classes Held</p>
+										</div>
 									</div>
-									<div class="icon-content">
-										<h5 class="dlab-tilte">5000+</h5>
-										<p>Yoga Classes</p>
+									<div class="col-lg-4 col-md-4 col-12 m-b30 m-md-b0"
+										style="border-right: 1px solid #eee;">
+										<div class="icon-content">
+											<h2 class="dlab-tilte"
+												style="color: #E67527; font-size: 3rem; font-weight: 700; margin-bottom: 5px; line-height: 1;">
+												50K+</h2>
+											<p
+												style="color: #99C83D; font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin: 0;">
+												Participants</p>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6 col-6 m-b30">
-								<div class="icon-bx-wraper left counter-style-6">
-									<div class="icon-lg text-primary radius icon-up">
-										<span class="icon-cell"><i class="la la-user-graduate"></i></span>
-									</div>
-									<div class="icon-content">
-										<h5 class="dlab-tilte">3</h5>
-										<p>Certified Teachers</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6 col-6 m-b30">
-								<div class="icon-bx-wraper left counter-style-6">
-									<div class="icon-lg text-primary radius icon-up">
-										<span class="icon-cell"><i class="la la-users"></i></span>
-									</div>
-									<div class="icon-content">
-										<h5 class="dlab-tilte">50,000+</h5>
-										<p>Participants</p>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6 col-6 m-b30">
-								<div class="icon-bx-wraper left counter-style-6">
-									<div class="icon-lg text-primary radius icon-up">
-										<span class="icon-cell"><i class="la la-map-marker"></i></span>
-									</div>
-									<div class="icon-content">
-										<h5 class="dlab-tilte">3</h5>
-										<p>Locations</p>
+									<div class="col-lg-4 col-md-4 col-12 m-b30 m-md-b0">
+										<div class="icon-content">
+											<h2 class="dlab-tilte"
+												style="color: #E67527; font-size: 3rem; font-weight: 700; margin-bottom: 5px; line-height: 1;">
+												3</h2>
+											<p
+												style="color: #99C83D; font-size: 15px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin: 0;">
+												Expert Teachers</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- About / Welcome Section -->
-				<div class="section-full bg-white content-inner about-section">
-					<div class="container">
-						<div class="row align-items-center">
-							<div class="col-lg-6 col-md-12 m-b30">
-								<div class="about-media">
-									<img src="images/about/about.jpg" alt="Welcome to Nischala"
-										style="width:100%; height:auto; border-radius:6px; object-fit:cover;">
-								</div>
-							</div>
-							<div class="col-lg-6 col-md-12 m-b30">
-								<div class="section-head">
-									<h2 class="title">Welcome to Nischala</h2>
-								</div>
-								<div class="about-content">
-									<p>Nischala is a space dedicated to helping individuals experience yoga beyond
-										physical exercise. Our programs are thoughtfully designed to support physical
-										wellbeing, emotional balance, mental clarity, and conscious living.</p>
-									<p>Through traditional Hatha practices, guided meditation, breathwork (pranayama),
-										and mindful living guidance, we create a safe, supportive environment for
-										personal transformation.</p>
-									<ul class="about-features">
-										<li><i class="la la-leaf"></i>
-											<div><strong>Traditional Hatha</strong>
-												<div class="text-muted">Authentic postures and alignment</div>
-											</div>
-										</li>
-										<li><i class="la la-heart"></i>
-											<div><strong>Meditation & Breathwork</strong>
-												<div class="text-muted">Calm the mind, balance emotions</div>
-											</div>
-										</li>
-										<li><i class="la la-users"></i>
-											<div><strong>Small, Guided Classes</strong>
-												<div class="text-muted">Personal attention and safe progress</div>
-											</div>
-										</li>
-									</ul>
-									<p class="m-t20 d-flex flex-wrap" style="gap: 15px;"><a href="courses.html"
-											class="site-button green">Book a Trial Class</a> <a href="about-1.html"
-											class="site-button">Learn More</a></p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- Overlapping Counters Section END -->
 
+				<!-- Choose Your Path Section -->
+				<div class="section-full content-inner-2" id="choose-path"
+					style="background-color: #fcf9f8; padding-top: 60px;">
+					<style>
+						@media (min-width: 992px) {
+							.stagger-card-md {
+								margin-top: 80px !important;
+							}
+						}
+					</style>
+
+					<div class="container">
+						<div class="section-head text-black text-center m-b50">
+							<h5 class="title-small"
+								style="color: var(--color-primary); text-transform: uppercase; letter-spacing: 2px;">
+								Discovery</h5>
+							<h2 class="title">Choose Your Path</h2>
+							<div class="dlab-separator bg-primary"></div>
+							<p>Three ways to practise with Nischala. Explore our curated journeys designed to harmonize
+								your physical vitality and mental clarity.</p>
+						</div>
+
+						<div class="row">
+							<!-- Path 01: Wellness & Recovery -->
+							<div class="col-lg-4 col-md-4 m-b30 wow fadeInLeft" data-wow-duration="2s"
+								data-wow-delay="0.2s">
+								<div class="path-card" style="display: flex; flex-direction: column; cursor: pointer;"
+									onmouseover="this.querySelector('img').style.transform='scale(1.05)'; this.querySelector('.path-num').style.color='#E67527'; this.querySelector('h3').style.color='#E67527';"
+									onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.path-num').style.color='rgba(255, 255, 255, 0.6)'; this.querySelector('h3').style.color='#143b64';">
+									<div
+										style="position: relative; overflow: hidden; border-radius: 12px; margin-bottom: 30px; padding-bottom: 133%;">
+										<!-- 3/4 aspect ratio -->
+										<img src="images/banner/bnr3.jpg" alt="Wellness & Recovery"
+											style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease;">
+										<span class="path-num"
+											style="position: absolute; top: 20px; left: 20px; font-size: 100px; line-height: 1; font-weight: 200; font-family: 'Manrope', sans-serif; color: rgba(255, 255, 255, 0.6); transition: color 0.5s ease; z-index: 2;">01</span>
+									</div>
+									<div style="padding: 0 10px;">
+										<h3
+											style="font-family: 'Manrope', sans-serif; font-size: 24px; color: #143b64; margin-bottom: 15px; transition: color 0.3s ease;">
+											Wellness & Recovery</h3>
+										<p
+											style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #666; font-style: italic; line-height: 1.8; margin-bottom: 25px;">
+											For those seeking relief from stress, chronic conditions, weight management,
+											or emotional imbalance. Our therapeutic yoga programs work on the body and
+											energy system to restore vitality and wellbeing.</p>
+
+										<div class="d-flex flex-wrap" style="gap: 8px; margin-bottom: 30px;">
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Weight
+												Loss</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Stress
+												Relief</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Chronic
+												Pain</span>
+										</div>
+
+										<a href="#register-interest"
+											style="display: flex; align-items: center; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #E67527;">
+											Enquire about this path <i class="la la-arrow-right"
+												style="margin-left: 8px; font-size: 16px;"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Path 02: Advanced Practice -->
+							<div class="col-lg-4 col-md-4 m-b30 stagger-card-md wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.4s">
+								<div class="path-card" style="display: flex; flex-direction: column; cursor: pointer;"
+									onmouseover="this.querySelector('img').style.transform='scale(1.05)'; this.querySelector('.path-num').style.color='#E67527'; this.querySelector('h3').style.color='#E67527';"
+									onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.path-num').style.color='rgba(255, 255, 255, 0.6)'; this.querySelector('h3').style.color='#143b64';">
+									<div
+										style="position: relative; overflow: hidden; border-radius: 12px; margin-bottom: 30px; padding-bottom: 133%;">
+										<!-- 3/4 aspect ratio -->
+										<img src="images/services/img4.jpg" alt="Advanced Practice"
+											style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease;">
+										<span class="path-num"
+											style="position: absolute; top: 20px; left: 20px; font-size: 100px; line-height: 1; font-weight: 200; font-family: 'Manrope', sans-serif; color: rgba(255, 255, 255, 0.6); transition: color 0.5s ease; z-index: 2;">02</span>
+									</div>
+									<div style="padding: 0 10px;">
+										<h3
+											style="font-family: 'Manrope', sans-serif; font-size: 24px; color: #143b64; margin-bottom: 15px; transition: color 0.3s ease;">
+											Advanced Practice</h3>
+										<p
+											style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #666; font-style: italic; line-height: 1.8; margin-bottom: 25px;">
+											For dedicated yogis who want a consistent, authentic space to deepen their
+											practice. Drop-in classes, advanced Hatha, Yogasana, and pranayama &mdash;
+											come at your own pace, grow without limits.</p>
+
+										<div class="d-flex flex-wrap" style="gap: 8px; margin-bottom: 30px;">
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Hatha
+												Yoga</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Pranayama</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Drop-in</span>
+										</div>
+
+										<a href="courses."
+											style="display: flex; align-items: center; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #E67527;">
+											Book a class <i class="la la-arrow-right"
+												style="margin-left: 8px; font-size: 16px;"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Path 03: Retreat & Stay -->
+							<div class="col-lg-4 col-md-4 m-b30 wow fadeInRight" data-wow-duration="2s"
+								data-wow-delay="0.6s">
+								<div class="path-card" style="display: flex; flex-direction: column; cursor: pointer;"
+									onmouseover="this.querySelector('img').style.transform='scale(1.05)'; this.querySelector('.path-num').style.color='#E67527'; this.querySelector('h3').style.color='#E67527';"
+									onmouseout="this.querySelector('img').style.transform='scale(1)'; this.querySelector('.path-num').style.color='rgba(255, 255, 255, 0.6)'; this.querySelector('h3').style.color='#143b64';">
+									<div
+										style="position: relative; overflow: hidden; border-radius: 12px; margin-bottom: 30px; padding-bottom: 133%;">
+										<!-- 3/4 aspect ratio -->
+										<img src="images/services/img8.jpg" alt="Retreat & Stay"
+											style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease;">
+										<span class="path-num"
+											style="position: absolute; top: 20px; left: 20px; font-size: 100px; line-height: 1; font-weight: 200; font-family: 'Manrope', sans-serif; color: rgba(255, 255, 255, 0.6); transition: color 0.5s ease; z-index: 2;">03</span>
+									</div>
+									<div style="padding: 0 10px;">
+										<h3
+											style="font-family: 'Manrope', sans-serif; font-size: 24px; color: #143b64; margin-bottom: 15px; transition: color 0.3s ease;">
+											Retreat & Stay</h3>
+										<p
+											style="font-family: 'Source Sans 3', sans-serif; font-size: 14px; color: #666; font-style: italic; line-height: 1.8; margin-bottom: 25px;">
+											Step away from everyday life. Our retreat program combines daily yoga
+											sessions, guided meditation, sattvic meals, and restful accommodation
+											&mdash; a complete reset for body, mind, and spirit.</p>
+
+										<div class="d-flex flex-wrap" style="gap: 8px; margin-bottom: 30px;">
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">5-Day
+												Retreat</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Nature
+												Setting</span>
+											<span
+												style="padding: 4px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(0,0,0,0.1); border-radius: 50px; color: #666;">Sattvic
+												Food</span>
+										</div>
+
+										<a href="#register-interest"
+											style="display: flex; align-items: center; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: #E67527;">
+											Enquire about retreats <i class="la la-arrow-right"
+												style="margin-left: 8px; font-size: 16px;"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Choose Your Path Section END -->
+
+				<!-- Upcoming Sessions Section -->
+
+				<!-- Upcoming Sessions Section END -->
 				<div class="section-full bg-primary">
 					<div class="container-fluid">
 						<div class="row align-item-center about-three">
 							<div class="col-lg-6 p-lr0">
 								<div class="video-bx about-video">
 									<img src="images/services/img10.jpg" class="img-cover" alt="">
-									<!-- <div class="video-play-icon">
-										<a href="https://www.youtube.com/watch?v=f4Bts39jimI"
-											class="popup-youtube video"><i class="fa fa-play"></i></a>
-									</div> -->
+
 								</div>
 							</div>
 							<div class="col-lg-6 content-inner-2 content-bx">
@@ -598,15 +740,316 @@ function event_image_src(?string $imagePath): string {
 										<li>Meditation, breathwork, and mindful guidance</li>
 										<li>Reconnect with yourself and experience life more deeply</li>
 									</ul>
-									<!-- <a href="javascript:void(0);" class="site-button btnhover14 white">Read More</a> -->
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<br></br>
-				<div class="col-lg-8 col-md-7 col-sm-12 inner-text mx-auto">
+				<div class="section-full bg-white content-inner" id="services">
+					<div class="container">
+						<style>
+							#services .site-button {
+								background-color: #99C83D !important;
+								border-color: #1c9b8e !important;
+							}
+
+							#services .site-button::after,
+							#services .site-button::before,
+							#services .btnhover14::after,
+							#services .btnhover14::before {
+								background-color: #1c9b8e !important;
+							}
+
+							#services .site-button.outline {
+								background-color: transparent !important;
+								color: #1c9b8e !important;
+							}
+
+							#services .site-button.outline:hover {
+								background-color: #1c9b8e !important;
+								color: #fff !important;
+							}
+
+							#services .site-button:hover::after,
+							#services .btnhover14:hover::after {
+								background-color: #15796f !important;
+							}
+						</style>
+						<div class="section-head text-black text-center">
+							<h2 class="title">Our Services</h2>
+							<p>Tailored yoga experiences for every individual, team, and institution.</p>
+						</div>
+						<div class="row align-items-stretch">
+							<!-- Upa - Yoga -->
+							<div class="col-lg-4 col-md-6 col-sm-6 m-b30 wow fadeInUp" data-wow-duration=""
+								data-wow-delay="0.3s">
+								<div class="dlab-box service-box-2">
+									<div class="dlab-media radius-sm ">
+										<a href="javascript:void(0);"><img src="images/services/img11.jpg"
+												alt="Upa - Yoga"></a>
+									</div>
+									<div class="dlab-info p-a20">
+										<h4 class="title font-weight-600"><a href="javascript:void(0);">Personal
+												Yoga</a>
+										</h4>
+										<p>One-on-one sessions customised to your goals, schedule, and pace — in-person
+											or online.</p>
+										<a href="contact-4.html" class="site-button btnhover14 btn-tb">Enroll Now</a>
+									</div>
+								</div>
+							</div>
+							<!-- Angamardana -->
+							<div class="col-lg-4 col-md-6 col-sm-6 m-b30 wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.6s">
+								<div class="dlab-box service-box-2">
+									<div class="dlab-media radius-sm ">
+										<a href="javascript:void(0);"><img src="images/services/img12.jpg"
+												alt="Angamardana"></a>
+									</div>
+									<div class="dlab-info p-a20">
+										<h4 class="title font-weight-600"><a href="javascript:void(0);">Corporate
+												Yogaa</a>
+										</h4>
+										<p>
+											Stress-relief and wellness programs designed for modern workplaces and
+											corporate teams.</p>
+
+										<a href="contact-4.html" class="site-button btnhover14 btn-tb">Learn More</a>
+									</div>
+								</div>
+							</div>
+							<!-- Surya Kriya -->
+							<div class="col-lg-4 col-md-6 col-sm-6 m-b30 wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.9s">
+								<div class="dlab-box service-box-2">
+									<div class="dlab-media radius-sm ">
+										<a href="javascript:void(0);"><img src="images/services/img3.jpg"
+												alt="Surya Kriya"></a>
+									</div>
+									<div class="dlab-info p-a20">
+										<h4 class="title font-weight-600"><a href="javascript:void(0);">Workshops</a>
+										</h4>
+										<p>
+											Immersive single and multi-day workshops on Hatha Yoga, pranayama,
+											meditation</p>
+
+										<a href="contact-4.html" class="site-button btnhover14 btn-tb">Start
+											Practice</a>
+									</div>
+								</div>
+							</div>
+							<!-- Surya Shakti -->
+							<div class="col-lg-4 col-md-6 col-sm-6 m-b30 wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.3s">
+								<div class="dlab-box service-box-2">
+									<div class="dlab-media radius-sm ">
+										<a href="javascript:void(0);"><img src="images/services/img4.jpg"
+												alt="Surya Shakti"></a>
+									</div>
+									<div class="dlab-info p-a20">
+										<h4 class="title font-weight-600"><a href="javascript:void(0);">Online Yoga</a>
+										</h4>
+										<p>
+											Live and recorded classes you can join from anywhere — same quality, same
+											guidance, from home.</p>
+
+										<a href="contact-4.html" class="site-button btnhover14 btn-tb">Join Class</a>
+									</div>
+								</div>
+							</div>
+							<!-- Yogasana -->
+							<div class="col-lg-4 col-md-6 col-sm-6 m-b30 wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.6s">
+								<div class="dlab-box service-box-2">
+									<div class="dlab-media radius-sm ">
+										<a href="javascript:void(0);"><img src="images/services/img7.jpg"
+												alt="Yogasana"></a>
+									</div>
+									<div class="dlab-info p-a20">
+										<h4 class="title font-weight-600"><a href="javascript:void(0);">Yoga for Schools
+												& Colleges</a>
+										</h4>
+										<p>
+											Age-appropriate programs for students — building focus, confidence, and
+											physical wellbeing.</p>
+
+										<a href="contact-4.html" class="site-button btnhover14 btn-tb">Learn More</a>
+									</div>
+								</div>
+							</div>
+							<!-- Jala Neti -->
+
+						</div>
+
+						<!-- Additional Core Services (yoga-themed redesign) -->
+						<!-- <div class="section-head text-center m-t40 additional-core">
+							<h3 class="title">Our Services</h3>
+							<p class="m-b20">Tailored yoga experiences for every individual, team, and institution.
+							</p>
+							<div class="additional-core-yoga">
+								<div class="row">
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-book" aria-hidden="true"
+													aria-label="Hatha icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Hatha
+														Yoga</a></h4>
+												<p class="m-b10">Traditional practices focused on strength, flexibility,
+													balance, and inner awareness.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-sync" aria-hidden="true"
+													aria-label="Vinyasa icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Vinyasa
+														Yoga</a></h4>
+												<p class="m-b10">Dynamic flow-based sessions that synchronize breath
+													with movement.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-graduation-cap" aria-hidden="true"
+													aria-label="Power icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Power
+														Yoga</a></h4>
+												<p class="m-b10">Energetic sessions designed to improve stamina,
+													flexibility, and overall fitness.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-quote-left" aria-hidden="true"
+													aria-label="Meditation icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Meditation
+														Sessions</a></h4>
+												<p class="m-b10">Guided practices for relaxation, focus, emotional
+													wellbeing, and mindfulness.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-female" aria-hidden="true"
+													aria-label="Prenatal icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Prenatal
+														Yoga</a></h4>
+												<p class="m-b10">Safe and supportive sessions designed for expecting
+													mothers.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-child" aria-hidden="true"
+													aria-label="Kids icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Kids Yoga</a>
+												</h4>
+												<p class="m-b10">Fun and engaging practices that improve focus,
+													flexibility, and confidence in children.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-laptop" aria-hidden="true"
+													aria-label="Online icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Online Yoga
+														Classes</a></h4>
+												<p class="m-b10">Interactive online sessions that allow students to
+													practice yoga from anywhere.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-user" aria-hidden="true"
+													aria-label="Personal icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Personal
+														Training</a></h4>
+												<p class="m-b10">One-on-one customized sessions tailored to individual
+													goals and wellness needs.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+									<div class="col-lg-4 col-md-6 m-b30">
+										<article class="yoga-card dlab-box">
+											<div class="yoga-icon"><i class="la la-briefcase" aria-hidden="true"
+													aria-label="Corporate icon"></i></div>
+											<div class="yoga-body p-a20">
+												<h4 class="title yoga-title"><a href="javascript:void(0);">Corporate
+														Yoga Programs</a></h4>
+												<p class="m-b10">Programs designed to reduce workplace stress and
+													improve employee wellbeing.</p>
+												<div class="yoga-actions">
+													<a href="contact-4.html" class="site-button btnhover14">Book Now</a>
+													<a href="javascript:void(0);"
+														class="site-button outline ml-2">Details</a>
+												</div>
+											</div>
+										</article>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+
+				<!-- <div class="col-lg-8 col-md-7 col-sm-12 inner-text mx-auto">
 
 					<h4 class="title">Featured Programs Summary</h4>
 					<ul class="list-check primary">
@@ -625,9 +1068,199 @@ function event_image_src(?string $imagePath): string {
 						<li><strong>Personal Training Sessions:</strong> Customized 1-on-1 private goal alignment.</li>
 					</ul>
 
+				</div> -->
+
+				<div class="section-full content-inner-2" id="upcoming-sessions"
+					style="background-color: #fcf9f8; padding-top: 80px;">
+					<div class="container">
+						<div class="section-head text-black">
+							<h2 class="title"
+								style="font-family: 'Manrope', sans-serif; font-size: 40px; font-weight: 300; margin-bottom: 30px;">
+								Upcoming Classes</h2>
+						</div>
+
+						<div class="row">
+							<!-- Card 1 -->
+							<div class="col-lg-4 col-md-6 m-b30 wow zoomIn" data-wow-duration="2s"
+								data-wow-delay="0.2s">
+								<div class="session-card"
+									style="background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid transparent; transition: all 0.4s ease; cursor: pointer;"
+									onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(230, 117, 39, 0.2)';"
+									onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='transparent';">
+									<div class="d-flex justify-content-between align-items-start m-b30">
+										<div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #8f959c; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">MON
+												9 JUN</span>
+											<h4
+												style="font-family: 'Manrope', sans-serif; font-size: 26px; font-weight: 400; color: #1c1b1b; margin: 0; line-height: 1.2;">
+												Morning Surya Kriya</h4>
+										</div>
+										<i class="la la-sun"
+											style="font-size: 32px; color: #E67527; opacity: 0.3; transition: opacity 0.3s;"
+											onmouseover="this.style.opacity='1'"
+											onmouseout="this.style.opacity='0.3'"></i>
+									</div>
+
+									<div class="d-flex align-items-center m-b30">
+										<img src="images/our-team/Jayakrishnan.jpg" alt="Instructor"
+											style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 15px;">
+										<div>
+											<p
+												style="font-size: 11px; color: #8f959c; text-transform: uppercase; margin: 0; font-weight: 600; letter-spacing: 1px;">
+												Guide</p>
+											<p style="margin: 0; font-weight: 500; color: #1c1b1b; font-size: 15px;">
+												Rama Sundar</p>
+										</div>
+									</div>
+
+									<div class="d-flex justify-content-between align-items-center py-4"
+										style="border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 25px;">
+										<div class="d-flex align-items-center">
+											<i class="la la-clock"
+												style="color: #8f959c; margin-right: 8px; font-size: 18px;"></i>
+											<span style="color: #666462; font-size: 15px;">06:30 &mdash; 08:00</span>
+										</div>
+										<div class="d-flex align-items-center">
+											<div
+												style="width: 6px; height: 6px; border-radius: 50%; background: #99C83D; margin-right: 8px;">
+											</div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #99C83D; text-transform: uppercase; letter-spacing: 0.5px;">6
+												spots left</span>
+										</div>
+									</div>
+
+									<a href="courses.html" class="btn btn-block"
+										style="border: 1px solid rgba(230, 117, 39, 0.2); color: #E67527; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; padding: 15px;"
+										onmouseover="this.style.background='#E67527'; this.style.color='#fff'; this.style.borderColor='transparent';"
+										onmouseout="this.style.background='transparent'; this.style.color='#E67527'; this.style.borderColor='rgba(230, 117, 39, 0.2)';">Book
+										Now</a>
+								</div>
+							</div>
+
+							<!-- Card 2 -->
+							<div class="col-lg-4 col-md-6 m-b30 wow zoomIn" data-wow-duration="2s"
+								data-wow-delay="0.4s">
+								<div class="session-card"
+									style="background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid transparent; transition: all 0.4s ease; cursor: pointer;"
+									onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(230, 117, 39, 0.2)';"
+									onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='transparent';">
+									<div class="d-flex justify-content-between align-items-start m-b30">
+										<div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #8f959c; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">MON
+												9 JUN</span>
+											<h4
+												style="font-family: 'Manrope', sans-serif; font-size: 26px; font-weight: 400; color: #1c1b1b; margin: 0; line-height: 1.2;">
+												Evening Restore</h4>
+										</div>
+										<i class="la la-moon"
+											style="font-size: 32px; color: #E67527; opacity: 0.3; transition: opacity 0.3s;"
+											onmouseover="this.style.opacity='1'"
+											onmouseout="this.style.opacity='0.3'"></i>
+									</div>
+
+									<div class="d-flex align-items-center m-b30">
+										<img src="images/our-team/Toms-Edison.jpg" alt="Instructor"
+											style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 15px;">
+										<div>
+											<p
+												style="font-size: 11px; color: #8f959c; text-transform: uppercase; margin: 0; font-weight: 600; letter-spacing: 1px;">
+												Guide</p>
+											<p style="margin: 0; font-weight: 500; color: #1c1b1b; font-size: 15px;">
+												Meera Patel</p>
+										</div>
+									</div>
+
+									<div class="d-flex justify-content-between align-items-center py-4"
+										style="border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 25px;">
+										<div class="d-flex align-items-center">
+											<i class="la la-clock"
+												style="color: #8f959c; margin-right: 8px; font-size: 18px;"></i>
+											<span style="color: #666462; font-size: 15px;">18:30 &mdash; 20:00</span>
+										</div>
+										<div class="d-flex align-items-center">
+											<div
+												style="width: 6px; height: 6px; border-radius: 50%; background: #99C83D; margin-right: 8px;">
+											</div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #99C83D; text-transform: uppercase; letter-spacing: 0.5px;">2
+												spots left</span>
+										</div>
+									</div>
+
+									<a href="courses.html" class="btn btn-block"
+										style="border: 1px solid rgba(230, 117, 39, 0.2); color: #E67527; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; padding: 15px;"
+										onmouseover="this.style.background='#E67527'; this.style.color='#fff'; this.style.borderColor='transparent';"
+										onmouseout="this.style.background='transparent'; this.style.color='#E67527'; this.style.borderColor='rgba(230, 117, 39, 0.2)';">Book
+										Now</a>
+								</div>
+							</div>
+
+							<!-- Card 3 -->
+							<div class="col-lg-4 col-md-12 m-b30 wow zoomIn" data-wow-duration="2s"
+								data-wow-delay="0.6s">
+								<div class="session-card"
+									style="background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid transparent; transition: all 0.4s ease; cursor: pointer;"
+									onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='rgba(230, 117, 39, 0.2)';"
+									onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='transparent';">
+									<div class="d-flex justify-content-between align-items-start m-b30">
+										<div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #8f959c; letter-spacing: 1.5px; text-transform: uppercase; display: block; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace;">TUE
+												10 JUN</span>
+											<h4
+												style="font-family: 'Manrope', sans-serif; font-size: 26px; font-weight: 400; color: #1c1b1b; margin: 0; line-height: 1.2;">
+												Prana Vinyasa</h4>
+										</div>
+										<i class="la la-leaf"
+											style="font-size: 32px; color: #E67527; opacity: 0.3; transition: opacity 0.3s;"
+											onmouseover="this.style.opacity='1'"
+											onmouseout="this.style.opacity='0.3'"></i>
+									</div>
+
+									<div class="d-flex align-items-center m-b30">
+										<img src="images/our-team/Praveen-Kumar.jpg" alt="Instructor"
+											style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 15px;">
+										<div>
+											<p
+												style="font-size: 11px; color: #8f959c; text-transform: uppercase; margin: 0; font-weight: 600; letter-spacing: 1px;">
+												Guide</p>
+											<p style="margin: 0; font-weight: 500; color: #1c1b1b; font-size: 15px;">
+												Aria Chen</p>
+										</div>
+									</div>
+
+									<div class="d-flex justify-content-between align-items-center py-4"
+										style="border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); margin-bottom: 25px;">
+										<div class="d-flex align-items-center">
+											<i class="la la-clock"
+												style="color: #8f959c; margin-right: 8px; font-size: 18px;"></i>
+											<span style="color: #666462; font-size: 15px;">07:00 &mdash; 08:30</span>
+										</div>
+										<div class="d-flex align-items-center">
+											<div
+												style="width: 6px; height: 6px; border-radius: 50%; background: #99C83D; margin-right: 8px;">
+											</div>
+											<span
+												style="font-size: 11px; font-weight: 600; color: #99C83D; text-transform: uppercase; letter-spacing: 0.5px;">8
+												spots left</span>
+										</div>
+									</div>
+
+									<a href="courses.html" class="btn btn-block"
+										style="border: 1px solid rgba(230, 117, 39, 0.2); color: #E67527; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; padding: 15px;"
+										onmouseover="this.style.background='#E67527'; this.style.color='#fff'; this.style.borderColor='transparent';"
+										onmouseout="this.style.background='transparent'; this.style.color='#E67527'; this.style.borderColor='rgba(230, 117, 39, 0.2)';">Book
+										Now</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="section-full content-inner bg-white">
+				<!-- <div class="section-full content-inner bg-white">
 					<div class="container">
 						<div class="row align-items-center">
 							<div class="col-lg-6 col-md-12 m-b30 about-two align-self-start">
@@ -668,14 +1301,13 @@ function event_image_src(?string $imagePath): string {
 									<li>Both online and offline environments available for flexible learning.</li>
 									<li>Supportive and community-driven environment fostering collaborative growth.</li>
 								</ul>
-								<!-- <a href="javascript:void(0);" class="site-button">Read More</a> -->
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- About / Welcome Section End -->
 				<!-- Call To Action -->
-				<div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s"
+				<!-- <div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s"
 					data-wow-delay="0.2s">
 					<div class="container">
 						<div class="row">
@@ -689,133 +1321,16 @@ function event_image_src(?string $imagePath): string {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- Call To Action End -->
 				<!-- Yoga Knowledge Section -->
-				<!-- <div class="section-full content-inner yoga-info-wrap wow fadeIn" data-wow-duration="2s"
-					data-wow-delay="0.6s">
-					<div class="container">
-						<div class="row m-b30">
-							<div class="col-lg-12">
-								<div class="yoga-panel panel-1">
-									<span class="yoga-kicker">Foundations</span>
-									<h2 class="title">Understanding True Yoga</h2>
-									<p>When you utter the word Yoga, everyone has a notion of what it could be or should
-										be. In other words, people have a lot of misunderstanding or misconception about
-										the word "Yoga". One of the first things that people normally think when you say
-										Yoga is that it means standing on your head, or twisting and turning the body
-										into impossible postures. Some even believe that if you start doing Yoga, you
-										will have to leave everything and everybody, become a Sanyasi, and settle down
-										in an ashram or Himalayan cave.</p>
-									<p class="yoga-quote">"No, please understand, Yoga doesn't mean any of the above
-										descriptions. Yoga is not about doing anything in particular. It is a way of
-										being, it is a certain way in which a person can be. It is a state you can
-										experience beyond body and mind."</p>
-									<p>Now there are many ways to reach this state. Isha Hatha Yoga is one of the ways.
-										As there are tools and technologies to create and enhance external well-being,
-										there are tools and technologies to create and enhance our internal well-being.
-										Hatha Yoga is a science of asanas.</p>
-								</div>
-							</div>
-						</div>
 
-						<div class="row m-b30">
-							<div class="col-lg-12">
-								<div class="yoga-panel panel-2">
-									<span class="yoga-kicker">Programs</span>
-									<h2 class="title">Featured Programs Summary</h2>
-									<div class="programs-grid">
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-leaf"></i></span>
-											<div>
-												<h4>Isha Hatha Yoga</h4>
-												<p>Authentic classical practices taught in utmost purity.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-sun-o"></i></span>
-											<div>
-												<h4>Classical Hatha Yoga</h4>
-												<p>Traditional alignment and core structural flows.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-magic"></i></span>
-											<div>
-												<h4>Vinyasa Yoga</h4>
-												<p>Dynamic flow-based synchronization of breath and movement.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-heart-o"></i></span>
-											<div>
-												<h4>Meditation &amp; Breathwork</h4>
-												<p>Guided sessions for mindfulness and deep relaxation.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-laptop"></i></span>
-											<div>
-												<h4>Online Yoga Classes</h4>
-												<p>High-quality remote interactive instruction.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-child"></i></span>
-											<div>
-												<h4>Kids Yoga</h4>
-												<p>Fun, confidence-building activities for mental focus and agility.</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-briefcase-medical"></i></span>
-											<div>
-												<h4>Corporate Wellness Programs</h4>
-												<p>Targeted stress-relief modules built for modern work environments.
-												</p>
-											</div>
-										</div>
-										<div class="program-item">
-											<span class="program-icon"><i class="la la-user-check"></i></span>
-											<div>
-												<h4>Personal Training Sessions</h4>
-												<p>Customized 1-on-1 private goal alignment.</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="yoga-panel panel-3">
-									<span class="yoga-kicker">Why Nischala</span>
-									<h2 class="title">Why Choose Nischala</h2>
-									<ul class="yoga-list">
-										<li>Authentic and traditional approach to yoga rooted in timeless lineages.</li>
-										<li>No previous yoga experience required for foundational practices.</li>
-										<li>Uniqueness of practices: No external systems or props used. Experience the
-											exuberance of stillness using only a 6x6 space and your body.</li>
-										<li>Beginner-friendly and advanced programs appropriately structured.</li>
-										<li>Guided by intensively trained and certified teachers who have undergone over
-											1,750 hours of meticulous training.</li>
-										<li>Both online and offline environments available for flexible learning.</li>
-										<li>Supportive and community-driven environment fostering collaborative growth.
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>  -->
-				<!-- Yoga Knowledge Section End -->
 				<!-- Class Schedule -->
-				<div class="section-full content-inner bg-white">
+				<!-- <div class="section-full content-inner bg-white">
 					<div class="container">
 						<div class="section-head text-center">
 							<h2 class="title">Class Schedule</h2>
-							<p>Find a class that fits your day — gentle mornings, energising evenings, and relaxed
+							<p>Find a class that fits your day ? gentle mornings, energising evenings, and relaxed
 								weekend workshops.</p>
 						</div>
 						<div class="row">
@@ -826,7 +1341,7 @@ function event_image_src(?string $imagePath): string {
 									</div>
 									<div class="icon-content">
 										<h5 class="dlab-tilte">Morning Flow</h5>
-										<p>Mon, Wed, Fri — 7:00 AM to 8:00 AM<br>Beginner-friendly slow vinyasa &
+										<p>Mon, Wed, Fri ? 7:00 AM to 8:00 AM<br>Beginner-friendly slow vinyasa &
 											breathwork</p>
 									</div>
 								</div>
@@ -838,7 +1353,7 @@ function event_image_src(?string $imagePath): string {
 									</div>
 									<div class="icon-content">
 										<h5 class="dlab-tilte">Evening Restore</h5>
-										<p>Tue, Thu — 6:30 PM to 7:30 PM<br>Gentle Hatha for relaxation and alignment
+										<p>Tue, Thu ? 6:30 PM to 7:30 PM<br>Gentle Hatha for relaxation and alignment
 										</p>
 									</div>
 								</div>
@@ -850,14 +1365,14 @@ function event_image_src(?string $imagePath): string {
 									</div>
 									<div class="icon-content">
 										<h5 class="dlab-tilte">Weekend Workshop</h5>
-										<p>Saturday — 9:30 AM to 12:00 PM<br>Deep practice, pranayama and guided
+										<p>Saturday ? 9:30 AM to 12:00 PM<br>Deep practice, pranayama and guided
 											meditation</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<!-- Meet Our Instructors -->
 				<!-- <div class="section-full content-inner bg-gray">
@@ -875,7 +1390,7 @@ function event_image_src(?string $imagePath): string {
 									</div>
 									<div class="faculty-info">
 										<h5>Rama Sundar</h5>
-										<p class="text-muted">Senior Hatha Teacher — 1,750+ training hours</p>
+										<p class="text-muted">Senior Hatha Teacher ? 1,750+ training hours</p>
 									</div>
 								</div>
 							</div>
@@ -887,7 +1402,7 @@ function event_image_src(?string $imagePath): string {
 									</div>
 									<div class="faculty-info">
 										<h5>Meera Patel</h5>
-										<p class="text-muted">Breathwork & Meditation Guide — 10+ years teaching</p>
+										<p class="text-muted">Breathwork & Meditation Guide ? 10+ years teaching</p>
 									</div>
 								</div>
 							</div>
@@ -996,7 +1511,167 @@ function event_image_src(?string $imagePath): string {
 			</div> -->
 				<!-- Testimonials End -->
 				<!-- Latest blog -->
-				<div class="section-full content-inner bg-white">
+				<div class="section-full content-inner bg-gray" id="register-interest">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="col-lg-6 m-b30">
+								<div class="section-head text-black">
+									<h5 class="title-small"
+										style="color: var(--color-primary); text-transform: uppercase; letter-spacing: 2px;">
+										Stay Connected</h5>
+									<h2 class="title">Register your interest</h2>
+									<div class="dlab-separator bg-primary"></div>
+								</div>
+								<p style="font-size: 16px; margin-bottom: 30px;">Not ready to book yet? Tell us what
+									you're looking for and we'll reach out when the right session opens up.</p>
+								<ul class="list-check circle primary"
+									style="font-size: 16px; margin-bottom: 30px; font-weight: 500;">
+									<li>Personal yoga sessions at your convenience</li>
+									<li>Corporate wellness programs for your team</li>
+									<li>Workshops for schools and colleges</li>
+									<li>Online yoga — live or recorded</li>
+									<li>Retreat packages with accommodation</li>
+								</ul>
+							</div>
+							<div class="col-lg-6 m-b30">
+								<div class="dlab-box bg-white p-a30 radius-sm shadow"
+									style="box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+									<div class="section-head text-black mb-4">
+										<h4 class="title font-weight-600 mb-2">Tell us about yourself</h4>
+										<p class="mb-0">We'll get back to you within 24 hours.</p>
+									</div>
+									<form class="dzForm" action="script/contact.php" method="POST">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>First Name</label>
+													<input name="dzFirstName" type="text" required class="form-control"
+														placeholder="Ananya">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Last Name</label>
+													<input name="dzLastName" type="text" required class="form-control"
+														placeholder="Sharma">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Phone Number</label>
+													<input name="dzPhone" type="text" required class="form-control"
+														placeholder="+91 98765 43210">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label>Email</label>
+													<input name="dzEmail" type="email" required class="form-control"
+														placeholder="you@example.com">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>I'm interested in</label>
+													<select class="form-control" name="dzProgram" required>
+														<option value="">Select a program...</option>
+														<option value="Personal Yoga">Personal Yoga Sessions</option>
+														<option value="Corporate Wellness">Corporate Wellness</option>
+														<option value="Workshops">Workshops for Schools/Colleges
+														</option>
+														<option value="Online Yoga">Online Yoga</option>
+														<option value="Retreats">Retreat Packages</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Preferred time</label>
+													<select class="form-control" name="dzTime" required>
+														<option value="">When works for you?</option>
+														<option value="Morning">Morning (6 AM - 10 AM)</option>
+														<option value="Afternoon">Afternoon (12 PM - 4 PM)</option>
+														<option value="Evening">Evening (5 PM - 9 PM)</option>
+														<option value="Flexible">I'm flexible</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-12 text-center mt-3">
+												<button type="submit" class="site-button btnhover14 w-100">Submit
+													Interest &rarr;</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Meet Our Instructors -->
+				<div class="section-full content-inner" style="background-color: #fcf9f8;">
+					<div class="container">
+						<div class="section-head text-center m-b50">
+							<h5 class="title-small"
+								style="color: var(--color-primary); text-transform: uppercase; letter-spacing: 2px;">Our
+								Team</h5>
+							<h2 class="title">Meet Our Instructors</h2>
+							<div class="dlab-separator bg-primary"></div>
+							<p>Our expert teachers combine traditional lineages with contemporary teaching methods to
+								guide you on your journey.</p>
+						</div>
+						<div class="row">
+							<!-- Instructor 1 -->
+							<div class="col-lg-4 col-md-6 m-b30 wow fadeInLeft" data-wow-duration="2s"
+								data-wow-delay="0.2s">
+								<div class="instructor-card">
+									<div class="img-wrapper">
+										<img src="images/our-team/Jayakrishnan.jpg" alt="Jayakrishnan">
+									</div>
+									<div class="info">
+										<h4 class="name">Jayakrishnan</h4>
+										<p class="role">Senior Hatha Teacher</p>
+										<p class="bio">1,750+ training hours specializing in traditional alignment and
+											core strengthening.</p>
+									</div>
+								</div>
+							</div>
+							<!-- Instructor 2 -->
+							<div class="col-lg-4 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s"
+								data-wow-delay="0.4s">
+								<div class="instructor-card">
+									<div class="img-wrapper">
+										<img src="images/our-team/Praveen-Kumar.jpg" alt="Praveen Kumar">
+									</div>
+									<div class="info">
+										<h4 class="name">Praveen Kumar</h4>
+										<p class="role">Meditation Guide</p>
+										<p class="bio">10+ years teaching breathwork and helping students find profound
+											mental clarity.</p>
+									</div>
+								</div>
+							</div>
+							<!-- Instructor 3 -->
+							<div class="col-lg-4 col-md-6 m-b30 wow fadeInRight" data-wow-duration="2s"
+								data-wow-delay="0.6s">
+								<div class="instructor-card">
+									<div class="img-wrapper">
+										<img src="images/our-team/Toms-Edison.jpg" alt="Toms Edison">
+									</div>
+									<div class="info">
+										<h4 class="name">Toms Edison</h4>
+										<p class="role">Advanced Ashtanga</p>
+										<p class="bio">Focuses on dynamic flow, building incredible stamina, flexibility
+											and focus.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="section-full content-inner bg-gray">
 					<div class="container">
 						<div class="section-head text-center">
 							<h2 class="title">Upcoming Events</h2>
@@ -1005,37 +1680,52 @@ function event_image_src(?string $imagePath): string {
 						</div>
 						<div class="row">
 							<?php if (empty($events)): ?>
-								<div class="col-12 text-center">
-									<p>No upcoming events currently scheduled.</p>
-								</div>
+							<div class="col-12 text-center">
+								<p>No upcoming events currently scheduled.</p>
+							</div>
 							<?php endif; ?>
 							<?php foreach (array_slice($events, 0, 3) as $event): ?>
 							<div class="col-lg-12 m-b30">
 								<div class="event-post event-list">
 									<div class="event-date">
-										<strong><?php echo date('d', strtotime((string)$event['event_date'])); ?> </strong>
-										<span><?php echo date('F', strtotime((string)$event['event_date'])); ?> </span>
+										<strong>
+											<?php echo date('d', strtotime((string)$event['event_date'])); ?>
+										</strong>
+										<span>
+											<?php echo date('F', strtotime((string)$event['event_date'])); ?>
+										</span>
 									</div>
 									<div class="dlab-post-info">
 										<div class="dlab-post-meta">
 											<ul>
 												<?php if (!empty($event['event_time'])): ?>
-												<li class="post-author"> <i class="la la-clock"></i> <?php echo date('h:i A', strtotime((string)$event['event_time'])); ?> </li>
+												<li class="post-author"> <i class="la la-clock"></i>
+													<?php echo date('h:i A', strtotime((string)$event['event_time'])); ?>
+												</li>
 												<?php endif; ?>
 												<?php if (!empty($event['location'])): ?>
-												<li class="post-tag"> <i class="ti-location-pin"></i> <?php echo htmlspecialchars($event['location']); ?> </li>
+												<li class="post-tag"> <i class="ti-location-pin"></i>
+													<?php echo htmlspecialchars($event['location']); ?>
+												</li>
 												<?php endif; ?>
 											</ul>
 										</div>
 										<div class="dlab-post-title">
-											<h4 class="post-title"><a href="event-details.html?id=<?php echo $event['id']; ?>"><?php echo htmlspecialchars($event['title'] ?? ''); ?></a></h4>
+											<h4 class="post-title"><a
+													href="event-details.html?id=<?php echo $event['id']; ?>">
+													<?php echo htmlspecialchars($event['title'] ?? ''); ?>
+												</a></h4>
 										</div>
 										<div class="post-content">
-											<p><?php echo !empty($event['description']) ? nl2br(htmlspecialchars(substr($event['description'], 0, 150))) . (strlen($event['description']) > 150 ? '...' : '') : 'Details coming soon.'; ?></p>
+											<p>
+												<?php echo !empty($event['description']) ? nl2br(htmlspecialchars(substr($event['description'], 0, 150))) . (strlen($event['description']) > 150 ? '...' : '') : 'Details coming soon.'; ?>
+											</p>
 										</div>
 									</div>
 									<div class="dlab-post-media" style="display: none;">
-										<a href="event-details.html?id=<?php echo $event['id']; ?>"><img src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>" alt=""></a>
+										<a href="event-details.html?id=<?php echo $event['id']; ?>"><img
+												src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>"
+												alt=""></a>
 									</div>
 								</div>
 							</div>
@@ -1170,7 +1860,7 @@ function event_image_src(?string $imagePath): string {
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-md-6 col-sm-6 text-left">
-						<span>Copyright © 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
+						<span>Copyright ? 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
 					</div>
 					<div class="col-md-6 col-sm-6 text-right">
 						<div class="dlab-social-icon">
@@ -1217,26 +1907,29 @@ function event_image_src(?string $imagePath): string {
 		; (function () {
 			var el = document.getElementById('typed-headline');
 			if (!el) return;
-			var text = 'Classical Hatha Yoga in its Purest Form';
-			var idx = 0;
-			var speed = 40; // ms per char
+			var targetHtml = 'Your path to <span style="color: #99C83D; font-style: italic; font-family: \'Merriweather\', serif; font-weight: 300;">stillness</span> starts here.';
+			var i = 0;
+			var speed = 40;
 			function type() {
-				if (idx <= text.length) {
-					el.textContent = text.slice(0, idx);
-					idx++;
+				if (i < targetHtml.length) {
+					if (targetHtml.charAt(i) === '<') {
+						var tagEnd = targetHtml.indexOf('>', i);
+						if (tagEnd !== -1) {
+							i = tagEnd + 1;
+						}
+					} else {
+						i++;
+					}
+					el.innerHTML = targetHtml.substring(0, i);
 					setTimeout(type, speed);
 				} else {
-					// stop cursor blink after finished
 					var cursor = el.nextElementSibling;
 					if (cursor) cursor.style.opacity = '0';
 				}
 			}
-			// Start typing after a short delay so background loads
 			window.addEventListener('load', function () { setTimeout(type, 400); });
 		})();
 	</script>
 </body>
 
 </html>
-
-
