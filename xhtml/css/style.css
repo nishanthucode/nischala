@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
     --color-primary: #E67527;
     --color-secondry: #99C83D;
     --color-hover: #99C83D;
 }
+
 /*
 ======================================
   * CSS TABLE CONTENT *  
@@ -16089,8 +16091,15 @@ ol.commentlist li .star-rating {
 }
 
 @keyframes pulseLogo {
-    0% { transform: scale(0.95); opacity: 0.7; }
-    100% { transform: scale(1.1); opacity: 1; }
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
 }
 
 #loading-area.loading3,
@@ -19858,8 +19867,11 @@ textarea.form-control {
     border-radius: 50%;
     border: none;
 }
+
 /* Center inner-text div */
-.inner-text { margin: 0 auto; }
+.inner-text {
+    margin: 0 auto;
+}
 
 /* Custom Yoga Icons for List */
 
@@ -19873,7 +19885,7 @@ textarea.form-control {
     background: #fff;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     margin-bottom: 25px;
     border-left: 4px solid var(--color-primary);
@@ -19881,7 +19893,7 @@ textarea.form-control {
 
 .event-post.event-list:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .event-post.event-list .event-date {
@@ -19956,6 +19968,7 @@ textarea.form-control {
         flex-direction: column;
         text-align: center;
     }
+
     .event-post.event-list .event-date {
         margin-right: 0;
         margin-bottom: 20px;
@@ -19968,30 +19981,35 @@ textarea.form-control {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
     transition: all 0.4s ease;
     border: 1px solid #f0f0f0;
     position: relative;
     margin-bottom: 30px;
 }
+
 .instructor-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
     border-color: #e5e5e5;
 }
+
 .instructor-card .img-wrapper {
     overflow: hidden;
     position: relative;
 }
+
 .instructor-card img {
     width: 100%;
     height: 380px;
     object-fit: cover;
     transition: transform 0.6s ease;
 }
+
 .instructor-card:hover img {
     transform: scale(1.05);
 }
+
 .instructor-card .info {
     padding: 30px 25px;
     text-align: center;
@@ -19999,6 +20017,7 @@ textarea.form-control {
     background: #fff;
     z-index: 1;
 }
+
 .instructor-card .name {
     font-size: 22px;
     font-weight: 700;
@@ -20006,6 +20025,7 @@ textarea.form-control {
     margin-bottom: 5px;
     font-family: 'Manrope', sans-serif;
 }
+
 .instructor-card .role {
     font-size: 14px;
     color: #E67527;
@@ -20014,6 +20034,7 @@ textarea.form-control {
     font-weight: 600;
     margin-bottom: 15px;
 }
+
 .instructor-card .bio {
     font-size: 15px;
     color: #666;
@@ -20023,20 +20044,26 @@ textarea.form-control {
 
 /* Fix Logo Jumping on Scroll */
 @media only screen and (min-width: 992px) {
-    .logo-header.logo-dark, .is-fixed .logo-header.logo-dark {
+
+    .logo-header.logo-dark,
+    .is-fixed .logo-header.logo-dark {
         height: 70.5px !important;
         display: flex !important;
         align-items: center !important;
         transition: none !important;
         margin: 0 !important;
     }
-    .logo-header.logo-dark a, .is-fixed .logo-header.logo-dark a {
+
+    .logo-header.logo-dark a,
+    .is-fixed .logo-header.logo-dark a {
         display: flex !important;
         align-items: center !important;
         height: 100% !important;
         transition: none !important;
     }
-    .logo-header.logo-dark img, .is-fixed .logo-header.logo-dark img {
+
+    .logo-header.logo-dark img,
+    .is-fixed .logo-header.logo-dark img {
         margin: 0 !important;
         padding: 0 !important;
         transition: none !important;
@@ -20054,44 +20081,73 @@ textarea.form-control {
 
 /* --- GLOBAL FONT FAMILY OVERRIDE (POPPINS) --- */
 
-body, h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, label, table, th, td, 
-.dlab-title, .title, .post-title, .widget-title, .header-nav .nav > li > a, .site-button,
-.dlab-post-meta ul li, .counter, .pricingtable-price, .nav-tabs .nav-link, 
-span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"]) {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+button,
+input,
+select,
+textarea,
+label,
+table,
+th,
+td,
+.dlab-title,
+.title,
+.post-title,
+.widget-title,
+.header-nav .nav>li>a,
+.site-button,
+.dlab-post-meta ul li,
+.counter,
+.pricingtable-price,
+.nav-tabs .nav-link,
+span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*='icon-']):not(.lg-icon) {
     font-family: 'Poppins', sans-serif !important;
 }
 
 /* --- PREMIUM YOGA CARD REDESIGN (Events, Blogs, Gallery) --- */
 
 /* 1. Base Card Styling & Hover Effects */
-.event-post.post-grid, .trainer-card,
+.event-post.post-grid,
+.trainer-card,
 .blog-post.blog-grid,
 .dlab-gallery-box {
     background: #ffffff !important;
     border-radius: 16px !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
-    border: 1px solid rgba(0,0,0,0.02) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.02) !important;
     overflow: hidden !important;
     transition: all 0.4s ease-in-out !important;
     margin-bottom: 30px;
 }
 
-.event-post.post-grid:hover, .trainer-card:hover,
+.event-post.post-grid:hover,
+.trainer-card:hover,
 .blog-post.blog-grid:hover,
 .dlab-gallery-box:hover {
     transform: translateY(-8px) !important;
-    box-shadow: 0 20px 40px rgba(230, 117, 39, 0.15) !important; /* Primary orange shadow */
+    box-shadow: 0 20px 40px rgba(230, 117, 39, 0.15) !important;
+    /* Primary orange shadow */
 }
 
 /* 2. Media/Image Zoom Effect */
-.event-post.post-grid .dlab-post-media img, .trainer-card .dlab-media img,
+.event-post.post-grid .dlab-post-media img,
+.trainer-card .dlab-media img,
 .blog-post.blog-grid .dlab-post-media img,
 .dlab-gallery-box .dlab-media img {
     transition: transform 0.6s ease !important;
     width: 100% !important;
 }
 
-.event-post.post-grid:hover .dlab-post-media img, .trainer-card:hover .dlab-media img,
+.event-post.post-grid:hover .dlab-post-media img,
+.trainer-card:hover .dlab-media img,
 .blog-post.blog-grid:hover .dlab-post-media img,
 .dlab-gallery-box:hover .dlab-media img {
     transform: scale(1.05) !important;
@@ -20107,24 +20163,29 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
 
 /* 4. Event Date Badge (Floating over image) */
 .event-post.post-grid {
-    position: relative; /* Ensure badge positions relative to the card */
+    position: relative;
+    /* Ensure badge positions relative to the card */
 }
+
 .event-post.post-grid .dlab-post-meta {
     margin-bottom: 15px !important;
 }
+
 .event-post.post-grid .dlab-post-meta .post-date {
     position: absolute !important;
-    top: -85px !important; /* Lifted up to float over the bottom-left of the image */
+    top: -85px !important;
+    /* Lifted up to float over the bottom-left of the image */
     left: 25px !important;
     background: #ffffff !important;
     border-radius: 10px !important;
     overflow: hidden !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
     z-index: 2;
     margin: 0 !important;
     padding: 0 !important;
     text-align: center;
 }
+
 .event-post.post-grid .dlab-post-meta .post-date strong {
     display: block !important;
     padding: 10px 15px !important;
@@ -20132,11 +20193,13 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     color: #333 !important;
     background: #ffffff !important;
 }
+
 .event-post.post-grid .dlab-post-meta .post-date span {
     display: block !important;
     padding: 5px 15px !important;
     font-size: 13px !important;
-    background: #E67527 !important; /* Primary Color */
+    background: #E67527 !important;
+    /* Primary Color */
     color: #ffffff !important;
     font-weight: 600 !important;
 }
@@ -20145,14 +20208,18 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
 .dlab-post-meta ul li {
     font-size: 13px !important;
     font-weight: 500 !important;
-    color: #99C83D !important; /* Secondary Color */
+    color: #99C83D !important;
+    /* Secondary Color */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
 .dlab-post-meta ul li i {
-    color: #E67527 !important; /* Primary Color */
+    color: #E67527 !important;
+    /* Primary Color */
     margin-right: 5px;
 }
+
 .dlab-post-title .post-title,
 .dlab-post-title .post-title a {
     color: #2c3e50 !important;
@@ -20162,6 +20229,7 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     line-height: 1.4 !important;
     margin-bottom: 10px !important;
 }
+
 .dlab-post-title .post-title a:hover {
     color: #E67527 !important;
 }
@@ -20175,6 +20243,7 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     display: flex !important;
     align-items: center !important;
 }
+
 .post-footer .dlab-post-meta .post-date strong,
 .post-footer .dlab-post-meta .post-date span {
     display: inline !important;
@@ -20189,6 +20258,7 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
 .site-filters ul li {
     background: transparent !important;
 }
+
 .site-filters ul li a {
     color: #555 !important;
     font-weight: 600 !important;
@@ -20198,9 +20268,11 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     transition: all 0.3s ease !important;
     border: 1px solid transparent !important;
 }
+
 .site-filters ul li.active a,
 .site-filters ul li a:hover {
-    background: #99C83D !important; /* Secondary Color */
+    background: #99C83D !important;
+    /* Secondary Color */
     color: #ffffff !important;
     border-color: #99C83D !important;
     box-shadow: 0 5px 15px rgba(153, 200, 61, 0.3) !important;
@@ -20216,9 +20288,11 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     font-weight: 600 !important;
     transition: all 0.3s ease !important;
 }
+
 .pagination-bx .pagination .page-item.active .page-link,
 .pagination-bx .pagination .page-item .page-link:hover {
-    background: #99C83D !important; /* Secondary Color */
+    background: #99C83D !important;
+    /* Secondary Color */
     color: #fff !important;
     border-color: #99C83D !important;
     box-shadow: 0 5px 15px rgba(153, 200, 61, 0.3) !important;
@@ -20230,6 +20304,7 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
     display: flex !important;
     flex-direction: column !important;
 }
+
 .session-card .btn-block {
     margin-top: auto !important;
 }
@@ -20247,10 +20322,12 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
         align-items: center !important;
         text-align: center !important;
     }
+
     .widget_about.d-flex .logo-footer {
         margin-right: 0 !important;
         margin-bottom: 25px !important;
     }
+
     .widget_about.d-flex .logo-footer img {
         width: 280px !important;
         max-width: 100% !important;
@@ -20261,4 +20338,161 @@ span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"])
 /* Fix footer link bullet alignment */
 footer .widget_services ul li {
     display: block !important;
+}
+
+
+
+/* --- PREMIUM YOGA PHILOSOPHY REDESIGN --- */
+.yoga-philosophy-modern {
+    background-color: #fbfaf8;
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.yoga-philosophy-modern .bg-circle-1 {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 250px;
+    height: 250px;
+    border: 2px dashed rgba(153, 200, 61, 0.3);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.yoga-philosophy-modern .bg-circle-2 {
+    position: absolute;
+    bottom: 5%;
+    left: -40px;
+    width: 120px;
+    height: 120px;
+    background: rgba(230, 117, 39, 0.05);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.yoga-philosophy-modern .title-small {
+    color: #99C83D;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.yoga-philosophy-modern .title {
+    font-family: 'Merriweather', serif !important;
+    font-size: 42px;
+    color: #132032;
+    line-height: 1.25;
+    margin-bottom: 15px;
+}
+
+
+
+
+.yoga-philosophy-modern .philosophy-media-wrap {
+    position: relative;
+    padding: 25px;
+}
+
+.yoga-philosophy-modern .media-backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    left: 50px;
+    background-color: #E67527;
+    border-radius: 15px;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.yoga-philosophy-modern .image-box {
+    position: relative;
+    z-index: 2;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.yoga-philosophy-modern .image-box img {
+    width: 100%;
+    display: block;
+    transition: transform 0.8s ease;
+}
+
+.yoga-philosophy-modern .image-box:hover img {
+    transform: scale(1.05);
+}
+
+.yoga-philosophy-modern .floating-badge {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    z-index: 3;
+    background: #99C83D;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 30px rgba(153, 200, 61, 0.4);
+    border: 5px solid #fff;
+    transition: transform 0.3s ease;
+}
+
+.yoga-philosophy-modern .floating-badge:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.yoga-philosophy-modern .floating-badge i {
+    font-size: 38px;
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+    .yoga-philosophy-modern {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .yoga-philosophy-modern .title {
+        font-size: 34px;
+    }
+
+    .yoga-philosophy-modern .philosophy-media-wrap {
+        padding: 10px;
+        margin-top: 30px;
+    }
+
+    .yoga-philosophy-modern .media-backdrop {
+        bottom: 30px;
+        left: 30px;
+    }
+
+    .yoga-philosophy-modern .floating-badge {
+        width: 70px;
+        height: 70px;
+        bottom: -10px;
+    }
+
+    .yoga-philosophy-modern .floating-badge i {
+        font-size: 28px;
+    }
+}
+
+
+/* Fix FontAwesome overridden by global Poppins !important on 'a' and '.site-button' */
+a.fa,
+button.fa,
+.site-button.fa {
+    font-family: 'FontAwesome' !important;
+}
+
+/* Fix LightGallery icons overridden by global Poppins !important */
+.lg-icon {
+    font-family: 'lg' !important;
 }

@@ -325,33 +325,48 @@ function blog_image_src(?string $imagePath): string
 				</div>
 				<!-- About Services info END -->
 				<!-- Yoga Philosophy & Sadhguru Section -->
-				<div class="section-full content-inner bg-white wow fadeIn yoga-philosophy" data-wow-duration="1.2s"
-					data-wow-delay="0.4s">
-					<div class="container">
-						<div class="section-head text-black">
-							<h2 class="title">Yoga Philosophy</h2>
-							<p>At Nishchala, yoga is approached as a holistic science that nurtures the body, mind, and
-								energy system. Our teachings are rooted in classical yogic principles while being
-								practical for modern lifestyles. Isha Hatha Yoga programs offer an unparalleled
-								opportunity to learn authentic classical Hatha Yoga practices that are derived from a
-								yogic tradition and have been maintained in their purity and vibrancy for thousands of
-								years. These practices are taught not merely for physical fitness and strength but as
-								holistic processes toward mastery over the body and mind to manufacture health, joy, and
-								bliss at will.</p>
-						</div>
-						<div class="row">
+				<div class="section-full content-inner-2 yoga-philosophy-modern wow fadeIn" data-wow-duration="1.2s" data-wow-delay="0.4s">
+					<!-- Decorative Background Elements -->
+					<div class="bg-circle-1"></div>
+					<div class="bg-circle-2"></div>
+
+					<div class="container" style="position: relative; z-index: 1;">
+						<div class="row align-items-center">
 							<div class="col-lg-6 m-b30">
-								<h5>About Sadhguru and Isha Foundation</h5>
-								<p>The classical practices offered are designed by Sadhguru, a yogi, mystic, and
-									visionary, and a prominent spiritual leader. An author, poet, and
-									internationally-renowned speaker, Sadhguru's wit and piercing logic widen our
-									perception of life. He established the Isha Foundation, an international non-profit
-									service organization, through which powerful yoga programs are offered as
-									opportunities for self-discovery, inner transformation, and empowerment. Isha
-									Foundation is run by volunteers inspired by their own personal transformation.</p>
+								<div class="section-head text-black m-b30">
+									<h5 class="title-small">Our Roots</h5>
+									<h2 class="title">Yoga Philosophy</h2>
+									<div class="dlab-separator bg-primary" style="width: 50px; height: 3px; background-color: #E67527; margin-top: 15px;"></div>
+								</div>
+								
+								<p style="font-family: 'Poppins', sans-serif; font-size: 17px; line-height: 1.9; color: #444; margin-bottom: 25px;">
+									At Nishchala, yoga is approached as a holistic science that nurtures the body, mind, and energy system. Our teachings are rooted in classical yogic principles while being practical for modern lifestyles.
+								</p>
+								<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 35px;">
+									Isha Hatha Yoga programs offer an unparalleled opportunity to learn authentic classical Hatha Yoga practices that are derived from a yogic tradition and have been maintained in their purity and vibrancy for thousands of years. These practices are taught not merely for physical fitness and strength but as holistic processes toward mastery over the body and mind to manufacture health, joy, and bliss at will.
+								</p>
+								
+								<div class="sadhguru-text-section" style="margin-top: 40px; border-left: 2px solid #E67527; padding-left: 25px;">
+									<h5 style="font-family: 'Merriweather', serif; color: #132032; font-size: 22px; margin-bottom: 15px;">About Sadhguru & Isha Foundation</h5>
+									<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 20px;">
+										The classical practices offered are designed by Sadhguru, a yogi, mystic, and visionary, and a prominent spiritual leader. An author, poet, and internationally-renowned speaker, Sadhguru's wit and piercing logic widen our perception of life.
+									</p>
+									<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 0;">
+										He established the Isha Foundation, an international non-profit service organization, through which powerful yoga programs are offered as opportunities for self-discovery, inner transformation, and empowerment. Isha Foundation is run by volunteers inspired by their own personal transformation.
+									</p>
+								</div>
 							</div>
+							
 							<div class="col-lg-6 m-b30">
-								<img src="images/about/Sadhguru-PS015.jpg" alt="Sadhguru" class="img-fluid" />
+								<div class="philosophy-media-wrap">
+									<div class="media-backdrop"></div>
+									<div class="image-box">
+										<img src="images/about/Sadhguru-PS015.jpg" alt="Sadhguru" class="img-fluid" />
+									</div>
+									<div class="floating-badge">
+										<i class="fa fa-leaf"></i>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -430,73 +445,7 @@ function blog_image_src(?string $imagePath): string
 						}
 					}
 
-					/* Yoga Philosophy specific tweaks to reduce empty space and unify fonts */
-					.yoga-philosophy {
-						padding-top: 36px;
-						padding-bottom: 36px;
-						font-family: 'Poppins', sans-serif;
-					}
 
-					.yoga-philosophy .section-head .title {
-						font-family: 'Merriweather', serif;
-						font-size: 34px;
-						margin-bottom: 12px;
-					}
-
-					.yoga-philosophy .section-head p {
-						margin-bottom: 20px;
-						line-height: 1.9;
-						color: #344;
-					}
-
-					.yoga-philosophy .row {
-						align-items: center;
-					}
-
-					/* Make left column vertically centered and allow paragraph to occupy more vertical space */
-					.yoga-philosophy .col-lg-6 {
-						padding-bottom: 0;
-					}
-
-					.yoga-philosophy .col-lg-6:first-child {
-						display: flex;
-						flex-direction: column;
-						justify-content: center;
-					}
-
-					.yoga-philosophy .col-lg-6:first-child p {
-						line-height: 2.05;
-						font-size: 17px;
-						margin-bottom: 0.75rem;
-					}
-
-					.yoga-philosophy .col-lg-6.m-b30 {
-						margin-bottom: 0;
-					}
-
-					.yoga-philosophy h5 {
-						font-family: 'Merriweather', serif;
-						font-size: 18px;
-						margin-bottom: 10px;
-					}
-
-					.yoga-philosophy .img-fluid {
-						max-width: 100%;
-						height: auto;
-						display: block;
-						border-radius: 6px;
-					}
-
-					@media (max-width: 991px) {
-						.yoga-philosophy {
-							padding-top: 28px;
-							padding-bottom: 28px;
-						}
-
-						.dlab-bnr-inr-entry h1 {
-							font-size: 48px;
-						}
-					}
 				</style>
 
 				<!-- Trainer Profiles -->
@@ -518,7 +467,7 @@ function blog_image_src(?string $imagePath): string
 									<p class="m-b5"><em>Isha Hatha Yoga Teacher, Mangalore</em></p>
 									<p class="m-b10">Certified lineage instructor with extensive experience teaching
 										classical Hatha practices adapted for modern life.</p>
-									<a href="teachers-profile.html" class="site-button">View Full Profile</a>
+									<a href="" class="site-button">View Full Profile</a>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -529,7 +478,7 @@ function blog_image_src(?string $imagePath): string
 									<p class="m-b5"><em>Isha Hatha Yoga Teacher, Thiruvananthapuram</em></p>
 									<p class="m-b10">Experienced teacher focused on breath, alignment and deepening the
 										inner dimensions of practice.</p>
-									<a href="teachers-profile.html" class="site-button">View Full Profile</a>
+									<a href="" class="site-button">View Full Profile</a>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -540,7 +489,7 @@ function blog_image_src(?string $imagePath): string
 									<p class="m-b5"><em>Isha Hatha Yoga Teacher, Nagercoil</em></p>
 									<p class="m-b10">Specializes in teacher training and sustained practice programs
 										that cultivate balance and wellbeing.</p>
-									<a href="teachers-profile.html" class="site-button">View Full Profile</a>
+									<a href="" class="site-button">View Full Profile</a>
 								</div>
 							</div>
 						</div>

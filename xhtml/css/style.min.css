@@ -18041,3 +18041,34 @@ pre.wp-block-code {
 
 
 footer .widget_services ul li{display:block!important;}
+
+
+/* --- PREMIUM YOGA PHILOSOPHY REDESIGN --- */
+.yoga-philosophy-modern { background-color: #fbfaf8; position: relative; overflow: hidden; padding-top: 80px; padding-bottom: 80px; }
+.yoga-philosophy-modern .bg-circle-1 { position: absolute; top: -50px; right: -50px; width: 250px; height: 250px; border: 2px dashed rgba(153, 200, 61, 0.3); border-radius: 50%; z-index: 0; }
+.yoga-philosophy-modern .bg-circle-2 { position: absolute; bottom: 5%; left: -40px; width: 120px; height: 120px; background: rgba(230, 117, 39, 0.05); border-radius: 50%; z-index: 0; }
+.yoga-philosophy-modern .title-small { color: #99C83D; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; margin-bottom: 12px; }
+.yoga-philosophy-modern .title { font-family: 'Merriweather', serif !important; font-size: 42px; color: #132032; line-height: 1.25; margin-bottom: 15px; }
+
+
+
+
+.yoga-philosophy-modern .philosophy-media-wrap { position: relative; padding: 25px; }
+.yoga-philosophy-modern .media-backdrop { position: absolute; top: 0; right: 0; bottom: 50px; left: 50px; background-color: #E67527; border-radius: 15px; opacity: 0.1; z-index: 1; }
+.yoga-philosophy-modern .image-box { position: relative; z-index: 2; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+.yoga-philosophy-modern .image-box img { width: 100%; display: block; transition: transform 0.8s ease; }
+.yoga-philosophy-modern .image-box:hover img { transform: scale(1.05); }
+.yoga-philosophy-modern .floating-badge { position: absolute; bottom: 5px; left: 0; z-index: 3; background: #99C83D; width: 90px; height: 90px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 30px rgba(153, 200, 61, 0.4); border: 5px solid #fff; transition: transform 0.3s ease; }
+.yoga-philosophy-modern .floating-badge:hover { transform: rotate(15deg) scale(1.1); }
+.yoga-philosophy-modern .floating-badge i { font-size: 38px; color: #fff; }
+@media (max-width: 991px) { .yoga-philosophy-modern { padding-top: 50px; padding-bottom: 50px; } .yoga-philosophy-modern .title { font-size: 34px; } .yoga-philosophy-modern .philosophy-media-wrap { padding: 10px; margin-top: 30px; } .yoga-philosophy-modern .media-backdrop { bottom: 30px; left: 30px; } .yoga-philosophy-modern .floating-badge { width: 70px; height: 70px; bottom: -10px; } .yoga-philosophy-modern .floating-badge i { font-size: 28px; } }
+
+
+.sadhguru-premium-box{background:linear-gradient(135deg, #ffffff 0%, #fcfaf8 100%);padding:40px;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,0.05);border:1px solid rgba(153, 200, 61, 0.2);position:relative;overflow:hidden;z-index:1;margin-top:30px}.sadhguru-premium-box::before{content:"\f10d";font-family:'FontAwesome';position:absolute;top:20px;right:30px;font-size:80px;color:rgba(230, 117, 39, 0.05);z-index:-1;transform:rotate(0deg)}.sadhguru-premium-box::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:4px;background:linear-gradient(90deg, #99C83D 0%, #E67527 100%)}.sadhguru-premium-box .box-title{font-family:'Merriweather', serif!important;color:#132032;font-size:24px;font-weight:700;margin-bottom:15px;position:relative;z-index:2}.sadhguru-premium-box .box-separator{width:60px;height:3px;background-color:#99C83D;margin-bottom:25px;border-radius:2px}.sadhguru-premium-box .box-text{font-family:'Poppins', sans-serif;font-size:15.5px;line-height:1.8;color:#555;margin-bottom:15px;position:relative;z-index:2}.sadhguru-premium-box .box-text:last-of-type{margin-bottom:25px}.sadhguru-premium-box .box-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,0.05);padding-top:15px}.sadhguru-premium-box .footer-text{font-family:'Merriweather', serif;font-size:14px;color:#E67527;font-weight:600;text-transform:uppercase;letter-spacing:1px}.sadhguru-premium-box .leaf-icon{color:#99C83D;font-size:18px}
+
+/* Fix FontAwesome overridden by global Poppins !important on 'a' and '.site-button' */
+a.fa, button.fa, .site-button.fa { font-family: 'FontAwesome' !important; }
+
+/* Fix LightGallery icons overridden by global Poppins !important */
+.lg-icon { font-family: 'lg' !important; }
+
