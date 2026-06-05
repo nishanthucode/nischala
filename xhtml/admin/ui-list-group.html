@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,14 +13,16 @@
     <meta name="description" content="EduZone - Bootstrap Admin Dashboard" />
     <meta property="og:title" content="EduZone - Bootstrap Admin Dashboard" />
     <meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
-    <meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
     <meta name="format-detection" content="telephone=no">
-    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body>
@@ -49,8 +51,10 @@
             Nav header start
         ***********************************-->
         <div class="nav-header" style="background-color: #143b64;">
-            <a href="index.html" class="brand-logo" style="display: flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; padding: 15px 10px;">
-                <img class="logo-abbr" src="images/logo-1.png" alt="" style="width: 100%; max-width: 180px; height: auto;">
+            <a href="index.html" class="brand-logo"
+                style="display: flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; padding: 15px 10px;">
+                <img class="logo-abbr" src="images/logo-1.png" alt=""
+                    style="width: 100%; max-width: 180px; height: auto;">
             </a>
 
             <div class="nav-control">
@@ -71,7 +75,9 @@
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
                         <ul class="navbar-nav header-right ms-auto">
-                              <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank" class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live View</a></li>
+                            <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank"
+                                    class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live
+                                    View</a></li>
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -82,7 +88,9 @@
                                     </svg>
                                     <div class="pulse-css"></div>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end"><ul class="list-unstyled"></ul></div>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <ul class="list-unstyled"></ul>
+                                </div>
                             </li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
@@ -635,7 +643,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright � 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
+                <p>Copyright ï¿½ 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
                         target="_blank">Oneplanets360</a></p>
 
             </div>
@@ -673,45 +681,29 @@
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
-<script>
-// Dynamic Notifications Inject
-document.addEventListener('DOMContentLoaded', function() {
-    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
-    if(notifList) {
-        fetch('../backend/dashboard_api.php')
-        .then(response => response.json())
-        .then(data => {
-            if(data && data.recentRegistrations) {
-                let html = '';
-                data.recentRegistrations.forEach(reg => {
-                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
-                });
-                if(html === '') {
-                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
-                }
-                notifList.innerHTML = html;
+    <script>
+        // Dynamic Notifications Inject
+        document.addEventListener('DOMContentLoaded', function () {
+            var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+            if (notifList) {
+                fetch('../backend/dashboard_api.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.recentRegistrations) {
+                            let html = '';
+                            data.recentRegistrations.forEach(reg => {
+                                html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+                            });
+                            if (html === '') {
+                                html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+                            }
+                            notifList.innerHTML = html;
+                        }
+                    })
+                    .catch(err => console.error("Error loading notifications:", err));
             }
-        })
-        .catch(err => console.error("Error loading notifications:", err));
-    }
-});
-</script>
+        });
+    </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

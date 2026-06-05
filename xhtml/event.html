@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/backend/functions.php';
 $events = backend_fetch_all('events');
 usort($events, function($a, $b) {
@@ -43,7 +43,7 @@ function event_image_src(?string $imagePath): string
 	<meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
-	<meta property="og:image" content="images/logo.png" />
+	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- FAVICONS ICON -->
@@ -70,6 +70,8 @@ function event_image_src(?string $imagePath): string
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body id="bg">
@@ -130,7 +132,8 @@ function event_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo-2.png" alt=""></a>
+								<a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
 								<li>
@@ -207,30 +210,43 @@ function event_image_src(?string $imagePath): string
 				<div class="container">
 					<div class="row">
 						<?php if (empty($events)): ?>
-							<div class="col-12 text-center">
-								<p>No upcoming events currently scheduled.</p>
-							</div>
+						<div class="col-12 text-center">
+							<p>No upcoming events currently scheduled.</p>
+						</div>
 						<?php endif; ?>
 						<?php foreach ($events as $event): ?>
 						<div class="col-lg-4 col-md-6 m-b30">
 							<div class="event-post post-grid shadow radius">
 								<div class="dlab-post-media">
-									<a href="event-details.html?id=<?php echo $event['id']; ?>"><img src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>" alt="" style="width: 100%; aspect-ratio: 700/500; object-fit: cover;"></a>
+									<a href="event-details.html?id=<?php echo $event['id']; ?>"><img
+											src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>"
+											alt="" style="width: 100%; aspect-ratio: 700/500; object-fit: cover;"></a>
 								</div>
 								<div class="dlab-post-info">
 									<div class="dlab-post-meta">
 										<ul>
-											<li class="post-date"> <strong><?php echo date('d F', strtotime((string)$event['event_date'])); ?></strong> <span> <?php echo date('Y', strtotime((string)$event['event_date'])); ?></span> </li>
+											<li class="post-date"> <strong>
+													<?php echo date('d F', strtotime((string)$event['event_date'])); ?>
+												</strong> <span>
+													<?php echo date('Y', strtotime((string)$event['event_date'])); ?>
+												</span> </li>
 											<?php if (!empty($event['event_time'])): ?>
-											<li class="post-author"> <i class="la la-clock"></i> <?php echo date('h:i A', strtotime((string)$event['event_time'])); ?> </li>
+											<li class="post-author"> <i class="la la-clock"></i>
+												<?php echo date('h:i A', strtotime((string)$event['event_time'])); ?>
+											</li>
 											<?php endif; ?>
 											<?php if (!empty($event['location'])): ?>
-											<li class="post-tag"> <i class="ti-location-pin"></i> <?php echo htmlspecialchars($event['location']); ?> </li>
+											<li class="post-tag"> <i class="ti-location-pin"></i>
+												<?php echo htmlspecialchars($event['location']); ?>
+											</li>
 											<?php endif; ?>
 										</ul>
 									</div>
 									<div class="dlab-post-title">
-										<h4 class="post-title"><a href="event-details.html?id=<?php echo $event['id']; ?>"><?php echo htmlspecialchars($event['title'] ?? ''); ?></a></h4>
+										<h4 class="post-title"><a
+												href="event-details.html?id=<?php echo $event['id']; ?>">
+												<?php echo htmlspecialchars($event['title'] ?? ''); ?>
+											</a></h4>
 									</div>
 								</div>
 							</div>
@@ -264,14 +280,14 @@ function event_image_src(?string $imagePath): string
 						<div class="col-lg-5 col-md-12 footer-col-4">
 							<div class="widget widget_about d-flex" style="align-items: flex-start;">
 								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
-									<a href="index.html"><img src="images/logo.png" alt=""
-											style="max-width: 120px;"></a>
+									<a href="index.html"><img src="images/logo-1.png" alt=""
+											style="max-width: 200px;"></a>
 								</div>
 								<p
 									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
 									Experience authentic yogic practices designed to bring harmony to your body, clarity
 									to
-									your mind, and balance to your life. At Nischala, yoga is taught as a complete path
+									your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
 									towards wellbeing, mindfulness, and inner transformation.</p>
 							</div>
 						</div>
@@ -296,9 +312,7 @@ function event_image_src(?string $imagePath): string
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="courses.html"
 													style="text-transform: none; color: #cccccc;">Classes</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="services-1.html"
-													style="text-transform: none; color: #cccccc;">Services</a></li>
+
 										</ul>
 									</div>
 									<div class="col-6">
@@ -350,26 +364,38 @@ function event_image_src(?string $imagePath): string
 				</div>
 			</div>
 			<!-- footer bottom part -->
-					<div class="footer-bottom">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-6 col-sm-6 text-left">
-						<span>Copyright © 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
-					</div>
-					<div class="col-md-6 col-sm-6 text-right">
-						<div class="dlab-social-icon">
-							<ul style="margin: 0; padding: 0;">
-								<li style="display: inline-block; margin: 0 2px;"><a class="site-button sharp-sm fa fa-facebook" style="background-color: #f77024; color: white; border-radius: 50%; border: none;" href="javascript:void(0);"></a></li>
-								<li style="display: inline-block; margin: 0 2px;"><a class="site-button sharp-sm fa fa-twitter" style="background-color: #f77024; color: white; border-radius: 50%; border: none;" href="javascript:void(0);"></a></li>
-								<li style="display: inline-block; margin: 0 2px;"><a class="site-button sharp-sm fa fa-linkedin" style="background-color: #f77024; color: white; border-radius: 50%; border: none;" href="javascript:void(0);"></a></li>
-								<li style="display: inline-block; margin: 0 2px;"><a class="site-button sharp-sm fa fa-instagram" style="background-color: #f77024; color: white; border-radius: 50%; border: none;" href="javascript:void(0);"></a></li>
-							</ul>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6 col-sm-6 text-left">
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+						</div>
+						<div class="col-md-6 col-sm-6 text-right">
+							<div class="dlab-social-icon">
+								<ul style="margin: 0; padding: 0;">
+									<li style="display: inline-block; margin: 0 2px;"><a
+											class="site-button sharp-sm fa fa-facebook"
+											style="background-color: #f77024; color: white; border-radius: 50%; border: none;"
+											href="javascript:void(0);"></a></li>
+									<li style="display: inline-block; margin: 0 2px;"><a
+											class="site-button sharp-sm fa fa-twitter"
+											style="background-color: #f77024; color: white; border-radius: 50%; border: none;"
+											href="javascript:void(0);"></a></li>
+									<li style="display: inline-block; margin: 0 2px;"><a
+											class="site-button sharp-sm fa fa-linkedin"
+											style="background-color: #f77024; color: white; border-radius: 50%; border: none;"
+											href="javascript:void(0);"></a></li>
+									<li style="display: inline-block; margin: 0 2px;"><a
+											class="site-button sharp-sm fa fa-instagram"
+											style="background-color: #f77024; color: white; border-radius: 50%; border: none;"
+											href="javascript:void(0);"></a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
 		<!-- Footer END -->
 		<!-- scroll top button -->
 		<button class="scroltop fa fa-chevron-up"></button>

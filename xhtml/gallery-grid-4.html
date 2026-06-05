@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/backend/functions.php';
 $gallery = backend_fetch_all('gallery');
 
@@ -40,12 +40,12 @@ function gallery_image_src(?string $imagePath): string
 	<meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
-	<meta property="og:image" content="images/logo.png" />
+	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- FAVICONS ICON -->
 	<link rel="icon" href="images/logo.png" type="image/x-icon" />
-	<link rel="shortcut icon" type="image/x-icon" href="images/logo.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/logo-1.png" />
 
 	<!-- PAGE TITLE HERE -->
 	<title>Nishchala | Yoga</title>
@@ -67,6 +67,8 @@ function gallery_image_src(?string $imagePath): string
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body id="bg">
@@ -127,7 +129,8 @@ function gallery_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo-2.png" alt=""></a>
+								<a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
 								<li>
@@ -222,7 +225,9 @@ function gallery_image_src(?string $imagePath): string
 										$catSlug = strtolower(str_replace(' ', '-', $cat));
 								?>
 								<li data-filter="<?php echo $catSlug; ?>" class="btn"><input type="radio"><a
-										href="javascript:void(0);"><span><?php echo htmlspecialchars($cat); ?></span></a></li>
+										href="javascript:void(0);"><span>
+											<?php echo htmlspecialchars($cat); ?>
+										</span></a></li>
 								<?php endforeach; ?>
 							</ul>
 						</div>
@@ -230,9 +235,9 @@ function gallery_image_src(?string $imagePath): string
 							<ul id="masonry"
 								class=" portfolio-ic dlab-gallery-listing gallery-grid-4 gallery lightgallery">
 								<?php if (empty($gallery)): ?>
-									<div class="col-12 text-center">
-										<p>No gallery images found.</p>
-									</div>
+								<div class="col-12 text-center">
+									<p>No gallery images found.</p>
+								</div>
 								<?php endif; ?>
 								<?php foreach ($gallery as $item): ?>
 								<?php
@@ -242,11 +247,15 @@ function gallery_image_src(?string $imagePath): string
 								<li class="<?php echo $catClass; ?> card-container col-lg-3 col-md-6 col-sm-6">
 									<div class="dlab-box dlab-gallery-box">
 										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
-											<a href="javascript:void(0);"> 
+											<a href="javascript:void(0);">
 												<?php if (!empty($item['video_path'])): ?>
-													<video src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;" muted loop autoplay playsinline></video>
+												<video
+													src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
+													style="width: 100%; aspect-ratio: 1/1; object-fit: cover;" muted
+													loop autoplay playsinline></video>
 												<?php else: ?>
-													<img src="<?php echo $imgSrc; ?>" alt="" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+												<img src="<?php echo $imgSrc; ?>" alt=""
+													style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
 												<?php endif; ?>
 											</a>
 											<div class="overlay-bx">
@@ -254,8 +263,10 @@ function gallery_image_src(?string $imagePath): string
 													<div class="text-white">
 														<a href="javascript:void(0);"><i
 																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>"
-															data-src="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>" class="check-km"
+														<span
+															data-exthumbimage="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>"
+															data-src="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>"
+															class="check-km"
 															title="<?php echo htmlspecialchars($item['title'] ?? ''); ?>">
 															<i class="fa fa-picture-o icon-bx-xs"></i>
 														</span>
@@ -265,7 +276,9 @@ function gallery_image_src(?string $imagePath): string
 										</div>
 										<div class="dez-info bg-white">
 											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);"><?php echo htmlspecialchars($item['title'] ?? ''); ?></a></h6> -->
-											<p class="category"><small><?php echo htmlspecialchars($item['category'] ?? ''); ?></small></p>
+											<p class="category"><small>
+													<?php echo htmlspecialchars($item['category'] ?? ''); ?>
+												</small></p>
 										</div>
 									</div>
 								</li>
@@ -299,7 +312,7 @@ function gallery_image_src(?string $imagePath): string
 							<p
 								style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
 								Experience authentic yogic practices designed to bring harmony to your body, clarity to
-								your mind, and balance to your life. At Nischala, yoga is taught as a complete path
+								your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
 								towards wellbeing, mindfulness, and inner transformation.</p>
 						</div>
 					</form>
@@ -317,13 +330,13 @@ function gallery_image_src(?string $imagePath): string
 							<div class="widget widget_about d-flex" style="align-items: flex-start;">
 								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
 									<a href="index.html"><img src="images/logo.png" alt=""
-											style="max-width: 120px;"></a>
+											style="max-width: 200px;"></a>
 								</div>
 								<p
 									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
 									Experience authentic yogic practices designed to bring harmony to your body, clarity
 									to
-									your mind, and balance to your life. At Nischala, yoga is taught as a complete path
+									your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
 									towards wellbeing, mindfulness, and inner transformation.</p>
 							</div>
 						</div>
@@ -348,9 +361,7 @@ function gallery_image_src(?string $imagePath): string
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="courses.html"
 													style="text-transform: none; color: #cccccc;">Classes</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="services-1.html"
-													style="text-transform: none; color: #cccccc;">Services</a></li>
+
 										</ul>
 									</div>
 									<div class="col-6">
@@ -402,26 +413,30 @@ function gallery_image_src(?string $imagePath): string
 				</div>
 			</div>
 			<!-- footer bottom part -->
-					<div class="footer-bottom">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-6 col-sm-6 text-left">
-						<span>Copyright © 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
-					</div>
-					<div class="col-md-6 col-sm-6 text-right">
-						<div class="dlab-social-icon">
-							<ul>
-								<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
-							</ul>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6 col-sm-6 text-left">
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+						</div>
+						<div class="col-md-6 col-sm-6 text-right">
+							<div class="dlab-social-icon">
+								<ul>
+									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
 		<!-- Footer END-->
 		<button class="scroltop fa fa-chevron-up"></button>
 	</div>

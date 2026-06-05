@@ -1,107 +1,93 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!--
 Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 -->
 <html>
+
 <head>
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<script type="text/javascript">
 
-function gup( name )
-{
-	name = name.replace( /[\[]/, '\\\[' ).replace( /[\]]/, '\\\]' ) ;
-	var regexS = '[\\?&]' + name + '=([^&#]*)' ;
-	var regex = new RegExp( regexS ) ;
-	var results = regex.exec( window.location.href ) ;
+		function gup(name) {
+			name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+			var regexS = '[\\?&]' + name + '=([^&#]*)';
+			var regex = new RegExp(regexS);
+			var results = regex.exec(window.location.href);
 
-	if ( results )
-		return results[ 1 ] ;
-	else
-		return '' ;
-}
-
-var interval;
-
-function sendData2Master()
-{
-	var destination = window.parent.parent ;
-	try
-	{
-		if ( destination.XDTMaster )
-		{
-			var t = destination.XDTMaster.read( [ gup( 'cmd' ), gup( 'data' ) ] ) ;
-			window.clearInterval( interval ) ;
+			if (results)
+				return results[1];
+			else
+				return '';
 		}
-	}
-	catch (e) {}
-}
 
-function OnMessage (event) {
-	        var message = event.data;
-	        var destination = window.parent.parent;
-	        destination.XDTMaster.read( [ 'end', message, 'fpm' ] ) ;
-}
+		var interval;
 
-function listenPostMessage() {
-    if (window.addEventListener) { // all browsers except IE before version 9
-            window.addEventListener ("message", OnMessage, false);
-    }else {
-            if (window.attachEvent) { // IE before version 9
-                        window.attachEvent("onmessage", OnMessage);
-                }
-        }
-}
+		function sendData2Master() {
+			var destination = window.parent.parent;
+			try {
+				if (destination.XDTMaster) {
+					var t = destination.XDTMaster.read([gup('cmd'), gup('data')]);
+					window.clearInterval(interval);
+				}
+			}
+			catch (e) { }
+		}
 
-function onLoad()
-{
-	interval = window.setInterval( sendData2Master, 100 );
-	listenPostMessage();
-}
+		function OnMessage(event) {
+			var message = event.data;
+			var destination = window.parent.parent;
+			destination.XDTMaster.read(['end', message, 'fpm']);
+		}
 
-</script>
+		function listenPostMessage() {
+			if (window.addEventListener) { // all browsers except IE before version 9
+				window.addEventListener("message", OnMessage, false);
+			} else {
+				if (window.attachEvent) { // IE before version 9
+					window.attachEvent("onmessage", OnMessage);
+				}
+			}
+		}
+
+		function onLoad() {
+			interval = window.setInterval(sendData2Master, 100);
+			listenPostMessage();
+		}
+
+	</script>
+	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
-<body onload="onLoad()"><p></p><script>
-// Dynamic Notifications Inject
-document.addEventListener('DOMContentLoaded', function() {
-    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
-    if(notifList) {
-        fetch('../backend/dashboard_api.php')
-        .then(response => response.json())
-        .then(data => {
-            if(data && data.recentRegistrations) {
-                let html = '';
-                data.recentRegistrations.forEach(reg => {
-                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
-                });
-                if(html === '') {
-                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
-                }
-                notifList.innerHTML = html;
-            }
-        })
-        .catch(err => console.error("Error loading notifications:", err));
-    }
-});
-</script>
+
+<body onload="onLoad()">
+	<p></p>
+	<script>
+		// Dynamic Notifications Inject
+		document.addEventListener('DOMContentLoaded', function () {
+			var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+			if (notifList) {
+				fetch('../backend/dashboard_api.php')
+					.then(response => response.json())
+					.then(data => {
+						if (data && data.recentRegistrations) {
+							let html = '';
+							data.recentRegistrations.forEach(reg => {
+								html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+							});
+							if (html === '') {
+								html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+							}
+							notifList.innerHTML = html;
+						}
+					})
+					.catch(err => console.error("Error loading notifications:", err));
+			}
+		});
+	</script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

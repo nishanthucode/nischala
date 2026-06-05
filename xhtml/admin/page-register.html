@@ -1,24 +1,26 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="h-100">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="keywords" content="" />
-	<meta name="author" content="" />
-	<meta name="robots" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="description" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:title" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
-	<meta property="og:image" content="https://eduzone.dexignzone.com/xhtml/social-image.png" />
-	<meta name="format-detection" content="telephone=no">
-    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:title" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:description" content="EduZone - Bootstrap Admin Dashboard" />
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
+    <meta name="format-detection" content="telephone=no">
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link href="css/style.css" rel="stylesheet">
 
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body class="h-100">
@@ -31,7 +33,8 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Registration Disabled</h4>
-                                    <div class="alert alert-warning text-center">Only a single admin account is permitted for this system. Please log in using the designated credentials.</div>
+                                    <div class="alert alert-warning text-center">Only a single admin account is
+                                        permitted for this system. Please log in using the designated credentials.</div>
                                     <div class="text-center mt-4">
                                         <a href="page-login.html" class="btn btn-primary btn-block">Go to Login</a>
                                     </div>
@@ -49,48 +52,32 @@
     ***********************************-->
     <!-- Required vendors -->
     <script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <!--endRemoveIf(production)-->
-<script>
-// Dynamic Notifications Inject
-document.addEventListener('DOMContentLoaded', function() {
-    var notifList = document.querySelector('.notification_dropdown .list-unstyled');
-    if(notifList) {
-        fetch('../backend/dashboard_api.php')
-        .then(response => response.json())
-        .then(data => {
-            if(data && data.recentRegistrations) {
-                let html = '';
-                data.recentRegistrations.forEach(reg => {
-                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
-                });
-                if(html === '') {
-                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
-                }
-                notifList.innerHTML = html;
+    <script>
+        // Dynamic Notifications Inject
+        document.addEventListener('DOMContentLoaded', function () {
+            var notifList = document.querySelector('.notification_dropdown .list-unstyled');
+            if (notifList) {
+                fetch('../backend/dashboard_api.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.recentRegistrations) {
+                            let html = '';
+                            data.recentRegistrations.forEach(reg => {
+                                html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
+                            });
+                            if (html === '') {
+                                html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+                            }
+                            notifList.innerHTML = html;
+                        }
+                    })
+                    .catch(err => console.error("Error loading notifications:", err));
             }
-        })
-        .catch(err => console.error("Error loading notifications:", err));
-    }
-});
-</script>
+        });
+    </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

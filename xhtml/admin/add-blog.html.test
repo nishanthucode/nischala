@@ -11,7 +11,7 @@ $blog = ['title' => '', 'author' => '', 'category' => 'Education', 'publish_date
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nischala | Classical Hatha Yoga in its Purest Form</title>
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">

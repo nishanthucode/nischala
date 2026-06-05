@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/backend/functions.php';
 $blogs = backend_fetch_all('blogs');
 usort($blogs, function($a, $b) {
@@ -43,15 +43,15 @@ function blog_image_src(?string $imagePath): string
 	<meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
-	<meta property="og:image" content="images/logo.png" />
+	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- FAVICONS ICON -->
 	<link rel="icon" href="images/logo.png" type="image/x-icon" />
-	<link rel="shortcut icon" type="image/x-icon" href="images/logo.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/logo-1.png" />
 
 	<!-- PAGE TITLE HERE -->
-	<title>Nischala | Yoga</title>
+	<title>Nishchala | Yoga</title>
 
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,6 +70,8 @@ function blog_image_src(?string $imagePath): string
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body id="bg">
@@ -131,7 +133,8 @@ function blog_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo-2.png" alt=""></a>
+								<a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
 								<li>
@@ -210,25 +213,33 @@ function blog_image_src(?string $imagePath): string
 						<div class="col-xl-12 col-lg-12 col-md-12">
 							<!-- blog start -->
 							<?php if (empty($blogs)): ?>
-								<div class="col-12 text-center">
-									<p>No blog posts found.</p>
-								</div>
+							<div class="col-12 text-center">
+								<p>No blog posts found.</p>
+							</div>
 							<?php endif; ?>
 							<?php foreach ($blogs as $blog): ?>
 							<div class="blog-post blog-md clearfix shadow bg-white">
 								<div class="dlab-post-media dlab-img-effect zoom-slow">
-									<a href="javascript:void(0);"><img src="<?php echo htmlspecialchars(blog_image_src($blog['image_path'] ?? '')); ?>" alt="" style="width: 100%; aspect-ratio: 700/500; object-fit: cover;"></a>
+									<a href="javascript:void(0);"><img
+											src="<?php echo htmlspecialchars(blog_image_src($blog['image_path'] ?? '')); ?>"
+											alt="" style="width: 100%; aspect-ratio: 700/500; object-fit: cover;"></a>
 								</div>
 								<div class="dlab-post-info">
 									<div class="dlab-post-meta">
 										<ul>
 											<li class="post-author"> <i class="la la-user-circle"></i> By <a
-													href="javascript:void(0);"><?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?></a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);"><?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?></a> </li>
+													href="javascript:void(0);">
+													<?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?>
+												</a> </li>
+											<li class="post-tag"> <a href="javascript:void(0);">
+													<?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?>
+												</a> </li>
 										</ul>
 									</div>
 									<div class="dlab-post-title ">
-										<h4 class="post-title"><a href="javascript:void(0);"><?php echo htmlspecialchars($blog['title']); ?></a></h4>
+										<h4 class="post-title"><a href="javascript:void(0);">
+												<?php echo htmlspecialchars($blog['title']); ?>
+											</a></h4>
 									</div>
 									<div class="dlab-post-text">
 										<?php echo $blog['content'] ?? ''; ?>
@@ -236,7 +247,11 @@ function blog_image_src(?string $imagePath): string
 									<div class="post-footer">
 										<div class="dlab-post-meta">
 											<ul>
-												<li class="post-date"> <i class="la la-clock"></i> <strong><?php echo date('d F', strtotime((string)$blog['publish_date'])); ?></strong> <span> <?php echo date('Y', strtotime((string)$blog['publish_date'])); ?></span> </li>
+												<li class="post-date"> <i class="la la-clock"></i> <strong>
+														<?php echo date('d F', strtotime((string)$blog['publish_date'])); ?>
+													</strong> <span>
+														<?php echo date('Y', strtotime((string)$blog['publish_date'])); ?>
+													</span> </li>
 											</ul>
 										</div>
 									</div>
@@ -272,13 +287,13 @@ function blog_image_src(?string $imagePath): string
 							<div class="widget widget_about d-flex" style="align-items: flex-start;">
 								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
 									<a href="index.html"><img src="images/logo.png" alt=""
-											style="max-width: 120px;"></a>
+											style="max-width: 200px;"></a>
 								</div>
 								<p
 									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
 									Experience authentic yogic practices designed to bring harmony to your body, clarity
 									to
-									your mind, and balance to your life. At Nischala, yoga is taught as a complete path
+									your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
 									towards wellbeing, mindfulness, and inner transformation.</p>
 							</div>
 						</div>
@@ -303,9 +318,7 @@ function blog_image_src(?string $imagePath): string
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="courses.html"
 													style="text-transform: none; color: #cccccc;">Classes</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="services-1.html"
-													style="text-transform: none; color: #cccccc;">Services</a></li>
+
 										</ul>
 									</div>
 									<div class="col-6">
@@ -357,26 +370,30 @@ function blog_image_src(?string $imagePath): string
 				</div>
 			</div>
 			<!-- footer bottom part -->
-					<div class="footer-bottom">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-6 col-sm-6 text-left">
-						<span>Copyright © 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
-					</div>
-					<div class="col-md-6 col-sm-6 text-right">
-						<div class="dlab-social-icon">
-							<ul>
-								<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
-							</ul>
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6 col-sm-6 text-left">
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+						</div>
+						<div class="col-md-6 col-sm-6 text-right">
+							<div class="dlab-social-icon">
+								<ul>
+									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
 		<!-- Footer End -->
 		<!-- scroll top button -->
 		<button class="scroltop fa fa-chevron-up"></button>
@@ -408,4 +425,3 @@ function blog_image_src(?string $imagePath): string
 </body>
 
 </html>
-

@@ -10,7 +10,7 @@ for filename in os.listdir(directory):
             content = file.read()
         
         # Replace Title
-        content = re.sub(r'<title>.*?</title>', '<title>Nischala | Classical Hatha Yoga in its Purest Form</title>', content, flags=re.IGNORECASE)
+        content = re.sub(r'<title>.*?</title>', '<title>Nishchala | Classical Hatha Yoga in its Purest Form</title>', content, flags=re.IGNORECASE)
         
         # Replace Favicon
         content = re.sub(r'<link rel="icon"[^>]*href="images/favicon[^"]*\.png"[^>]*>', '<link rel="icon" type="image/png" sizes="16x16" href="images/logo.png">', content, flags=re.IGNORECASE)

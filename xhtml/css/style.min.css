@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --color-primary: #E67527;
     --color-secondry: #99C83D;
     --color-hover: #99C83D;
@@ -10,7 +10,7 @@ html {
 
 body {
     background-color: #fff;
-    font-family: Roboto, sans-serif;
+    font-family: 'Poppins', sans-serif;, sans-serif;
     font-size: 16px;
     font-weight: 400;
     color: #6f6f6f;
@@ -140,8 +140,7 @@ ul {
 }
 
 .op {
-    font-family: 'Open Sans', sans-serif
-}
+    font-family: 'Poppins', sans-serif;}
 
 .dis-block {
     display: block;
@@ -4428,7 +4427,7 @@ blockquote:before {
         float: none;
         display: block;
         width: 100%;
-        font-family: Roboto;
+        font-family: 'Poppins', sans-serif;
         padding: 0 25px 0 25px
     }
 
@@ -6047,7 +6046,7 @@ blockquote:before {
 }
 
 .date-style-3 .post-date {
-    font-family: oswald;
+    font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     position: absolute;
     padding: 8px 15px;
@@ -6479,7 +6478,7 @@ blockquote:before {
     color: #707070;
     color: rgba(51, 51, 51, .7);
     display: block;
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-size: 1.2rem;
     line-height: 1.5;
@@ -6527,7 +6526,7 @@ blockquote:before {
 .comments-area .comments-title {
     text-transform: uppercase;
     font-size: 14px;
-    font-family: Montserrat;
+    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     text-align: center;
     line-height: 26px
@@ -7623,7 +7622,7 @@ ul a.rsswidget:hover {
 .news-box form:after {
     color: #000;
     content: "Newslatter";
-    font-family: montserrat;
+    font-family: 'Poppins', sans-serif;
     font-size: 50px;
     font-weight: 700;
     opacity: .05;
@@ -12641,7 +12640,7 @@ ul[class*=list-] {
 .content-box-head {
     border-radius: 50px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2);
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin-bottom: 20px;
     margin-top: -46px;
     padding: 12px 0;
@@ -15529,7 +15528,7 @@ ol.commentlist li .star-rating {
 
 .shop-categories .acod-head a.collapsed:after,
 .shop-categories .acod-head a:after {
-    font-family: open sans;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
     color: #000;
     font-size: 18px;
@@ -18023,7 +18022,7 @@ pre.wp-block-code {
     font-weight: 700;
     color: #143b64;
     margin-bottom: 5px;
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 .instructor-card .role {
     font-size: 14px;
@@ -18039,3 +18038,6 @@ pre.wp-block-code {
     line-height: 1.6;
     margin-bottom: 0;
 }
+
+
+footer .widget_services ul li{display:block!important;}

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/backend/functions.php';
 $id = (int)($_GET['id'] ?? 0);
 if ($id > 0) {
@@ -52,12 +52,12 @@ function event_image_src(?string $imagePath): string
 	<meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
 	<meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
-	<meta property="og:image" content="images/logo.png" />
+	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- FAVICONS ICON -->
 	<link rel="icon" href="images/logo.png" type="image/x-icon" />
-	<link rel="shortcut icon" type="image/x-icon" href="images/logo.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="images/logo-1.png" />
 
 	<!-- PAGE TITLE HERE -->
 	<title>Nishchala | Yoga</title>
@@ -79,6 +79,8 @@ function event_image_src(?string $imagePath): string
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 </head>
 
 <body id="bg">
@@ -86,7 +88,7 @@ function event_image_src(?string $imagePath): string
 		<div id="loading-area"></div>
 		<!-- header -->
 		<header class="site-header mo-left header">
-			
+
 			<div class="sticky-header main-bar-wraper navbar-expand-lg">
 				<div class="main-bar clearfix ">
 					<div class="container clearfix">
@@ -115,7 +117,8 @@ function event_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo-2.png" alt=""></a>
+								<a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
 								<li>
@@ -168,96 +171,113 @@ function event_image_src(?string $imagePath): string
 			</div>
 			<!-- main header END -->
 		</header>
-    <!-- header END -->
-    <!-- Content -->
-    <div class="page-content bg-gray">
-        <!-- inner page banner -->
-        <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/2.jpeg);">
-            <div class="container">
-                <div class="dlab-bnr-inr-entry">
-                    <h1 class="text-white">Event Details</h1>
-					<!-- Breadcrumb row -->
-					<div class="breadcrumb-row">
-						<ul class="list-inline">
-							<li><a href="index.html">Home</a></li>
-							<li>Event Details</li>
-						</ul>
+		<!-- header END -->
+		<!-- Content -->
+		<div class="page-content bg-gray">
+			<!-- inner page banner -->
+			<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/banner/2.jpeg);">
+				<div class="container">
+					<div class="dlab-bnr-inr-entry">
+						<h1 class="text-white">Event Details</h1>
+						<!-- Breadcrumb row -->
+						<div class="breadcrumb-row">
+							<ul class="list-inline">
+								<li><a href="index.html">Home</a></li>
+								<li>Event Details</li>
+							</ul>
+						</div>
+						<!-- Breadcrumb row END -->
 					</div>
-					<!-- Breadcrumb row END -->
-                </div>
-            </div>
-        </div>
-        <!-- inner page banner END -->
-		<div class="content-area">
-            <div class="container">
-                <div class="row">
-                    <!-- Side bar start -->
-                    <div class="col-lg-3 col-md-5 m-b30">
-                        <aside class="side-bar sticky-top">
-                            <div class="widget widget_event_info">
-                                <h5 class="widget-title style-1">Event Details</h5>
-								<ul>
-									<li>
-										<i class="la la-calendar"></i>
-										<span class="title">Date:</span>
-										<span class="info"><?php echo date('d F Y', strtotime((string)($event['event_date'] ?? 'now'))); ?></span>
-									</li>
-									<?php if (!empty($event['event_time'])): ?>
-									<li>
-										<i class="la la-clock-o"></i>
-										<span class="title">Time:</span>
-										<span class="info"><?php echo date('h:i A', strtotime((string)$event['event_time'])); ?></span>
-									</li>
-									<?php endif; ?>
-									<?php if (!empty($event['location'])): ?>
-									<li>
-										<i class="la la-map-marker"></i>
-										<span class="title">Address:</span>
-										<span class="info"><?php echo htmlspecialchars($event['location']); ?></span>
-									</li>
-									<?php endif; ?>
-									<li>
-										<i class="la la-envelope"></i>
-										<span class="title">Email:</span>
-										<span class="info">info@nishchala.com</span>
-									</li>
-									<li>
-										<i class="la la-phone"></i>
-										<span class="title">Phone:</span>
-										<span class="info">+91 987 654 3210</span>
-									</li>
-								</ul>
-                            </div>
-                           
+				</div>
+			</div>
+			<!-- inner page banner END -->
+			<div class="content-area">
+				<div class="container">
+					<div class="row">
+						<!-- Side bar start -->
+						<div class="col-lg-3 col-md-5 m-b30">
+							<aside class="side-bar sticky-top">
+								<div class="widget widget_event_info">
+									<h5 class="widget-title style-1">Event Details</h5>
+									<ul>
+										<li>
+											<i class="la la-calendar"></i>
+											<span class="title">Date:</span>
+											<span class="info">
+												<?php echo date('d F Y', strtotime((string)($event['event_date'] ?? 'now'))); ?>
+											</span>
+										</li>
+										<?php if (!empty($event['event_time'])): ?>
+										<li>
+											<i class="la la-clock-o"></i>
+											<span class="title">Time:</span>
+											<span class="info">
+												<?php echo date('h:i A', strtotime((string)$event['event_time'])); ?>
+											</span>
+										</li>
+										<?php endif; ?>
+										<?php if (!empty($event['location'])): ?>
+										<li>
+											<i class="la la-map-marker"></i>
+											<span class="title">Address:</span>
+											<span class="info">
+												<?php echo htmlspecialchars($event['location']); ?>
+											</span>
+										</li>
+										<?php endif; ?>
+										<li>
+											<i class="la la-envelope"></i>
+											<span class="title">Email:</span>
+											<span class="info">info@nishchala.com</span>
+										</li>
+										<li>
+											<i class="la la-phone"></i>
+											<span class="title">Phone:</span>
+											<span class="info">+91 987 654 3210</span>
+										</li>
+									</ul>
+								</div>
+
 							</aside>
-                    </div>
-                    <!-- Side bar END -->
-					<!-- left part start -->
-                    <div class="col-lg-9 col-md-7">
-                        <div class="event-single">
-							<div class="dlab-post-meta">
-								<ul>
-									<?php if (!empty($event['event_time'])): ?>
-									<li class="post-author"> <i class="la la-clock"></i> <?php echo date('h:i A', strtotime((string)$event['event_time'])); ?> </li>
-									<?php endif; ?>
-									<?php if (!empty($event['location'])): ?>
-									<li class="post-tag"> <i class="ti-location-pin"></i> <?php echo htmlspecialchars($event['location']); ?> </li>
-									<?php endif; ?>
-								</ul>
-							</div>
-							<h2 class="dlab-title"><?php echo htmlspecialchars($event['title'] ?? 'Event Details'); ?></h2>
-							<div class="dlab-media m-b30">
-								<a href="javascript:;"><img src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>" alt="" style="width: 100%; max-height: 350px; object-fit: cover; border-radius: 8px;"></a>
-							</div>
-							<div class="dlab-post-text">
-								<h4>About This Event</h4>
-								<p><?php echo !empty($event['description']) ? nl2br(htmlspecialchars($event['description'])) : 'Details for this event will be announced soon. Stay tuned!'; ?></p>
-								
-								<?php if (!empty($event['highlights'])): ?>
-								<br>
-								<h4>Highlights</h4>
-								<ul class="list-checked primary">
-									<?php 
+						</div>
+						<!-- Side bar END -->
+						<!-- left part start -->
+						<div class="col-lg-9 col-md-7">
+							<div class="event-single">
+								<div class="dlab-post-meta">
+									<ul>
+										<?php if (!empty($event['event_time'])): ?>
+										<li class="post-author"> <i class="la la-clock"></i>
+											<?php echo date('h:i A', strtotime((string)$event['event_time'])); ?>
+										</li>
+										<?php endif; ?>
+										<?php if (!empty($event['location'])): ?>
+										<li class="post-tag"> <i class="ti-location-pin"></i>
+											<?php echo htmlspecialchars($event['location']); ?>
+										</li>
+										<?php endif; ?>
+									</ul>
+								</div>
+								<h2 class="dlab-title">
+									<?php echo htmlspecialchars($event['title'] ?? 'Event Details'); ?>
+								</h2>
+								<div class="dlab-media m-b30">
+									<a href="javascript:;"><img
+											src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>"
+											alt=""
+											style="width: 100%; max-height: 350px; object-fit: cover; border-radius: 8px;"></a>
+								</div>
+								<div class="dlab-post-text">
+									<h4>About This Event</h4>
+									<p>
+										<?php echo !empty($event['description']) ? nl2br(htmlspecialchars($event['description'])) : 'Details for this event will be announced soon. Stay tuned!'; ?>
+									</p>
+
+									<?php if (!empty($event['highlights'])): ?>
+									<br>
+									<h4>Highlights</h4>
+									<ul class="list-checked primary">
+										<?php 
 									$lines = explode("\n", trim($event['highlights']));
 									foreach ($lines as $line) {
 										$line = trim($line);
@@ -266,159 +286,164 @@ function event_image_src(?string $imagePath): string
 										}
 									}
 									?>
+									</ul>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+						<!-- left part start -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Content END-->
+		<!-- Footer -->
+		<!-- Newsletter -->
+
+		<!-- Footer -->
+		<footer class="site-footer"
+			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
+			<div class="footer-top" style="background: transparent;">
+				<div class="container saf-footer" style="max-width: 1300px;">
+					<div class="row justify-content-between">
+						<div class="col-lg-5 col-md-12 footer-col-4">
+							<div class="widget widget_about d-flex" style="align-items: flex-start;">
+								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
+									<a href="index.html"><img src="images/logo.png" alt=""
+											style="max-width: 200px;"></a>
+								</div>
+								<p
+									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
+									Experience authentic yogic practices designed to bring harmony to your body, clarity
+									to
+									your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
+									towards wellbeing, mindfulness, and inner transformation.</p>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 footer-col-4">
+							<div class="widget widget_services border-0">
+								<h5 class="m-b30 text-white">Usefull Link</h5>
+								<div
+									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<ul style="list-style: none; padding-left: 0; color: #f77024;">
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="index.html"
+													style="text-transform: none; color: #cccccc;">Home</a>
+											</li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="about-1.html"
+													style="text-transform: none; color: #cccccc;">About
+													Us</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="courses.html"
+													style="text-transform: none; color: #cccccc;">Classes</a></li>
+
+										</ul>
+									</div>
+									<div class="col-6">
+										<ul style="list-style: none; padding-left: 0; color: #f77024;">
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="event.html"
+													style="text-transform: none; color: #cccccc;">Events</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="gallery-grid-4.html"
+													style="text-transform: none; color: #cccccc;">Gallery</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="blog-grid-4.html"
+													style="text-transform: none; color: #cccccc;">Blog</a></li>
+											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
+													href="contact-4.html"
+													style="text-transform: none; color: #cccccc;">Contact Us</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-md-6 footer-col-4">
+							<div class="widget">
+								<h5 class="m-b30 text-white">Contact</h5>
+								<div
+									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
+								</div>
+								<ul style="text-transform: none; color: #cccccc; list-style: none; padding-left: 0;">
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-map-marker"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Address 20 , New York 10010</span>
+									</li>
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-phone-volume"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Phone 0800-123456</span>
+									</li>
+									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+										<i class="la la-envelope"
+											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+										<span style="line-height: 24px;">Email info@example.com</span>
+									</li>
 								</ul>
-								<?php endif; ?>
 							</div>
 						</div>
-                    </div>
-                    <!-- left part start -->
-                </div>
-            </div>
-        </div>
+					</div>
+				</div>
+			</div>
+			<!-- footer bottom part -->
+			<div class="footer-bottom">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-6 col-sm-6 text-left">
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+						</div>
+						<div class="col-md-6 col-sm-6 text-right">
+							<div class="dlab-social-icon">
+								<ul>
+									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a>
+									</li>
+									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- Footer END-->
+		<!-- scroll top button -->
+		<button class="scroltop fa fa-chevron-up"></button>
 	</div>
-    <!-- Content END-->
-    <!-- Footer -->
-   <!-- Newsletter -->
-	
-   <!-- Footer -->
-    <footer class="site-footer"
-		style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
-		<div class="footer-top" style="background: transparent;">
-			<div class="container saf-footer" style="max-width: 1300px;">
-				<div class="row justify-content-between">
-					<div class="col-lg-5 col-md-12 footer-col-4">
-						<div class="widget widget_about d-flex" style="align-items: flex-start;">
-							<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
-								<a href="index.html"><img src="images/logo.png" alt="" style="max-width: 120px;"></a>
-							</div>
-							<p
-								style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
-								Experience authentic yogic practices designed to bring harmony to your body, clarity
-								to
-								your mind, and balance to your life. At Nischala, yoga is taught as a complete path
-								towards wellbeing, mindfulness, and inner transformation.</p>
-						</div>
-					</div>
+	<!-- JAVASCRIPT FILES ========================================= -->
+	<script src="js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
+	<script src="plugins/wow/wow.js"></script><!-- WOW JS -->
 
-					<div class="col-lg-3 col-md-6 footer-col-4">
-						<div class="widget widget_services border-0">
-							<h5 class="m-b30 text-white">Usefull Link</h5>
-							<div
-								style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
-							</div>
-							<div class="row">
-								<div class="col-6">
-									<ul style="list-style: none; padding-left: 0; color: #f77024;">
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="index.html" style="text-transform: none; color: #cccccc;">Home</a>
-										</li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="about-1.html" style="text-transform: none; color: #cccccc;">About
-												Us</a></li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="courses.html"
-												style="text-transform: none; color: #cccccc;">Classes</a></li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="services-1.html"
-												style="text-transform: none; color: #cccccc;">Services</a></li>
-									</ul>
-								</div>
-								<div class="col-6">
-									<ul style="list-style: none; padding-left: 0; color: #f77024;">
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="event.html"
-												style="text-transform: none; color: #cccccc;">Events</a></li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="gallery-grid-4.html"
-												style="text-transform: none; color: #cccccc;">Gallery</a></li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="blog-grid-4.html"
-												style="text-transform: none; color: #cccccc;">Blog</a></li>
-										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="contact-4.html"
-												style="text-transform: none; color: #cccccc;">Contact Us</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-3 col-md-6 footer-col-4">
-						<div class="widget">
-							<h5 class="m-b30 text-white">Contact</h5>
-							<div
-								style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
-							</div>
-							<ul style="text-transform: none; color: #cccccc; list-style: none; padding-left: 0;">
-								<li style="margin-bottom: 20px; display: flex; align-items: center;">
-									<i class="la la-map-marker"
-										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-									<span style="line-height: 24px;">Address 20 , New York 10010</span>
-								</li>
-								<li style="margin-bottom: 20px; display: flex; align-items: center;">
-									<i class="la la-phone-volume"
-										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-									<span style="line-height: 24px;">Phone 0800-123456</span>
-								</li>
-								<li style="margin-bottom: 20px; display: flex; align-items: center;">
-									<i class="la la-envelope"
-										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-									<span style="line-height: 24px;">Email info@example.com</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- footer bottom part -->
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-md-6 col-sm-6 text-left">
-						<span>Copyright © 2026 Nischala All rights Reserved Designed By OnePlanet360.com</span>
-					</div>
-					<div class="col-md-6 col-sm-6 text-right">
-						<div class="dlab-social-icon">
-							<ul>
-								<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-    <!-- Footer END-->
-    <!-- scroll top button -->
-    <button class="scroltop fa fa-chevron-up" ></button>
-</div>
-<!-- JAVASCRIPT FILES ========================================= -->
-<script src="js/jquery.min.js"></script><!-- JQUERY.MIN JS -->
-<script src="plugins/wow/wow.js"></script><!-- WOW JS -->
-
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script><!-- BOOTSTRAP.MIN JS -->
-<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
-<script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
-<script src="plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
-<script src="plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
-<script src="plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
-<script src="plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
-<script src="plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
-<script src="plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
-<script src="plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
-<script src="plugins/lightgallery/js/lightgallery-all.min.js"></script><!-- Lightgallery -->
-<script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
-<script src="js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS  -->
-<script src="plugins/countdown/jquery.countdown.js"></script><!-- COUNTDOWN FUCTIONS  -->
-<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
+	<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script><!-- BOOTSTRAP.MIN JS -->
+	<script src="plugins/bootstrap-select/bootstrap-select.min.js"></script><!-- FORM JS -->
+	<script src="plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script><!-- FORM JS -->
+	<script src="plugins/magnific-popup/magnific-popup.js"></script><!-- MAGNIFIC POPUP JS -->
+	<script src="plugins/counter/waypoints-min.js"></script><!-- WAYPOINTS JS -->
+	<script src="plugins/counter/counterup.min.js"></script><!-- COUNTERUP JS -->
+	<script src="plugins/imagesloaded/imagesloaded.js"></script><!-- IMAGESLOADED -->
+	<script src="plugins/masonry/masonry-3.1.4.js"></script><!-- MASONRY -->
+	<script src="plugins/masonry/masonry.filter.js"></script><!-- MASONRY -->
+	<script src="plugins/owl-carousel/owl.carousel.js"></script><!-- OWL SLIDER -->
+	<script src="plugins/lightgallery/js/lightgallery-all.min.js"></script><!-- Lightgallery -->
+	<script src="js/custom.js"></script><!-- CUSTOM FUCTIONS  -->
+	<script src="js/dz.carousel.js"></script><!-- SORTCODE FUCTIONS  -->
+	<script src="plugins/countdown/jquery.countdown.js"></script><!-- COUNTDOWN FUCTIONS  -->
+	<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
 
 
- 
+
 
 </body>
-</html>
 
+</html>

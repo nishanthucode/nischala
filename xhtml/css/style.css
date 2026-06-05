@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 :root {
     --color-primary: #E67527;
     --color-secondry: #99C83D;
@@ -20022,20 +20023,20 @@ textarea.form-control {
 
 /* Fix Logo Jumping on Scroll */
 @media only screen and (min-width: 992px) {
-    .logo-header, .is-fixed .logo-header {
+    .logo-header.logo-dark, .is-fixed .logo-header.logo-dark {
         height: 70.5px !important;
         display: flex !important;
         align-items: center !important;
         transition: none !important;
         margin: 0 !important;
     }
-    .logo-header a, .is-fixed .logo-header a {
+    .logo-header.logo-dark a, .is-fixed .logo-header.logo-dark a {
         display: flex !important;
         align-items: center !important;
         height: 100% !important;
         transition: none !important;
     }
-    .logo-header img, .is-fixed .logo-header img {
+    .logo-header.logo-dark img, .is-fixed .logo-header.logo-dark img {
         margin: 0 !important;
         padding: 0 !important;
         transition: none !important;
@@ -20044,4 +20045,220 @@ textarea.form-control {
         max-height: 60px !important;
         width: auto !important;
     }
+}
+
+/* Speed up all entrance animations globally */
+.wow {
+    animation-duration: 1.2s !important;
+}
+
+/* --- GLOBAL FONT FAMILY OVERRIDE (POPPINS) --- */
+
+body, h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, label, table, th, td, 
+.dlab-title, .title, .post-title, .widget-title, .header-nav .nav > li > a, .site-button,
+.dlab-post-meta ul li, .counter, .pricingtable-price, .nav-tabs .nav-link, 
+span:not(.fa):not(.fas):not(.la):not(.ti):not(.icon-bx-xs):not([class*="icon-"]) {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* --- PREMIUM YOGA CARD REDESIGN (Events, Blogs, Gallery) --- */
+
+/* 1. Base Card Styling & Hover Effects */
+.event-post.post-grid, .trainer-card,
+.blog-post.blog-grid,
+.dlab-gallery-box {
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+    border: 1px solid rgba(0,0,0,0.02) !important;
+    overflow: hidden !important;
+    transition: all 0.4s ease-in-out !important;
+    margin-bottom: 30px;
+}
+
+.event-post.post-grid:hover, .trainer-card:hover,
+.blog-post.blog-grid:hover,
+.dlab-gallery-box:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 40px rgba(230, 117, 39, 0.15) !important; /* Primary orange shadow */
+}
+
+/* 2. Media/Image Zoom Effect */
+.event-post.post-grid .dlab-post-media img, .trainer-card .dlab-media img,
+.blog-post.blog-grid .dlab-post-media img,
+.dlab-gallery-box .dlab-media img {
+    transition: transform 0.6s ease !important;
+    width: 100% !important;
+}
+
+.event-post.post-grid:hover .dlab-post-media img, .trainer-card:hover .dlab-media img,
+.blog-post.blog-grid:hover .dlab-post-media img,
+.dlab-gallery-box:hover .dlab-media img {
+    transform: scale(1.05) !important;
+}
+
+/* 3. Text & Info Container Padding */
+.event-post.post-grid .dlab-post-info,
+.blog-post.blog-grid .dlab-info {
+    padding: 25px !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* 4. Event Date Badge (Floating over image) */
+.event-post.post-grid {
+    position: relative; /* Ensure badge positions relative to the card */
+}
+.event-post.post-grid .dlab-post-meta {
+    margin-bottom: 15px !important;
+}
+.event-post.post-grid .dlab-post-meta .post-date {
+    position: absolute !important;
+    top: -85px !important; /* Lifted up to float over the bottom-left of the image */
+    left: 25px !important;
+    background: #ffffff !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+    z-index: 2;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+}
+.event-post.post-grid .dlab-post-meta .post-date strong {
+    display: block !important;
+    padding: 10px 15px !important;
+    font-size: 15px !important;
+    color: #333 !important;
+    background: #ffffff !important;
+}
+.event-post.post-grid .dlab-post-meta .post-date span {
+    display: block !important;
+    padding: 5px 15px !important;
+    font-size: 13px !important;
+    background: #E67527 !important; /* Primary Color */
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+/* 5. Typography and Meta Data (Author, Time, Category) */
+.dlab-post-meta ul li {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #99C83D !important; /* Secondary Color */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.dlab-post-meta ul li i {
+    color: #E67527 !important; /* Primary Color */
+    margin-right: 5px;
+}
+.dlab-post-title .post-title,
+.dlab-post-title .post-title a {
+    color: #2c3e50 !important;
+    font-weight: 700 !important;
+    transition: color 0.3s ease !important;
+    font-size: 20px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 10px !important;
+}
+.dlab-post-title .post-title a:hover {
+    color: #E67527 !important;
+}
+
+/* 6. Blog Footer Data (Date at bottom) */
+.post-footer .dlab-post-meta .post-date {
+    background: transparent !important;
+    box-shadow: none !important;
+    position: static !important;
+    color: #99C83D !important;
+    display: flex !important;
+    align-items: center !important;
+}
+.post-footer .dlab-post-meta .post-date strong,
+.post-footer .dlab-post-meta .post-date span {
+    display: inline !important;
+    background: transparent !important;
+    color: #99C83D !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* 7. Gallery Filters */
+.site-filters ul li {
+    background: transparent !important;
+}
+.site-filters ul li a {
+    color: #555 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    padding: 8px 20px !important;
+    border-radius: 30px !important;
+    transition: all 0.3s ease !important;
+    border: 1px solid transparent !important;
+}
+.site-filters ul li.active a,
+.site-filters ul li a:hover {
+    background: #99C83D !important; /* Secondary Color */
+    color: #ffffff !important;
+    border-color: #99C83D !important;
+    box-shadow: 0 5px 15px rgba(153, 200, 61, 0.3) !important;
+}
+
+/* 8. Pagination Styling */
+.pagination-bx .pagination .page-item .page-link {
+    background: #ffffff !important;
+    color: #555 !important;
+    border-radius: 8px !important;
+    margin: 0 5px !important;
+    border: 1px solid #eee !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+.pagination-bx .pagination .page-item.active .page-link,
+.pagination-bx .pagination .page-item .page-link:hover {
+    background: #99C83D !important; /* Secondary Color */
+    color: #fff !important;
+    border-color: #99C83D !important;
+    box-shadow: 0 5px 15px rgba(153, 200, 61, 0.3) !important;
+}
+
+/* Ensure Upcoming Session cards are equal height */
+.session-card {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+.session-card .btn-block {
+    margin-top: auto !important;
+}
+
+/* Fix overlapping word issue on massive banner titles */
+.dlab-bnr-inr-entry h1 {
+    line-height: 1.2 !important;
+    word-break: break-word !important;
+}
+
+/* Fix mobile footer logo layout */
+@media (max-width: 767px) {
+    .widget_about.d-flex {
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+    .widget_about.d-flex .logo-footer {
+        margin-right: 0 !important;
+        margin-bottom: 25px !important;
+    }
+    .widget_about.d-flex .logo-footer img {
+        width: 280px !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* Fix footer link bullet alignment */
+footer .widget_services ul li {
+    display: block !important;
 }
