@@ -21382,9 +21382,13 @@ button.fa,
 
 /* Increase Logo Size more */
 .site-header .logo-header {
-    height: 100px !important;
+    height: 70px !important;
+    width: 120px !important;
 }
 .site-header .logo-header img {
-    height: 100px !important;
-    max-height: 100px !important;
+    height: 70px !important;
+    max-height: 70px !important;
+    width: 120px !important;
+    max-width: 120px !important;
+    object-fit: contain;
 }
