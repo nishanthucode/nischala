@@ -33,13 +33,71 @@
 
 	<!-- STYLESHEETS -->
 	<link rel="stylesheet" type="text/css" href="css/plugins.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=1781002912">
 	<link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
 	<link rel="stylesheet" type="text/css" href="css/templete.css">
 	<!-- Google Font -->
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 	</style>
+<!-- MOBILE LOGO FIX -->
+<style>
+/* ABSOLUTE MOBILE LOGO FIX */
+@media only screen and (max-width: 991px) {
+    .site-header .logo-header,
+    .site-header .logo-header.logo-dark,
+    .is-fixed .logo-header,
+    .is-fixed .logo-header.logo-dark,
+    .site-header.is-fixed .logo-header {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .site-header .logo-header img,
+    .site-header .logo-header.logo-dark img,
+    .is-fixed .logo-header img,
+    .is-fixed .logo-header.logo-dark img,
+    .site-header.is-fixed .logo-header img {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        object-fit: contain !important;
+        transform: none !important;
+        transition: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .is-fixed .main-bar, .site-header .main-bar {
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: none !important;
+    }
+    /* Mobile Menu Alignment Fix */
+    .header-nav ul {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    .header-nav .nav > li {
+        padding: 0 15px !important;
+        text-align: left;
+    }
+    .header-nav .dlab-social-icon {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+</style>
+<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -73,7 +131,7 @@
 						<!-- website logo -->
 						<div class="logo-header mostion logo-dark">
 							<a href="index.html"><img src="images/logo.png" alt=""
-									style="width: 100px; height:60px;"></a>
+									style="width: 180px; height: auto; max-height: 80px; object-fit: contain; transition: none !important; margin: 0; padding: 0;"></a>
 						</div>
 						<!-- nav toggle button -->
 						<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
@@ -194,8 +252,8 @@
 								<div class="icon-lg text-primary m-b20"> <a href="javascript:void(0);"
 										class="icon-cell"><i class="ti-location-pin"></i></a> </div>
 								<div class="icon-content">
-									<h5 class="dlab-tilte text-uppercase"> Studio Address</h5>
-									<p>123 West Street, Melbourne Victoria 3000 Australia</p>
+									<h5 class="dlab-tilte text-uppercase"> Address</h5>
+									<p>3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</p>
 								</div>
 							</div>
 						</div>
@@ -215,7 +273,7 @@
 										class="icon-cell"><i class="ti-mobile"></i></a> </div>
 								<div class="icon-content">
 									<h5 class="dlab-tilte text-uppercase">Phone</h5>
-									<p>+61 3 8376 6284 <br /> +23 123 456 7890</p>
+									<p>+91 98804 02482 <br /> +91 98456 67758</p>
 								</div>
 							</div>
 						</div>
@@ -225,89 +283,19 @@
 										class="icon-cell"><i class="ti-printer"></i></a> </div>
 								<div class="icon-content">
 									<h5 class="dlab-tilte text-uppercase">Whats App</h5>
-									<p>+61 3 8376 6284 <br /> +23 123 456 7890</p>
+									<p>+91 98804 02482 <br /> +91 98456 67758</p>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<!-- Left part start -->
-						<div class="col-lg-6 m-b30">
-							<div class="p-a30 bg-white clearfix border-1 radius-sm">
-								<h3>Send Message Us</h3>
-								<div class="dzFormMsg"></div>
-								<form method="post"  action="backend/save.php">
-									<input type="hidden" name="module" value="enquiries">
-									<input type="hidden" name="redirect" value="../contact-4.html">
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group">
-													<input name="name" type="text" required class="form-control"
-														placeholder="Your Name">
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group">
-													<input name="email" type="email" class="form-control" required
-														placeholder="Your Email Id">
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group">
-													<input name="phone" type="text" required
-														class="form-control" placeholder="Phone">
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<div class="input-group">
-													<input name="subject" type="text" required
-														class="form-control" placeholder="Subject">
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group">
-												<div class="input-group">
-													<textarea name="message" rows="4" class="form-control" required
-														placeholder="Your Message..."></textarea>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<div class="form-group form-recaptcha">
-												<div class="input-group">
-													<div class="g-recaptcha"
-														data-sitekey="<!-- Put reCaptcha Site Key -->"
-														data-callback="verifyRecaptchaCallback"
-														data-expired-callback="expiredRecaptchaCallback"></div>
-													<input class="form-control d-none" style="display:none;"
-														data-recaptcha="true" required
-														data-error="Please complete the Captcha">
-												</div>
-											</div>
-										</div>
-										<div class="col-md-12">
-											<button name="submit" type="submit" value="Submit" class="site-button ">
-												<span>Submit</span> </button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- Left part END -->
+
 						<!-- right part start -->
-						<div class="col-lg-6 m-b30 d-flex">
+						<div class="col-lg-12 m-b30 d-flex">
 							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d227748.3825624477!2d75.65046970649679!3d26.88544791796718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4adf4c57e281%3A0xce1c63a0cf22e09!2sJaipur%2C+Rajasthan!5e0!3m2!1sen!2sin!4v1500819483219"
-								class="align-self-stretch radius-sm" style="border:0; width:100%;  min-height:100%;"
-								allowfullscreen></iframe>
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.4306192575523!2d74.85384927572214!3d12.880008816878457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35be7de4de6e7%3A0x2cab8e4beb25ab7c!2sNishchala%20Yoga%20Center!5e0!3m2!1sen!2sin!4v1780988225563!5m2!1sen!2sin"
+								width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+								referrerpolicy="no-referrer-when-downgrade"></iframe>
 						</div>
 						<!-- right part END -->
 					</div>
@@ -390,18 +378,18 @@
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-map-marker"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Address 20 , New York 10010</span>
+										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
 									</li>
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-phone-volume"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Phone 0800-123456</span>
+										<span style="line-height: 24px;">Phone 91 98456 67758</span>
 									</li>
-									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+									<!-- <li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-envelope"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
 										<span style="line-height: 24px;">Email info@example.com</span>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</div>
@@ -413,7 +401,9 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-md-6 col-sm-6 text-left">
-							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a
+									href="https://oneplanet360.com/" target="_blank"
+									style="font-weight: bold;">OnePlanet360.com</a></span>
 						</div>
 						<div class="col-md-6 col-sm-6 text-right">
 							<div class="dlab-social-icon">
@@ -463,12 +453,11 @@
 
 </html>
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has('success')) {
-    alert('Thank you! Your message has been sent successfully. We will get back to you soon.');
-}
-if (urlParams.has('error')) {
-    alert('There was an error sending your message. Please try again.');
-}
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.has('success')) {
+		alert('Thank you! Your message has been sent successfully. We will get back to you soon.');
+	}
+	if (urlParams.has('error')) {
+		alert('There was an error sending your message. Please try again.');
+	}
 </script>
-

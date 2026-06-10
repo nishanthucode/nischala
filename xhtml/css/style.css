@@ -8158,7 +8158,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
     display: block;
     width: 5px;
     height: 5px;
-    background: var(--color-primary);
+    background:#99C83D ;
     top: 17px;
 }
 
@@ -20502,12 +20502,12 @@ button.fa,
     width: auto !important;
     height: 80px !important;
     max-height: 80px !important;
-    max-width: 280px !important;
+    max-width: 350px !important;
     object-fit: contain !important;
 }
 
 .logo-footer img {
-    max-width: 280px !important;
+    max-width: 350px !important;
     width: 280px !important;
     height: auto !important;
     object-fit: contain !important;
@@ -20517,7 +20517,7 @@ button.fa,
     .logo-header img {
         height: 60px !important;
         max-height: 60px !important;
-        max-width: 220px !important;
+        max-width: 250px !important;
     }
 }
 
@@ -21383,13 +21383,13 @@ button.fa,
 /* Increase Logo Size more */
 .site-header .logo-header {
     height: 70px !important;
-    width: 120px !important;
+    width: auto !important;
 }
 .site-header .logo-header img {
     height: 70px !important;
     max-height: 70px !important;
-    width: 120px !important;
-    max-width: 120px !important;
+    width: auto !important;
+    max-width: auto !important;
     object-fit: contain;
 }
 
@@ -21397,7 +21397,7 @@ button.fa,
 .is-fixed .logo-header,
 .is-fixed .logo-header.logo-dark {
     height: 70px !important;
-    width: 120px !important;
+    width: auto !important;
 }
 .is-fixed .logo-header img,
 .is-fixed .logo-header.logo-dark img {
@@ -21429,7 +21429,7 @@ button.fa,
     height: 80px !important;
     max-height: 80px !important;
     width: auto !important;
-    min-width: 120px !important;
+    min-width: 180px !important;
 }
 
 .site-header .logo-header img,
@@ -21442,11 +21442,52 @@ button.fa,
     height: 80px !important;
     max-height: 80px !important;
     width: auto !important;
-    min-width: 100px !important;
+    min-width: 140px !important;
     object-fit: contain !important;
     transform: none !important;
     transition: none !important;
 }
+
+
+ 
+ . p a g i n a t i o n   l i . d i s a b l e d   a   {   o p a c i t y :   0 . 5 ;   c u r s o r :   n o t - a l l o w e d ;   p o i n t e r - e v e n t s :   n o n e ;   } 
+ 
+ 
+
+
+
+/* Absolute override for Logo Size - NEVER SHRINK */
+.site-header .logo-header,
+.site-header .logo-header.logo-dark,
+.is-fixed .logo-header,
+.is-fixed .logo-header.logo-dark,
+.is-fixed.header-curve .logo-header,
+.sticky-header.is-fixed .logo-header,
+.sticky-header.is-fixed .logo-header.logo-dark {
+    height: 80px !important;
+    max-height: 80px !important;
+    width: auto !important;
+    min-width: 180px !important;
+    transition: none !important;
+}
+
+.site-header .logo-header img,
+.site-header .logo-header.logo-dark img,
+.is-fixed .logo-header img,
+.is-fixed .logo-header.logo-dark img,
+.is-fixed.header-curve .logo-header img,
+.sticky-header.is-fixed .logo-header img,
+.sticky-header.is-fixed .logo-header.logo-dark img {
+    height: 80px !important;
+    max-height: 80px !important;
+    width: 180px !important;
+    min-width: 180px !important;
+    object-fit: contain !important;
+    transform: none !important;
+    transition: none !important;
+}
+
+
 
 @media only screen and (max-width: 991px) {
     .site-header .logo-header,
@@ -21454,9 +21495,17 @@ button.fa,
     .is-fixed .logo-header,
     .is-fixed .logo-header.logo-dark,
     .sticky-header.is-fixed .logo-header {
-        height: 70px !important;
-        max-height: 70px !important;
-        min-width: 100px !important;
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        min-width: 140px !important;
+        max-width: 140px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: none !important;
+        display: flex !important;
+        align-items: center !important;
     }
     
     .site-header .logo-header img,
@@ -21464,10 +21513,16 @@ button.fa,
     .is-fixed .logo-header img,
     .is-fixed .logo-header.logo-dark img,
     .sticky-header.is-fixed .logo-header img {
-        height: 70px !important;
-        max-height: 70px !important;
-        width: auto !important;
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        min-width: 140px !important;
+        max-width: 140px !important;
+        object-fit: contain !important;
         transform: none !important;
         transition: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 }

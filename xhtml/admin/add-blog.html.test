@@ -302,7 +302,7 @@ $blog = ['title' => '', 'author' => '', 'category' => 'Education', 'publish_date
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Blog Category</label>
+                                                <label class="form-label"></label>
                                                 <select class="form-control" name="category">
                                                     <option value="Education">Education</option>
                                                     <option value="Technology">Technology</option>

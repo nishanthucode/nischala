@@ -26,12 +26,11 @@ try {
     $stmt = $pdo->query("SELECT instructor as name, COUNT(*) as classes_count FROM classes WHERE instructor IS NOT NULL AND instructor != '' GROUP BY instructor ORDER BY classes_count DESC LIMIT 5");
     $data['top_instructors'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // 6. Recent Registrations
+    // 6. Recent Registrations (Fetching from Enquiries as requested)
     $stmt = $pdo->query("
-        SELECT b.id, b.customer_name as name, c.instructor, b.booking_date, b.payment_status as status, c.name as class_name, c.price, b.quantity
-        FROM bookings b
-        JOIN classes c ON b.class_id = c.id
-        ORDER BY b.id DESC
+        SELECT id, name, '' as instructor, created_at as booking_date, status, subject as class_name, '' as price
+        FROM enquiries
+        ORDER BY id DESC
         LIMIT 5
     ");
     $data['recent_registrations'] = $stmt->fetchAll(PDO::FETCH_ASSOC);

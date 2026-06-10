@@ -238,11 +238,17 @@ function gallery_image_src(?string $imagePath): string
                             <!-- <li><a href="edit-blog.html"></a></li> -->
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="all-enquiries.html" aria-expanded="false">
-                            <i class="la la-envelope"></i>
-                            <span class="nav-text">Enquiry</span>
+                    <li style="padding: 8px 0;"><a class="has-arrow" href="javascript:void()" aria-expanded="false"
+                            style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; white-space: nowrap; flex-wrap: nowrap;">
+                            <span style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+                                <i class="la la-envelope" style="color: #ccc; font-size: 18px; flex-shrink: 0;"></i>
+                                <span class="nav-text" style="color: #fff; font-size: 14px;">Enquiry</span>
+                            </span>
                         </a>
-
+                        <ul aria-expanded="false" style="background-color: #1e3a5f;">
+                            <li><a href="all-enquiries.html">All Enquiries</a></li>
+                            <li><a href="view-enquiry.html">View Enquiry</a></li>
+                        </ul>
                     </li>
 
                     <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -384,7 +390,7 @@ function gallery_image_src(?string $imagePath): string
 
     <!-- Datatable -->
     <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/plugins-init/datatables.init.js?v=4"></script>
 
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>

@@ -1,4 +1,4 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,7 +132,7 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-graduation-cap"></i>
                             <span class="nav-text">Classes</span>
                         </a>
@@ -140,7 +140,7 @@
                             <li><a href="all-courses.html">All Classes</a></li>
                             <li><a href="add-courses.html">Add Class</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-calendar"></i>
                             <span class="nav-text">Events</span>
@@ -292,11 +292,9 @@
             Footer start
         ***********************************-->
             <div class="footer">
-                <div class="copyright">
-                    <p>Copyright ï¿½ 2026 Designed &amp; Developed by <a href="https://oneplanet360.com"
-                            target="_blank">Oneplanets360</a></p>
-
-                </div>
+                            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            </div>
             </div>
             <!--**********************************
             Footer end

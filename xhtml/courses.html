@@ -48,7 +48,7 @@ function class_image_src(?string $imagePath): string {
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" type="text/css" href="css/plugins.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=1781002912">
     <link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
     <link rel="stylesheet" type="text/css" href="css/templete.css">
     <!-- Google Font -->
@@ -172,6 +172,64 @@ function class_image_src(?string $imagePath): string {
             text-align: center;
         }
     </style>
+<!-- MOBILE LOGO FIX -->
+<style>
+/* ABSOLUTE MOBILE LOGO FIX */
+@media only screen and (max-width: 991px) {
+    .site-header .logo-header,
+    .site-header .logo-header.logo-dark,
+    .is-fixed .logo-header,
+    .is-fixed .logo-header.logo-dark,
+    .site-header.is-fixed .logo-header {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .site-header .logo-header img,
+    .site-header .logo-header.logo-dark img,
+    .is-fixed .logo-header img,
+    .is-fixed .logo-header.logo-dark img,
+    .site-header.is-fixed .logo-header img {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        object-fit: contain !important;
+        transform: none !important;
+        transition: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .is-fixed .main-bar, .site-header .main-bar {
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: none !important;
+    }
+    /* Mobile Menu Alignment Fix */
+    .header-nav ul {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    .header-nav .nav > li {
+        padding: 0 15px !important;
+        text-align: left;
+    }
+    .header-nav .dlab-social-icon {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+</style>
+<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -188,7 +246,7 @@ function class_image_src(?string $imagePath): string {
 							style="height: 80px; display: flex; align-items: center;">
 							<a href="index.html" style="display: flex; align-items: center; height: 100%;"><img
 									src="images/logo.png" alt=""
-									style="width: 100px; height: 150px; object-fit: contain; transition: none !important; margin: 0; padding: 0;"></a>
+									style="width: 180px; height: auto; max-height: 80px; object-fit: contain; transition: none !important; margin: 0; padding: 0;"></a>
 						</div>
                         <!-- nav toggle button -->
                         <button class="navbar-toggler collapsed navicon justify-content-end" type="button"
@@ -209,7 +267,7 @@ function class_image_src(?string $imagePath): string {
                         <!-- main nav -->
                         <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
                             <div class="logo-header d-md-block d-lg-none">
-                                <a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+                                <a href="index.html"><img src="images/logo.png" style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
                                         alt=""></a>
                             </div>
                             <ul class="nav navbar-nav">
@@ -290,15 +348,18 @@ function class_image_src(?string $imagePath): string {
                 style="margin-top: 50px;">
                 <main class="pt-12 pb-xl">
                     <section class="px-gutter max-w-container-max mx-auto">
-                        <div class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+                        <style>
+                            .hide-scrollbar::-webkit-scrollbar { display: none; }
+                        </style>
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-xl gap-md w-full overflow-hidden">
                             <div class="max-w-xl">
                                 <h2 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Our Transformative
                                     Programs</h2>
                                 <p class="text-on-surface-variant font-body-md">Explore a diverse range of yogic
                                     practices, from foundational postures to advanced residential retreats.</p>
                             </div>
-                            <div class="flex gap-sm">
-                                <div class="flex gap-sm bg-surface-container p-xs rounded-full" id="course-filters">
+                            <div class="flex gap-sm w-full md:w-auto overflow-x-auto pb-2 hide-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
+                                <div class="flex gap-sm bg-surface-container p-xs rounded-full whitespace-nowrap min-w-max" id="course-filters">
                                     <button data-filter="all"
                                         class="filter-btn btn-tw bg-[#99C83D] text-white px-md py-sm rounded-full font-label-md text-label-md transition-colors">All</button>
                                     <button data-filter="in-person"
@@ -910,7 +971,7 @@ function class_image_src(?string $imagePath): string {
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-between items-start pt-md border-t border-outline-variant gap-[10px] min-h-[72px]">
+                                    <div class="flex justify-between items-end pt-md border-t border-outline-variant gap-[10px] min-h-[72px]">
                                         <div>
                                             <span class="text-primary font-headline-md text-headline-md">₹3000</span>
                                             <p class="text-caption font-caption text-on-surface-variant italic leading-tight" style="margin: 0;">Incl. Bhuta Shuddhi Kit</p>
@@ -918,7 +979,8 @@ function class_image_src(?string $imagePath): string {
                                         </div>
                                         <div class="flex flex-col items-end gap-xs shrink-0">
                                             <a href="index.html#register-interest" class="btn-tw bg-[#E67527] hover:bg-secondary text-on-primary px-[12px] py-[6px] text-[12px] rounded-md font-medium transition-colors active:scale-95 duration-200 whitespace-nowrap min-w-[110px] text-center" style="color: white; text-decoration: none;">Register Now</a>
-                                           </div>
+                                           
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1389,18 +1451,18 @@ function class_image_src(?string $imagePath): string {
                                     <li style="margin-bottom: 20px; display: flex; align-items: center;">
                                         <i class="la la-map-marker"
                                             style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-                                        <span style="line-height: 24px;">Address 20 , New York 10010</span>
+                                        <span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
                                     </li>
                                     <li style="margin-bottom: 20px; display: flex; align-items: center;">
                                         <i class="la la-phone-volume"
                                             style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-                                        <span style="line-height: 24px;">Phone 0800-123456</span>
+                                        <span style="line-height: 24px;">Phone +91 98456 67758</span>
                                     </li>
-                                    <li style="margin-bottom: 20px; display: flex; align-items: center;">
+                                    <!-- <li style="margin-bottom: 20px; display: flex; align-items: center;">
                                         <i class="la la-envelope"
                                             style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
                                         <span style="line-height: 24px;">Email info@example.com</span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>

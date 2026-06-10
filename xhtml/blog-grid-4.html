@@ -2,8 +2,17 @@
 require_once __DIR__ . '/backend/functions.php';
 $blogs = backend_fetch_all('blogs');
 usort($blogs, function($a, $b) {
-    return strtotime($b['publish_date'] ?? 'now') < strtotime($a['publish_date'] ?? 'now') ? 1 : -1;
+    return strtotime($b['publish_date'] ?? 'now') <=> strtotime($a['publish_date'] ?? 'now');
 });
+
+$page = max(1, (int)($_GET['page'] ?? 1));
+$perPage = 8;
+$totalBlogs = count($blogs);
+$totalPages = max(1, (int)ceil($totalBlogs / $perPage));
+$page = min($page, $totalPages);
+$offset = ($page - 1) * $perPage;
+
+$paginatedBlogs = array_slice($blogs, $offset, $perPage);
 
 function blog_image_src(?string $imagePath): string
 {
@@ -63,7 +72,7 @@ function blog_image_src(?string $imagePath): string
 
 	<!-- STYLESHEETS -->
 	<link rel="stylesheet" type="text/css" href="css/plugins.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=1781002912">
 	<link class="skin" rel="stylesheet" type="text/css" href="css/skin/skin-1.css">
 	<link rel="stylesheet" type="text/css" href="css/templete.css">
 	<!-- Google Font -->
@@ -72,6 +81,64 @@ function blog_image_src(?string $imagePath): string
 	</style>
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+<!-- MOBILE LOGO FIX -->
+<style>
+/* ABSOLUTE MOBILE LOGO FIX */
+@media only screen and (max-width: 991px) {
+    .site-header .logo-header,
+    .site-header .logo-header.logo-dark,
+    .is-fixed .logo-header,
+    .is-fixed .logo-header.logo-dark,
+    .site-header.is-fixed .logo-header {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .site-header .logo-header img,
+    .site-header .logo-header.logo-dark img,
+    .is-fixed .logo-header img,
+    .is-fixed .logo-header.logo-dark img,
+    .site-header.is-fixed .logo-header img {
+        height: 60px !important;
+        max-height: 60px !important;
+        min-height: 60px !important;
+        width: 140px !important;
+        max-width: 140px !important;
+        min-width: 140px !important;
+        object-fit: contain !important;
+        transform: none !important;
+        transition: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .is-fixed .main-bar, .site-header .main-bar {
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: none !important;
+    }
+    /* Mobile Menu Alignment Fix */
+    .header-nav ul {
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+    .header-nav .nav > li {
+        padding: 0 15px !important;
+        text-align: left;
+    }
+    .header-nav .dlab-social-icon {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+</style>
+<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -105,7 +172,7 @@ function blog_image_src(?string $imagePath): string
 						<!-- website logo -->
 						<div class="logo-header mostion logo-dark">
 							<a href="index.html"><img src="images/logo.png" alt=""
-									style="width: 100px; height:60px;"></a>
+									style="width: 180px; height: auto; max-height: 80px; object-fit: contain; transition: none !important; margin: 0; padding: 0;"></a>
 						</div>
 						<!-- nav toggle button -->
 						<button class="navbar-toggler collapsed navicon justify-content-end" type="button"
@@ -133,7 +200,7 @@ function blog_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo.png" style="width: 120px; height: auto;"
+								<a href="index.html"><img src="images/logo.png" style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
 										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
@@ -217,7 +284,7 @@ function blog_image_src(?string $imagePath): string
 							<p>No blog posts found.</p>
 						</div>
 						<?php endif; ?>
-						<?php foreach ($blogs as $blog): ?>
+						<?php foreach ($paginatedBlogs as $blog): ?>
 						<div class="post card-container col-xl-3 col-lg-4 col-md-6 col-sm-6"
 							onclick="window.location.href='blog-list.html';" style="cursor: pointer;">
 							<div class="blog-post blog-grid blog-rounded blog-effect1">
@@ -232,9 +299,6 @@ function blog_image_src(?string $imagePath): string
 											<li class="post-author"> <i class="la la-user-circle"></i> By <a
 													href="javascript:void(0);">
 													<?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?>
-												</a> </li>
-											<li class="post-tag"> <a href="javascript:void(0);">
-													<?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?>
 												</a> </li>
 										</ul>
 									</div>
@@ -266,16 +330,25 @@ function blog_image_src(?string $imagePath): string
 					</div>
 					<!-- blog grid END -->
 					<!-- Pagination -->
+					<?php if ($totalPages > 1): ?>
 					<div class="pagination-bx rounded-sm primary clearfix col-md-12 text-center">
 						<ul class="pagination">
-							<li class="previous"><a href="javascript:void(0);"><i class="ti-arrow-left"></i> Prev</a>
+							<li class="previous <?php echo $page <= 1 ? 'disabled' : ''; ?>">
+								<a href="<?php echo $page <= 1 ? 'javascript:void(0);' : '?page=' . ($page - 1); ?>"><i class="ti-arrow-left"></i> Prev</a>
 							</li>
-							<li class="active"><a href="javascript:void(0);">1</a></li>
-							<li><a href="javascript:void(0);">2</a></li>
-							<li><a href="javascript:void(0);">3</a></li>
-							<li class="next"><a href="javascript:void(0);">Next <i class="ti-arrow-right"></i></a></li>
+							
+							<?php for ($i = 1; $i <= $totalPages; $i++): ?>
+							<li class="<?php echo $i === $page ? 'active' : ''; ?>">
+								<a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+							</li>
+							<?php endfor; ?>
+							
+							<li class="next <?php echo $page >= $totalPages ? 'disabled' : ''; ?>">
+								<a href="<?php echo $page >= $totalPages ? 'javascript:void(0);' : '?page=' . ($page + 1); ?>">Next <i class="ti-arrow-right"></i></a>
+							</li>
 						</ul>
 					</div>
+					<?php endif; ?>
 					<!-- Pagination END -->
 
 				</div>
@@ -357,18 +430,18 @@ function blog_image_src(?string $imagePath): string
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-map-marker"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Address 20 , New York 10010</span>
+										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
 									</li>
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-phone-volume"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Phone 0800-123456</span>
+										<span style="line-height: 24px;">Phone +91 98456 67758</span>
 									</li>
-									<li style="margin-bottom: 20px; display: flex; align-items: center;">
+									<!-- <li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-envelope"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
 										<span style="line-height: 24px;">Email info@example.com</span>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</div>

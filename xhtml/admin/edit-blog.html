@@ -4,7 +4,7 @@ require_once __DIR__ . '/../backend/functions.php';
 $blogId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $blog = $blogId > 0 ? backend_fetch_one('blogs', $blogId) : null;
 if (!$blog) {
-    $blog = ['id' => '', 'title' => '', 'author' => '', 'category' => 'Education', 'publish_date' => '', 'content' => '', 'image_path' => ''];
+    $blog = ['id' => '', 'title' => '', 'author' => '', 'publish_date' => '', 'content' => '', 'image_path' => ''];
 }
 
 function blog_image_src(?string $imagePath): string
@@ -108,7 +108,7 @@ function blog_image_src(?string $imagePath): string
                             <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank"
                                     class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live
                                     View</a></li>
-                            <li class="nav-item dropdown notification_dropdown">
+                            <!-- <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -175,10 +175,10 @@ function blog_image_src(?string $imagePath): string
                                     <a class="all-notification" href="#">See all notifications <i
                                             class="ti-arrow-right"></i></a>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="images/profile/pic1.jpg" width="20" alt="" />
+                                    <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a href="page-login.html" class="dropdown-item ai-icon">
@@ -193,7 +193,7 @@ function blog_image_src(?string $imagePath): string
                                         <span class="ms-2">Logout </span>
                                     </a>
                                 </div>
-                            </li>
+                            </li> 
                         </ul>
                     </div>
                 </nav>
@@ -231,7 +231,7 @@ function blog_image_src(?string $imagePath): string
                         </ul>
                     </li>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-graduation-cap"></i>
                             <span class="nav-text">Classes</span>
                         </a>
@@ -241,7 +241,7 @@ function blog_image_src(?string $imagePath): string
 
 
                         </ul>
-                    </li>
+                    </li> -->
 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-image"></i>
@@ -339,23 +339,7 @@ function blog_image_src(?string $imagePath): string
                                                     value="<?php echo htmlspecialchars($blog['author']); ?>">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Blog Category</label>
-                                                <select class="form-control" name="category">
-                                                    <option value="Education" <?php echo $blog['category']==='Education'
-                                                        ? 'selected' : '' ; ?>>Education</option>
-                                                    <option value="Technology" <?php echo
-                                                        $blog['category']==='Technology' ? 'selected' : '' ; ?>
-                                                        >Technology</option>
-                                                    <option value="Tips & Tricks" <?php echo
-                                                        $blog['category']==='Tips & Tricks' ? 'selected' : '' ; ?>>Tips
-                                                        & Tricks</option>
-                                                    <option value="General" <?php echo $blog['category']==='General'
-                                                        ? 'selected' : '' ; ?>>General</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Publish Date</label>
@@ -406,9 +390,8 @@ function blog_image_src(?string $imagePath): string
             Footer start
         ***********************************-->
         <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://oneplanets360.com"
-                        target="_blank">Oneplanets360</a> 2026</p>
+                        <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
         <!--**********************************

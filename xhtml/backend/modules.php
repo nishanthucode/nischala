@@ -27,9 +27,15 @@ return [
         'title' => 'title',
         'fields' => [
             'title' => ['label' => 'Event Title', 'type' => 'text', 'required' => true],
+            'delivery_mode' => ['label' => 'Delivery Mode', 'type' => 'text', 'required' => false],
             'event_date' => ['label' => 'Event Date', 'type' => 'date', 'required' => true],
             'event_time' => ['label' => 'Event Time', 'type' => 'time', 'required' => false],
+            'end_date' => ['label' => 'End Date', 'type' => 'date', 'required' => false],
+            'end_time' => ['label' => 'End Time', 'type' => 'time', 'required' => false],
             'location' => ['label' => 'Location', 'type' => 'text', 'required' => false],
+            'ticket_price' => ['label' => 'Ticket Price', 'type' => 'number', 'required' => false],
+            'total_seats' => ['label' => 'Total Seats', 'type' => 'number', 'required' => false],
+            'available_seats' => ['label' => 'Available Seats', 'type' => 'number', 'required' => false],
             'description' => ['label' => 'Description', 'type' => 'textarea', 'required' => false],
             'highlights' => ['label' => 'Highlights', 'type' => 'textarea', 'required' => false],
             'image_path' => ['label' => 'Image', 'type' => 'file', 'required' => false],
@@ -54,7 +60,6 @@ return [
         'fields' => [
             'title' => ['label' => 'Blog Title', 'type' => 'text', 'required' => true],
             'author' => ['label' => 'Author Name', 'type' => 'text', 'required' => true],
-            'category' => ['label' => 'Category', 'type' => 'text', 'required' => true],
             'publish_date' => ['label' => 'Publish Date', 'type' => 'date', 'required' => true],
             'content' => ['label' => 'Content', 'type' => 'textarea', 'required' => true],
             'image_path' => ['label' => 'Thumbnail Image', 'type' => 'file', 'required' => false],
@@ -93,5 +98,3 @@ return [
         ],
     ],
 ];
-
-

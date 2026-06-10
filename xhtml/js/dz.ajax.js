@@ -38,16 +38,26 @@ function contactForm()
 			success: function(dzRes){
 				if(dzRes.status == 1){
 					msgDiv = '<div class="gen alert alert-success">'+dzRes.msg+'</div>';
+					alert(dzRes.msg); // Pop-up for success
 				}
 				
 				if(dzRes.status == 0){
 					msgDiv = '<div class="err alert alert-danger">'+dzRes.msg+'</div>';
+					alert('Error: ' + dzRes.msg); // Pop-up for error
 				}
-				$('.dzFormMsg').html(msgDiv);
+				
+				if($('.dzFormMsg').length) {
+					$('.dzFormMsg').html(msgDiv);
+				}
 				$('.dzForm')[0].reset();
-                grecaptcha.reset();
+                if (typeof grecaptcha !== 'undefined') {
+                    grecaptcha.reset();
+                }
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert('AJAX Error: ' + textStatus + ' - ' + errorThrown);
 			}
-		})
+		});
 	});
 	
 	
