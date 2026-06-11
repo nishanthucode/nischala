@@ -38,17 +38,17 @@ function event_image_src(?string $imagePath): string {
 
 	<meta property="og:description"
 		content="Experience authentic yogic practices designed to bring harmony to your body, clarity to your mind, and balance to your life.">
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script>
-            tailwind.config = {
-                darkMode: "class",
-                corePlugins: {
-                    preflight: false,
-                    container: false
-                },
-                important: "#homepage-wrapper",
-            }
-        </script>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			darkMode: "class",
+			corePlugins: {
+				preflight: false,
+				container: false
+			},
+			important: "#homepage-wrapper",
+		}
+	</script>
 
 	<meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
 
@@ -443,7 +443,7 @@ function event_image_src(?string $imagePath): string {
 								</li>
 
 								<li class="has-mega-menu">
-									<a href="gallery-grid-4.html">Gallery</a>
+									<a href="gallery.html">Gallery</a>
 								</li>
 
 								<li class="has-mega-menu">
@@ -455,7 +455,8 @@ function event_image_src(?string $imagePath): string {
 
 								</li>
 							</ul>
-							<div class="dlab-social-icon text-start" style="text-align: left; padding-left: 20px; padding-bottom: 20px;">
+							<div class="dlab-social-icon text-start"
+								style="text-align: left; padding-left: 20px; padding-bottom: 20px;">
 								<ul>
 									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
 									</li>
@@ -1822,7 +1823,7 @@ function event_image_src(?string $imagePath): string {
 												href="event.html"
 												style="text-transform: none; color: #cccccc;">Events</a></li>
 										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-												href="gallery-grid-4.html"
+												href="gallery.html"
 												style="text-transform: none; color: #cccccc;">Gallery</a></li>
 										<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 												href="blog-grid-4.html"
@@ -1846,7 +1847,8 @@ function event_image_src(?string $imagePath): string {
 								<li style="margin-bottom: 20px; display: flex; align-items: center;">
 									<i class="la la-map-marker"
 										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-									<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
+									<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,
+										Mangaluru, Karnataka 575002</span>
 								</li>
 								<li style="margin-bottom: 20px; display: flex; align-items: center;">
 									<i class="la la-phone-volume"
@@ -1914,32 +1916,32 @@ function event_image_src(?string $imagePath): string {
 	<script src="js/jquery.lazy.min.js"></script>
 
 	<script>
-		// Simple typing animation for the hero headline
-		; (function () {
-			var el = document.getElementById('typed-headline');
-			if (!el) return;
-			var targetHtml = 'Your path to <span style="color: #99C83D; font-style: italic; font-family: \'Merriweather\', serif; font-weight: 300;">stillness</span> starts here.';
-			var i = 0;
-			var speed = 40;
-			function type() {
-				if (i < targetHtml.length) {
-					if (targetHtml.charAt(i) === '<') {
-						var tagEnd = targetHtml.indexOf('>', i);
-						if (tagEnd !== -1) {
-							i = tagEnd + 1;
+			// Simple typing animation for the hero headline
+			; (function () {
+				var el = document.getElementById('typed-headline');
+				if (!el) return;
+				var targetHtml = 'Your path to <span style="color: #99C83D; font-style: italic; font-family: \'Merriweather\', serif; font-weight: 300;">stillness</span> starts here.';
+				var i = 0;
+				var speed = 40;
+				function type() {
+					if (i < targetHtml.length) {
+						if (targetHtml.charAt(i) === '<') {
+							var tagEnd = targetHtml.indexOf('>', i);
+							if (tagEnd !== -1) {
+								i = tagEnd + 1;
+							}
+						} else {
+							i++;
 						}
+						el.innerHTML = targetHtml.substring(0, i);
+						setTimeout(type, speed);
 					} else {
-						i++;
+						var cursor = el.nextElementSibling;
+						if (cursor) cursor.style.opacity = '0';
 					}
-					el.innerHTML = targetHtml.substring(0, i);
-					setTimeout(type, speed);
-				} else {
-					var cursor = el.nextElementSibling;
-					if (cursor) cursor.style.opacity = '0';
 				}
-			}
-			window.addEventListener('load', function () { setTimeout(type, 400); });
-		})();
+				window.addEventListener('load', function () { setTimeout(type, 400); });
+			})();
 	</script>
 </body>
 

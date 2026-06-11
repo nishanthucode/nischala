@@ -37,15 +37,22 @@ function blog_image_src(?string $imagePath): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    
+        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
+    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    
+    
+    
 </head>
 
 <body>
@@ -330,10 +337,6 @@ function blog_image_src(?string $imagePath): string
                                     <li class="list-group-item px-0 d-flex justify-content-between"><span
                                             class="mb-0">Date :</span><strong>
                                             <?php echo htmlspecialchars(date('d M Y', strtotime((string)$blog['publish_date']))); ?>
-                                        </strong></li>
-                                    <li class="list-group-item px-0 d-flex justify-content-between"><span
-                                            class="mb-0">Category :</span><strong>
-                                            <?php echo htmlspecialchars($blog['category']); ?>
                                         </strong></li>
                                 </ul>
                                 <a href="edit-blog.html?id=<?php echo (int)$blog['id']; ?>"

@@ -1,4 +1,4 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -29,7 +29,14 @@ function gallery_image_src(?string $imagePath): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    
+        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
+    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -37,11 +44,10 @@ function gallery_image_src(?string $imagePath): string
 
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
-    <link rel="stylesheet" href="vendor/dropify/css/dropify.min.css">
 
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    
+    
+    
 </head>
 
 <body>
@@ -315,8 +321,8 @@ function gallery_image_src(?string $imagePath): string
                                                         ($item['category']=='Transformation Stories' ) ? 'selected' : ''
                                                         ; ?>>Transformation Stories</option>
                                                     <option value="Video Gallery" <?php echo
-                                                        ($item['category']=='Video Gallery' ) ? 'selected' : '' ; ?>
-                                                        >Video Gallery</option>
+                                                        ($item['category']=='Video Gallery' ) ? 'selected' : '' ; ?>>
+                                                        Video Gallery</option>
                                                     <option value="Retreat Experiences" <?php echo
                                                         ($item['category']=='Retreat Experiences' ) ? 'selected' : '' ;
                                                         ?>>Retreat Experiences</option>
@@ -325,16 +331,15 @@ function gallery_image_src(?string $imagePath): string
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
-                                                <label class="form-label d-block">Video File (Optional, for Video
-                                                    Gallery)</label>
-                                                <input type="file" name="video_path" class="dropify"
-                                                    data-default-file="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : ''; ?>"
-                                                    accept="video/mp4,video/webm,video/ogg">
+                                                <label class="form-label d-block">Video File (Optional, for Video Gallery)</label>
                                                 <?php if (!empty($item['video_path'])): ?>
-                                                <small class="text-muted d-block mt-2">Current video: <a
-                                                        href="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
-                                                        target="_blank">View</a></small>
+                                                <div style="margin-bottom: 15px;">
+                                                    <span style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current Video:</span>
+                                                    <video src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>" controls style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;"></video>
+                                                    <small class="text-muted d-block mt-2"><a href="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>" target="_blank">Open in new tab</a></small>
+                                                </div>
                                                 <?php endif; ?>
+                                                <input type="file" class="form-control" name="video_path" accept="video/mp4,video/webm,video/ogg">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -347,8 +352,13 @@ function gallery_image_src(?string $imagePath): string
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Image (Thumbnail/Photo)</label>
-                                                <input type="file" name="image_path" class="dropify"
-                                                    data-default-file="<?php echo htmlspecialchars(gallery_image_src($item['image_path'] ?? '')); ?>">
+                                                <?php if (!empty($item['image_path'])): ?>
+                                                <div style="margin-bottom: 15px;">
+                                                    <span style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current Image:</span>
+                                                    <img src="<?php echo htmlspecialchars(gallery_image_src($item['image_path'])); ?>" style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
+                                                </div>
+                                                <?php endif; ?>
+                                                <input type="file" class="form-control" name="image_path">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -407,13 +417,7 @@ function gallery_image_src(?string $imagePath): string
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
-    <script src="vendor/dropify/js/dropify.min.js"></script>
 
-    <script>
-        $(function() {
-            $('.dropify').dropify();
-        });
-    </script>
 
     <script>
         // Dynamic Notifications Inject

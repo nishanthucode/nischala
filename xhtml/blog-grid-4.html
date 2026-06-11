@@ -81,64 +81,71 @@ function blog_image_src(?string $imagePath): string
 	</style>
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-<!-- MOBILE LOGO FIX -->
-<style>
-/* ABSOLUTE MOBILE LOGO FIX */
-@media only screen and (max-width: 991px) {
-    .site-header .logo-header,
-    .site-header .logo-header.logo-dark,
-    .is-fixed .logo-header,
-    .is-fixed .logo-header.logo-dark,
-    .site-header.is-fixed .logo-header {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .site-header .logo-header img,
-    .site-header .logo-header.logo-dark img,
-    .is-fixed .logo-header img,
-    .is-fixed .logo-header.logo-dark img,
-    .site-header.is-fixed .logo-header img {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        object-fit: contain !important;
-        transform: none !important;
-        transition: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .is-fixed .main-bar, .site-header .main-bar {
-        padding: 0 !important;
-        margin: 0 !important;
-        transition: none !important;
-    }
-    /* Mobile Menu Alignment Fix */
-    .header-nav ul {
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-    }
-    .header-nav .nav > li {
-        padding: 0 15px !important;
-        text-align: left;
-    }
-    .header-nav .dlab-social-icon {
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-}
-</style>
-<!-- END MOBILE LOGO FIX -->
+	<!-- MOBILE LOGO FIX -->
+	<style>
+		/* ABSOLUTE MOBILE LOGO FIX */
+		@media only screen and (max-width: 991px) {
+
+			.site-header .logo-header,
+			.site-header .logo-header.logo-dark,
+			.is-fixed .logo-header,
+			.is-fixed .logo-header.logo-dark,
+			.site-header.is-fixed .logo-header {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.site-header .logo-header img,
+			.site-header .logo-header.logo-dark img,
+			.is-fixed .logo-header img,
+			.is-fixed .logo-header.logo-dark img,
+			.site-header.is-fixed .logo-header img {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				object-fit: contain !important;
+				transform: none !important;
+				transition: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.is-fixed .main-bar,
+			.site-header .main-bar {
+				padding: 0 !important;
+				margin: 0 !important;
+				transition: none !important;
+			}
+
+			/* Mobile Menu Alignment Fix */
+			.header-nav ul {
+				padding-left: 0 !important;
+				margin-left: 0 !important;
+			}
+
+			.header-nav .nav>li {
+				padding: 0 15px !important;
+				text-align: left;
+			}
+
+			.header-nav .dlab-social-icon {
+				width: 100%;
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+		}
+	</style>
+	<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -200,7 +207,8 @@ function blog_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo.png" style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
+								<a href="index.html"><img src="images/logo.png"
+										style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
 										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
@@ -224,7 +232,7 @@ function blog_image_src(?string $imagePath): string
 								</li>
 
 								<li>
-									<a href="gallery-grid-4.html">Gallery</a>
+									<a href="gallery.html">Gallery</a>
 								</li>
 
 								<li class="active">
@@ -334,17 +342,22 @@ function blog_image_src(?string $imagePath): string
 					<div class="pagination-bx rounded-sm primary clearfix col-md-12 text-center">
 						<ul class="pagination">
 							<li class="previous <?php echo $page <= 1 ? 'disabled' : ''; ?>">
-								<a href="<?php echo $page <= 1 ? 'javascript:void(0);' : '?page=' . ($page - 1); ?>"><i class="ti-arrow-left"></i> Prev</a>
+								<a href="<?php echo $page <= 1 ? 'javascript:void(0);' : '?page=' . ($page - 1); ?>"><i
+										class="ti-arrow-left"></i> Prev</a>
 							</li>
-							
+
 							<?php for ($i = 1; $i <= $totalPages; $i++): ?>
 							<li class="<?php echo $i === $page ? 'active' : ''; ?>">
-								<a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+								<a href="?page=<?php echo $i; ?>">
+									<?php echo $i; ?>
+								</a>
 							</li>
 							<?php endfor; ?>
-							
+
 							<li class="next <?php echo $page >= $totalPages ? 'disabled' : ''; ?>">
-								<a href="<?php echo $page >= $totalPages ? 'javascript:void(0);' : '?page=' . ($page + 1); ?>">Next <i class="ti-arrow-right"></i></a>
+								<a
+									href="<?php echo $page >= $totalPages ? 'javascript:void(0);' : '?page=' . ($page + 1); ?>">Next
+									<i class="ti-arrow-right"></i></a>
 							</li>
 						</ul>
 					</div>
@@ -406,7 +419,7 @@ function blog_image_src(?string $imagePath): string
 													href="event.html"
 													style="text-transform: none; color: #cccccc;">Events</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="gallery-grid-4.html"
+													href="gallery.html"
 													style="text-transform: none; color: #cccccc;">Gallery</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="blog-grid-4.html"
@@ -430,7 +443,8 @@ function blog_image_src(?string $imagePath): string
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-map-marker"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
+										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,
+											Mangaluru, Karnataka 575002</span>
 									</li>
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-phone-volume"
@@ -453,7 +467,9 @@ function blog_image_src(?string $imagePath): string
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-md-6 col-sm-6 text-left">
-							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a
+									href="https://oneplanet360.com/" target="_blank"
+									style="font-weight: bold;">OnePlanet360.com</a></span>
 						</div>
 						<div class="col-md-6 col-sm-6 text-right">
 							<div class="dlab-social-icon">

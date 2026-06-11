@@ -149,64 +149,71 @@ function blog_image_src(?string $imagePath): string
 
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-<!-- MOBILE LOGO FIX -->
-<style>
-/* ABSOLUTE MOBILE LOGO FIX */
-@media only screen and (max-width: 991px) {
-    .site-header .logo-header,
-    .site-header .logo-header.logo-dark,
-    .is-fixed .logo-header,
-    .is-fixed .logo-header.logo-dark,
-    .site-header.is-fixed .logo-header {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .site-header .logo-header img,
-    .site-header .logo-header.logo-dark img,
-    .is-fixed .logo-header img,
-    .is-fixed .logo-header.logo-dark img,
-    .site-header.is-fixed .logo-header img {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        object-fit: contain !important;
-        transform: none !important;
-        transition: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .is-fixed .main-bar, .site-header .main-bar {
-        padding: 0 !important;
-        margin: 0 !important;
-        transition: none !important;
-    }
-    /* Mobile Menu Alignment Fix */
-    .header-nav ul {
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-    }
-    .header-nav .nav > li {
-        padding: 0 15px !important;
-        text-align: left;
-    }
-    .header-nav .dlab-social-icon {
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-}
-</style>
-<!-- END MOBILE LOGO FIX -->
+	<!-- MOBILE LOGO FIX -->
+	<style>
+		/* ABSOLUTE MOBILE LOGO FIX */
+		@media only screen and (max-width: 991px) {
+
+			.site-header .logo-header,
+			.site-header .logo-header.logo-dark,
+			.is-fixed .logo-header,
+			.is-fixed .logo-header.logo-dark,
+			.site-header.is-fixed .logo-header {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.site-header .logo-header img,
+			.site-header .logo-header.logo-dark img,
+			.is-fixed .logo-header img,
+			.is-fixed .logo-header.logo-dark img,
+			.site-header.is-fixed .logo-header img {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				object-fit: contain !important;
+				transform: none !important;
+				transition: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.is-fixed .main-bar,
+			.site-header .main-bar {
+				padding: 0 !important;
+				margin: 0 !important;
+				transition: none !important;
+			}
+
+			/* Mobile Menu Alignment Fix */
+			.header-nav ul {
+				padding-left: 0 !important;
+				margin-left: 0 !important;
+			}
+
+			.header-nav .nav>li {
+				padding: 0 15px !important;
+				text-align: left;
+			}
+
+			.header-nav .dlab-social-icon {
+				width: 100%;
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+		}
+	</style>
+	<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -260,7 +267,8 @@ function blog_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo.png" style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
+								<a href="index.html"><img src="images/logo.png"
+										style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
 										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
@@ -284,7 +292,7 @@ function blog_image_src(?string $imagePath): string
 								</li>
 
 								<li class="has-mega-menu">
-									<a href="gallery-grid-4.html">Gallery</a>
+									<a href="gallery.html">Gallery</a>
 								</li>
 
 								<li class="has-mega-menu">
@@ -346,7 +354,8 @@ function blog_image_src(?string $imagePath): string
 						<div class="row about-one align-items-center">
 							<div class="col-lg-6 m-b30">
 								<div class="about-img">
-									<img src="images/about/aboutt.jpg" alt="" style="height: 500px; width: 100%; object-fit: cover;">
+									<img src="images/about/aboutt.jpg" alt=""
+										style="height: 500px; width: 100%; object-fit: cover;">
 									<div class="video-bx">
 										<a href="https://www.youtube.com/watch?v=_FRZVScwggM" class=""></a>
 									</div>
@@ -385,7 +394,8 @@ function blog_image_src(?string $imagePath): string
 				</div>
 				<!-- About Services info END -->
 				<!-- Yoga Philosophy & Sadhguru Section -->
-				<div class="section-full content-inner-2 yoga-philosophy-modern wow fadeIn" data-wow-duration="1.2s" data-wow-delay="0.4s">
+				<div class="section-full content-inner-2 yoga-philosophy-modern wow fadeIn" data-wow-duration="1.2s"
+					data-wow-delay="0.4s">
 					<!-- Decorative Background Elements -->
 					<div class="bg-circle-1"></div>
 					<div class="bg-circle-2"></div>
@@ -396,27 +406,48 @@ function blog_image_src(?string $imagePath): string
 								<div class="section-head text-black m-b30">
 									<h5 class="title-small">Our Roots</h5>
 									<h2 class="title">Yoga Philosophy</h2>
-									<div class="dlab-separator bg-primary" style="width: 50px; height: 3px; background-color: #E67527; margin-top: 15px;"></div>
+									<div class="dlab-separator bg-primary"
+										style="width: 50px; height: 3px; background-color: #E67527; margin-top: 15px;">
+									</div>
 								</div>
-								
-								<p style="font-family: 'Poppins', sans-serif; font-size: 17px; line-height: 1.9; color: #444; margin-bottom: 25px;">
-									At Nishchala, yoga is approached as a holistic science that nurtures the body, mind, and energy system. Our teachings are rooted in classical yogic principles while being practical for modern lifestyles.
+
+								<p
+									style="font-family: 'Poppins', sans-serif; font-size: 17px; line-height: 1.9; color: #444; margin-bottom: 25px;">
+									At Nishchala, yoga is approached as a holistic science that nurtures the body, mind,
+									and energy system. Our teachings are rooted in classical yogic principles while
+									being practical for modern lifestyles.
 								</p>
-								<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 35px;">
-									Isha Hatha Yoga programs offer an unparalleled opportunity to learn authentic classical Hatha Yoga practices that are derived from a yogic tradition and have been maintained in their purity and vibrancy for thousands of years. These practices are taught not merely for physical fitness and strength but as holistic processes toward mastery over the body and mind to manufacture health, joy, and bliss at will.
+								<p
+									style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 35px;">
+									Isha Hatha Yoga programs offer an unparalleled opportunity to learn authentic
+									classical Hatha Yoga practices that are derived from a yogic tradition and have been
+									maintained in their purity and vibrancy for thousands of years. These practices are
+									taught not merely for physical fitness and strength but as holistic processes toward
+									mastery over the body and mind to manufacture health, joy, and bliss at will.
 								</p>
-								
-								<div class="sadhguru-text-section" style="margin-top: 40px; border-left: 2px solid #E67527; padding-left: 25px;">
-									<h5 style="font-family: 'Merriweather', serif; color: #132032; font-size: 22px; margin-bottom: 15px;">About Sadhguru & Isha Foundation</h5>
-									<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 20px;">
-										The classical practices offered are designed by Sadhguru, a yogi, mystic, and visionary, and a prominent spiritual leader. An author, poet, and internationally-renowned speaker, Sadhguru's wit and piercing logic widen our perception of life.
+
+								<div class="sadhguru-text-section"
+									style="margin-top: 40px; border-left: 2px solid #E67527; padding-left: 25px;">
+									<h5
+										style="font-family: 'Merriweather', serif; color: #132032; font-size: 22px; margin-bottom: 15px;">
+										About Sadhguru & Isha Foundation</h5>
+									<p
+										style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 20px;">
+										The classical practices offered are designed by Sadhguru, a yogi, mystic, and
+										visionary, and a prominent spiritual leader. An author, poet, and
+										internationally-renowned speaker, Sadhguru's wit and piercing logic widen our
+										perception of life.
 									</p>
-									<p style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 0;">
-										He established the Isha Foundation, an international non-profit service organization, through which powerful yoga programs are offered as opportunities for self-discovery, inner transformation, and empowerment. Isha Foundation is run by volunteers inspired by their own personal transformation.
+									<p
+										style="font-family: 'Poppins', sans-serif; font-size: 16px; line-height: 1.9; color: #555; margin-bottom: 0;">
+										He established the Isha Foundation, an international non-profit service
+										organization, through which powerful yoga programs are offered as opportunities
+										for self-discovery, inner transformation, and empowerment. Isha Foundation is
+										run by volunteers inspired by their own personal transformation.
 									</p>
 								</div>
 							</div>
-							
+
 							<div class="col-lg-6 m-b30">
 								<div class="philosophy-media-wrap">
 									<div class="media-backdrop"></div>
@@ -504,8 +535,6 @@ function blog_image_src(?string $imagePath): string
 							font-size: 17px;
 						}
 					}
-
-
 				</style>
 
 				<!-- Trainer Profiles -->
@@ -695,8 +724,8 @@ function blog_image_src(?string $imagePath): string
 					<div class="container">
 						<div class="section-head text-center">
 							<h2 class="title">Latest blog post</h2>
-							<p>There are many variations of passages of Lorem Ipsum typesetting industry has been the
-								industry's standard dummy text ever since the been when an unknown printer.</p>
+							<p>Explore our latest articles on yogic practices, mindfulness, and holistic well-being to
+								deepen your understanding of classical Hatha Yoga and enrich your daily life.</p>
 						</div>
 						<div class="blog-carousel owl-none owl-carousel">
 							<?php foreach ($blogs as $blog): ?>
@@ -715,9 +744,7 @@ function blog_image_src(?string $imagePath): string
 														href="javascript:void(0);">
 														<?php echo htmlspecialchars($blog['author'] ?? 'Admin'); ?>
 													</a> </li>
-												<li class="post-tag"> <a href="javascript:void(0);">
-														<?php echo htmlspecialchars($blog['category'] ?? 'Knowledge'); ?>
-													</a> </li>
+
 											</ul>
 										</div>
 										<div class="dlab-post-title">
@@ -829,7 +856,7 @@ function blog_image_src(?string $imagePath): string
 													href="event.html"
 													style="text-transform: none; color: #cccccc;">Events</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="gallery-grid-4.html"
+													href="gallery.html"
 													style="text-transform: none; color: #cccccc;">Gallery</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="blog-grid-4.html"
@@ -853,7 +880,8 @@ function blog_image_src(?string $imagePath): string
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-map-marker"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
+										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,
+											Mangaluru, Karnataka 575002</span>
 									</li>
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-phone-volume"
@@ -876,7 +904,9 @@ function blog_image_src(?string $imagePath): string
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-md-6 col-sm-6 text-left">
-							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a
+									href="https://oneplanet360.com/" target="_blank"
+									style="font-weight: bold;">OnePlanet360.com</a></span>
 						</div>
 						<div class="col-md-6 col-sm-6 text-right">
 							<div class="dlab-social-icon">

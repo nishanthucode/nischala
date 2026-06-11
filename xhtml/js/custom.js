@@ -308,9 +308,15 @@ var EduZone = function(){
 			{
 				var menu = jQuery('.sticky-header');
 				if ($(window).scrollTop() > menu.offset().top) {
+					if(!menu.hasClass('is-fixed')){
+						menu.css('height', menu.outerHeight());
+					}
 					menu.addClass('is-fixed');
 				} else {
-					menu.removeClass('is-fixed');
+					if(menu.hasClass('is-fixed')){
+					    menu.removeClass('is-fixed');
+					    menu.css('height', '');
+					}
 				}
 			}
 		});

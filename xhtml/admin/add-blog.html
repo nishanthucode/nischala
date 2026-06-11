@@ -1,7 +1,7 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
-$blog = ['title' => '', 'author' => '', 'category' => 'Education', 'publish_date' => '', 'content' => ''];
+$blog = ['title' => '', 'author' => '', 'publish_date' => '', 'content' => ''];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,14 @@ $blog = ['title' => '', 'author' => '', 'category' => 'Education', 'publish_date
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    
+        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
+    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -21,9 +28,9 @@ $blog = ['title' => '', 'author' => '', 'category' => 'Education', 'publish_date
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    
+    
+    
 </head>
 
 <body>

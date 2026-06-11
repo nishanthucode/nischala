@@ -11,15 +11,24 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    
+        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
+    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    
+    
+    
 </head>
 
 <body>
@@ -319,10 +328,79 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Event Image</label>
-                                                <input type="file" class="dropify" data-default-file=""
-                                                    name="image_path">
+                                                <input type="file" class="form-control" name="image_path">
                                             </div>
                                         </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <h4 class="mt-4 mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Event Media Gallery (Optional)</h4>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group fallback w-100">
+                                                <label class="form-label d-block">Gallery Image 1</label>
+                                                <input type="file" class="form-control" name="gallery_image_1">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group fallback w-100">
+                                                <label class="form-label d-block">Gallery Image 2</label>
+                                                <input type="file" class="form-control" name="gallery_image_2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group fallback w-100">
+                                                <label class="form-label d-block">Gallery Image 3</label>
+                                                <input type="file" class="form-control" name="gallery_image_3">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <h4 class="mt-4 mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Participant Testimonials (Optional)</h4>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 1 Name</label>
+                                                        <input type="text" class="form-control" name="testimonial_1_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 1 Text</label>
+                                                        <textarea class="form-control" rows="2" name="testimonial_1_text"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 2 Name</label>
+                                                        <input type="text" class="form-control" name="testimonial_2_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 2 Text</label>
+                                                        <textarea class="form-control" rows="2" name="testimonial_2_text"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 3 Name</label>
+                                                        <input type="text" class="form-control" name="testimonial_3_name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Testimonial 3 Text</label>
+                                                        <textarea class="form-control" rows="2" name="testimonial_3_text"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                             <button type="button" onclick="history.back()"
@@ -365,6 +443,18 @@ $event = ['title' => '', 'event_date' => '', 'event_time' => '', 'location' => '
     <script src="js/deznav-init.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/custom.min.js"></script>
+
+    <!-- pickadate -->
+    <script src="vendor/pickadate/picker.js"></script>
+    <script src="vendor/pickadate/picker.date.js"></script>
+
+    <!-- Pickdate -->
+    <script src="js/plugins-init/pickadate-init.js"></script>
+
+    <!-- Svganimation scripts -->
+    <script src="vendor/svganimation/vivus.min.js"></script>
+    <script src="vendor/svganimation/svg.animation.js"></script>
+
 
     <script>
         // Dynamic Notifications Inject

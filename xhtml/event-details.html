@@ -14,6 +14,14 @@ if (!$event) {
     $event = $stmt->fetch();
 }
 
+if ($event && !empty($event['total_seats'])) {
+    $subjectMatch = "Event Registration: " . $event['title'];
+    $regStmt = pdo()->prepare("SELECT COUNT(*) FROM enquiries WHERE subject = ?");
+    $regStmt->execute([$subjectMatch]);
+    $registeredCount = (int)$regStmt->fetchColumn();
+    $event['available_seats'] = max(0, (int)$event['total_seats'] - $registeredCount);
+}
+
 function event_image_src(?string $imagePath): string
 {
     $imagePath = trim((string)$imagePath);
@@ -81,64 +89,119 @@ function event_image_src(?string $imagePath): string
 	</style>
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-<!-- MOBILE LOGO FIX -->
-<style>
-/* ABSOLUTE MOBILE LOGO FIX */
-@media only screen and (max-width: 991px) {
-    .site-header .logo-header,
-    .site-header .logo-header.logo-dark,
-    .is-fixed .logo-header,
-    .is-fixed .logo-header.logo-dark,
-    .site-header.is-fixed .logo-header {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .site-header .logo-header img,
-    .site-header .logo-header.logo-dark img,
-    .is-fixed .logo-header img,
-    .is-fixed .logo-header.logo-dark img,
-    .site-header.is-fixed .logo-header img {
-        height: 60px !important;
-        max-height: 60px !important;
-        min-height: 60px !important;
-        width: 140px !important;
-        max-width: 140px !important;
-        min-width: 140px !important;
-        object-fit: contain !important;
-        transform: none !important;
-        transition: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .is-fixed .main-bar, .site-header .main-bar {
-        padding: 0 !important;
-        margin: 0 !important;
-        transition: none !important;
-    }
-    /* Mobile Menu Alignment Fix */
-    .header-nav ul {
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-    }
-    .header-nav .nav > li {
-        padding: 0 15px !important;
-        text-align: left;
-    }
-    .header-nav .dlab-social-icon {
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-}
-</style>
-<!-- END MOBILE LOGO FIX -->
+	<!-- MOBILE LOGO FIX -->
+	<style>
+		/* ABSOLUTE MOBILE LOGO FIX */
+		@media only screen and (max-width: 991px) {
+
+			.site-header .logo-header,
+			.site-header .logo-header.logo-dark,
+			.is-fixed .logo-header,
+			.is-fixed .logo-header.logo-dark,
+			.site-header.is-fixed .logo-header {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.site-header .logo-header img,
+			.site-header .logo-header.logo-dark img,
+			.is-fixed .logo-header img,
+			.is-fixed .logo-header.logo-dark img,
+			.site-header.is-fixed .logo-header img {
+				height: 60px !important;
+				max-height: 60px !important;
+				min-height: 60px !important;
+				width: 140px !important;
+				max-width: 140px !important;
+				min-width: 140px !important;
+				object-fit: contain !important;
+				transform: none !important;
+				transition: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.is-fixed .main-bar,
+			.site-header .main-bar {
+				padding: 0 !important;
+				margin: 0 !important;
+				transition: none !important;
+			}
+
+			/* Mobile Menu Alignment Fix */
+			.header-nav ul {
+				padding-left: 0 !important;
+				margin-left: 0 !important;
+			}
+
+			.header-nav .nav>li {
+				padding: 0 15px !important;
+				text-align: left;
+			}
+
+			.header-nav .dlab-social-icon {
+				width: 100%;
+				text-align: center;
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+		}
+
+		/* Universal Testimonial Styling */
+		.testimonial-1 {
+			text-align: left;
+			padding: 10px;
+		}
+		.testimonial-1 .testimonial-text {
+			background: #fdfdfd;
+			padding: 25px 30px;
+			border-radius: 8px;
+			margin-bottom: 20px;
+			position: relative;
+			border-left: 4px solid #99C83D; /* Theme Green */
+			box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+			font-style: italic;
+			color: #555;
+			line-height: 1.8;
+		}
+		.testimonial-1 .testimonial-text:after {
+			content: '';
+			position: absolute;
+			bottom: -12px;
+			left: 30px;
+			border-width: 12px 12px 0 0;
+			border-style: solid;
+			border-color: #fdfdfd transparent transparent transparent;
+			filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.02));
+		}
+		.testimonial-1 .testimonial-detail {
+			padding-left: 30px;
+		}
+		.testimonial-1 .testimonial-name {
+			color: #143b64; /* Theme Dark Blue */
+			font-weight: 700;
+			font-size: 16px;
+			display: block;
+			margin-bottom: 2px;
+		}
+		.testimonial-1 .testimonial-position {
+			color: #f77024 !important; /* Theme Orange */
+			font-size: 13px;
+			font-weight: 500;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+		.testimonial-1 .quote-left:before {
+			display: none; /* Hide the old yellow circle quote */
+		}
+	</style>
+	<!-- END MOBILE LOGO FIX -->
 </head>
 
 <body id="bg">
@@ -175,7 +238,8 @@ function event_image_src(?string $imagePath): string
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
 							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo.png" style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
+								<a href="index.html"><img src="images/logo.png"
+										style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
 										alt=""></a>
 							</div>
 							<ul class="nav navbar-nav">
@@ -199,7 +263,7 @@ function event_image_src(?string $imagePath): string
 								</li>
 
 								<li>
-									<a href="gallery-grid-4.html">Gallery</a>
+									<a href="gallery.html">Gallery</a>
 								</li>
 
 								<li>
@@ -293,7 +357,61 @@ function event_image_src(?string $imagePath): string
 											<span class="title">Phone:</span>
 											<span class="info">+91 987 654 3210</span>
 										</li>
+										<?php if (!empty($event['ticket_price']) && $event['ticket_price'] > 0): ?>
+										<li>
+											<i class="la la-ticket"></i>
+											<span class="title">Price:</span>
+											<span class="info">₹<?php echo number_format((float)$event['ticket_price'], 2); ?></span>
+										</li>
+										<?php else: ?>
+										<li>
+											<i class="la la-ticket"></i>
+											<span class="title">Price:</span>
+											<span class="info text-success">Free</span>
+										</li>
+										<?php endif; ?>
+										<?php if (!empty($event['available_seats'])): ?>
+										<li>
+											<i class="la la-users"></i>
+											<span class="title">Availability:</span>
+											<?php if((int)$event['available_seats'] <= 0): ?>
+											<span class="info text-danger" style="font-weight: bold;">Sold Out</span>
+											<?php else: ?>
+											<span class="info text-warning" style="font-weight: bold;"><?php echo (int)$event['available_seats']; ?> Spots Left</span>
+											<?php endif; ?>
+										</li>
+										<?php endif; ?>
 									</ul>
+								</div>
+
+								<!-- Embedded Registration Form -->
+								<div class="widget widget_getin_tuch">
+									<h5 class="widget-title style-1">Register Now</h5>
+									<?php if((int)$event['available_seats'] <= 0 && $event['available_seats'] !== ''): ?>
+										<div class="alert alert-danger">Sorry, this event is completely sold out.</div>
+									<?php else: ?>
+										<?php if(isset($_GET['success'])): ?>
+											<div class="alert alert-success">Registration successful! We will contact you soon.</div>
+										<?php endif; ?>
+										<form action="backend/save.php" method="post">
+											<input type="hidden" name="module" value="enquiries">
+											<input type="hidden" name="redirect" value="../event-details.html?id=<?php echo $event['id']; ?>&success=1">
+											<input type="hidden" name="subject" value="Event Registration: <?php echo htmlspecialchars($event['title']); ?>">
+											<input type="hidden" name="message" value="User registered for event via event-details page.">
+											<input type="hidden" name="status" value="New">
+											
+											<div class="form-group">
+												<input type="text" name="name" class="form-control" placeholder="Your Name" required pattern="^[a-zA-Z\s]{2,50}$" title="Please enter a valid name (letters only, minimum 2 characters)">
+											</div>
+											<div class="form-group">
+												<input type="email" name="email" class="form-control" placeholder="Your Email" required>
+											</div>
+											<div class="form-group">
+												<input type="text" name="phone" class="form-control" placeholder="Your Phone" required pattern="^[0-9]{10}$" minlength="10" maxlength="10" title="Please enter exactly 10 digits (e.g. 9876543210)">
+											</div>
+											<button type="submit" class="site-button btn-block radius-no outline">Register</button>
+										</form>
+									<?php endif; ?>
 								</div>
 
 							</aside>
@@ -347,6 +465,55 @@ function event_image_src(?string $imagePath): string
 									</ul>
 									<?php endif; ?>
 								</div>
+								
+								<!-- Past Event Media Gallery -->
+								<?php if(!empty($event['gallery_image_1']) || !empty($event['gallery_image_2']) || !empty($event['gallery_image_3'])): ?>
+								<div class="dlab-post-text m-t30">
+									<h4 class="m-b20">Past Event Media Gallery</h4>
+									<div class="row lightgallery">
+										<?php for($i=1; $i<=3; $i++): ?>
+											<?php if(!empty($event['gallery_image_'.$i])): ?>
+											<div class="col-md-4 col-sm-6 m-b30">
+												<div class="dlab-box">
+													<div class="dlab-media dlab-img-effect zoom"> 
+														<img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" alt="" style="aspect-ratio: 1; object-fit: cover; border-radius: 8px;">
+														<div class="overlay-bx">
+															<div class="overlay-icon">
+																<span data-exthumbimage="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" data-src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" class="check-km dlab-media-icon" title="Event Media">
+																	<i class="ti-fullscreen"></i>
+																</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<?php endif; ?>
+										<?php endfor; ?>
+									</div>
+								</div>
+								<?php endif; ?>
+								
+								<!-- Participant Testimonial Carousel -->
+								<?php if(!empty($event['testimonial_1_text']) || !empty($event['testimonial_2_text']) || !empty($event['testimonial_3_text'])): ?>
+								<div class="dlab-post-text m-t30">
+									<h4 class="m-b20">Participant Testimonials</h4>
+									<div class="testimonial-one owl-carousel owl-btn-1 col-12 p-a0">
+										<?php for($i=1; $i<=3; $i++): ?>
+											<?php if(!empty($event['testimonial_'.$i.'_text'])): ?>
+											<div class="item">
+												<div class="testimonial-1">
+													<div class="testimonial-text">
+														<p>"<?php echo htmlspecialchars($event['testimonial_'.$i.'_text']); ?>"</p>
+													</div>
+													<div class="testimonial-detail"> <strong class="testimonial-name"><?php echo htmlspecialchars($event['testimonial_'.$i.'_name'] ?? 'Participant'); ?></strong> <span class="testimonial-position">Event Attendee</span> </div>
+												</div>
+											</div>
+											<?php endif; ?>
+										<?php endfor; ?>
+									</div>
+								</div>
+								<?php endif; ?>
+
 							</div>
 						</div>
 						<!-- left part start -->
@@ -408,7 +575,7 @@ function event_image_src(?string $imagePath): string
 													href="event.html"
 													style="text-transform: none; color: #cccccc;">Events</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="gallery-grid-4.html"
+													href="gallery.html"
 													style="text-transform: none; color: #cccccc;">Gallery</a></li>
 											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
 													href="blog-grid-4.html"
@@ -432,7 +599,8 @@ function event_image_src(?string $imagePath): string
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-map-marker"
 											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri, Mangaluru, Karnataka 575002</span>
+										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,
+											Mangaluru, Karnataka 575002</span>
 									</li>
 									<li style="margin-bottom: 20px; display: flex; align-items: center;">
 										<i class="la la-phone-volume"
@@ -455,7 +623,9 @@ function event_image_src(?string $imagePath): string
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-md-6 col-sm-6 text-left">
-							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></span>
+							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a
+									href="https://oneplanet360.com/" target="_blank"
+									style="font-weight: bold;">OnePlanet360.com</a></span>
 						</div>
 						<div class="col-md-6 col-sm-6 text-right">
 							<div class="dlab-social-icon">

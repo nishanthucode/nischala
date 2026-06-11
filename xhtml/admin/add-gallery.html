@@ -11,7 +11,14 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    
+        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
+    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
+    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -19,11 +26,10 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
 
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
-    <link rel="stylesheet" href="vendor/dropify/css/dropify.min.css">
 
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
+    
+    
+    
 </head>
 
 <body>
@@ -316,10 +322,8 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
-                                                <label class="form-label d-block">Video File (Optional, for Video
-                                                    Gallery)</label>
-                                                <input type="file" name="video_path" class="dropify"
-                                                    data-default-file="" accept="video/mp4,video/webm,video/ogg">
+                                                <label class="form-label d-block">Video File (Optional, for Video Gallery)</label>
+                                                <input type="file" name="video_path" class="form-control" accept="video/mp4,video/webm,video/ogg">
                                             </div>
                                         </div>
                                         <!-- Description removed -->
@@ -386,13 +390,7 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
-    <script src="vendor/dropify/js/dropify.min.js"></script>
 
-    <script>
-        $(function() {
-            $('.dropify').dropify();
-        });
-    </script>
 
     <script>
         // Dynamic Notifications Inject
