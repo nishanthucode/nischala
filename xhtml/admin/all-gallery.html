@@ -5,7 +5,7 @@ $gallery = backend_fetch_all('gallery');
 
 function gallery_image_src(?string $imagePath): string
 {
-    if (!$imagePath) return 'images/courses/pic1.jpg';
+    if (!$imagePath) return 'images/class/pic1.jpg';
     if (str_starts_with($imagePath, 'uploads/')) return '../' . $imagePath;
     return $imagePath;
 }
@@ -18,8 +18,8 @@ function gallery_image_src(?string $imagePath): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -33,9 +33,9 @@ function gallery_image_src(?string $imagePath): string
     <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
-    
-    
-    
+
+
+
 </head>
 
 <body>
@@ -204,7 +204,7 @@ function gallery_image_src(?string $imagePath): string
                     </li>
                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
-                            <span class="nav-text">Event Management</span>
+                            <span class="nav-text">Events</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-events.html">All Events</a></li>
@@ -218,8 +218,8 @@ function gallery_image_src(?string $imagePath): string
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Classes</a></li>
 
 
                         </ul>
@@ -372,7 +372,7 @@ function gallery_image_src(?string $imagePath): string
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright ï¿½ Designed &amp; Developed by <a href="https://oneplanets360.com"
+                <p>Copyright &copy; Designed &amp; Developed by <a href="https://oneplanets360.com"
                         target="_blank">Oneplanets360</a> 2026</p>
             </div>
         </div>

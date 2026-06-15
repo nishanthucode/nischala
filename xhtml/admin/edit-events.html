@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -24,8 +24,8 @@ function event_image_src(?string $imagePath): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -39,9 +39,9 @@ function event_image_src(?string $imagePath): string
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
-    
-    
-    
+
+
+
 </head>
 
 <body>
@@ -88,7 +88,7 @@ function event_image_src(?string $imagePath): string
                                     class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live
                                     View</a></li>
 
-                                     <li class="nav-item dropdown header-profile">
+                            <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
@@ -105,7 +105,7 @@ function event_image_src(?string $imagePath): string
                                         <span class="ms-2">Logout </span>
                                     </a>
                                 </div>
-                            </li> 
+                            </li>
                             <!-- <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt="" />
@@ -141,7 +141,7 @@ function event_image_src(?string $imagePath): string
                     </li>
                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
-                            <span class="nav-text">Event Management</span>
+                            <span class="nav-text">Events</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-events.html">All Events</a></li>
@@ -154,8 +154,8 @@ function event_image_src(?string $imagePath): string
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Classes</a></li>
 
                         </ul>
                     </li> -->
@@ -323,22 +323,28 @@ function event_image_src(?string $imagePath): string
                                                 <label class="form-label d-block">Event Image</label>
                                                 <?php if (!empty($event['image_path'])): ?>
                                                 <div style="margin-bottom: 15px;">
-                                                    <span style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current Image:</span>
-                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['image_path'])); ?>" style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
+                                                    <span
+                                                        style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current
+                                                        Image:</span>
+                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['image_path'])); ?>"
+                                                        style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
                                                 </div>
                                                 <?php endif; ?>
                                                 <input type="file" class="form-control" name="image_path">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <h4 class="mt-4 mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Event Media Gallery (Optional)</h4>
+                                            <h4 class="mt-4 mb-3"
+                                                style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Event Media
+                                                Gallery (Optional)</h4>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-12">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Gallery Image 1</label>
                                                 <?php if (!empty($event['gallery_image_1'])): ?>
                                                 <div style="margin-bottom: 15px;">
-                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_1'])); ?>" style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
+                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_1'])); ?>"
+                                                        style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
                                                 </div>
                                                 <?php endif; ?>
                                                 <input type="file" class="form-control" name="gallery_image_1">
@@ -349,7 +355,8 @@ function event_image_src(?string $imagePath): string
                                                 <label class="form-label d-block">Gallery Image 2</label>
                                                 <?php if (!empty($event['gallery_image_2'])): ?>
                                                 <div style="margin-bottom: 15px;">
-                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_2'])); ?>" style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
+                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_2'])); ?>"
+                                                        style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
                                                 </div>
                                                 <?php endif; ?>
                                                 <input type="file" class="form-control" name="gallery_image_2">
@@ -360,7 +367,8 @@ function event_image_src(?string $imagePath): string
                                                 <label class="form-label d-block">Gallery Image 3</label>
                                                 <?php if (!empty($event['gallery_image_3'])): ?>
                                                 <div style="margin-bottom: 15px;">
-                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_3'])); ?>" style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
+                                                    <img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_3'])); ?>"
+                                                        style="max-height: 80px; border-radius: 4px; border: 1px solid #ddd; padding: 2px;">
                                                 </div>
                                                 <?php endif; ?>
                                                 <input type="file" class="form-control" name="gallery_image_3">
@@ -368,20 +376,25 @@ function event_image_src(?string $imagePath): string
                                         </div>
 
                                         <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <h4 class="mt-4 mb-3" style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Participant Testimonials (Optional)</h4>
+                                            <h4 class="mt-4 mb-3"
+                                                style="border-bottom: 1px solid #eee; padding-bottom: 10px;">Participant
+                                                Testimonials (Optional)</h4>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 1 Name</label>
-                                                        <input type="text" class="form-control" name="testimonial_1_name" value="<?php echo htmlspecialchars($event['testimonial_1_name'] ?? ''); ?>">
+                                                        <input type="text" class="form-control"
+                                                            name="testimonial_1_name"
+                                                            value="<?php echo htmlspecialchars($event['testimonial_1_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 1 Text</label>
-                                                        <textarea class="form-control" rows="2" name="testimonial_1_text"><?php echo htmlspecialchars($event['testimonial_1_text'] ?? ''); ?></textarea>
+                                                        <textarea class="form-control" rows="2"
+                                                            name="testimonial_1_text"><?php echo htmlspecialchars($event['testimonial_1_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -389,13 +402,16 @@ function event_image_src(?string $imagePath): string
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 2 Name</label>
-                                                        <input type="text" class="form-control" name="testimonial_2_name" value="<?php echo htmlspecialchars($event['testimonial_2_name'] ?? ''); ?>">
+                                                        <input type="text" class="form-control"
+                                                            name="testimonial_2_name"
+                                                            value="<?php echo htmlspecialchars($event['testimonial_2_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 2 Text</label>
-                                                        <textarea class="form-control" rows="2" name="testimonial_2_text"><?php echo htmlspecialchars($event['testimonial_2_text'] ?? ''); ?></textarea>
+                                                        <textarea class="form-control" rows="2"
+                                                            name="testimonial_2_text"><?php echo htmlspecialchars($event['testimonial_2_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -403,13 +419,16 @@ function event_image_src(?string $imagePath): string
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 3 Name</label>
-                                                        <input type="text" class="form-control" name="testimonial_3_name" value="<?php echo htmlspecialchars($event['testimonial_3_name'] ?? ''); ?>">
+                                                        <input type="text" class="form-control"
+                                                            name="testimonial_3_name"
+                                                            value="<?php echo htmlspecialchars($event['testimonial_3_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 3 Text</label>
-                                                        <textarea class="form-control" rows="2" name="testimonial_3_text"><?php echo htmlspecialchars($event['testimonial_3_text'] ?? ''); ?></textarea>
+                                                        <textarea class="form-control" rows="2"
+                                                            name="testimonial_3_text"><?php echo htmlspecialchars($event['testimonial_3_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -436,7 +455,8 @@ function event_image_src(?string $imagePath): string
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped verticle-middle table-responsive-sm">
+                                    <table
+                                        class="table table-bordered table-striped verticle-middle table-responsive-sm">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Name</th>
@@ -457,22 +477,32 @@ function event_image_src(?string $imagePath): string
                                             if (empty($registrants)): 
                                             ?>
                                             <tr>
-                                                <td colspan="5" class="text-center">No participants have registered for this event yet.</td>
+                                                <td colspan="5" class="text-center">No participants have registered for
+                                                    this event yet.</td>
                                             </tr>
                                             <?php else: ?>
-                                                <?php foreach ($registrants as $reg): ?>
-                                                <tr>
-                                                    <td><?php echo htmlspecialchars($reg['name']); ?></td>
-                                                    <td><?php echo htmlspecialchars($reg['email']); ?></td>
-                                                    <td><?php echo htmlspecialchars($reg['phone'] ?? 'N/A'); ?></td>
-                                                    <td><?php echo date('d M Y, h:i A', strtotime($reg['created_at'])); ?></td>
-                                                    <td>
-                                                        <span class="badge badge-<?php echo ($reg['status'] === 'New') ? 'primary' : 'success'; ?>">
-                                                            <?php echo htmlspecialchars($reg['status'] ?? 'New'); ?>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <?php endforeach; ?>
+                                            <?php foreach ($registrants as $reg): ?>
+                                            <tr>
+                                                <td>
+                                                    <?php echo htmlspecialchars($reg['name']); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($reg['email']); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo htmlspecialchars($reg['phone'] ?? 'N/A'); ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo date('d M Y, h:i A', strtotime($reg['created_at'])); ?>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="badge badge-<?php echo ($reg['status'] === 'New') ? 'primary' : 'success'; ?>">
+                                                        <?php echo htmlspecialchars($reg['status'] ?? 'New'); ?>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <?php endforeach; ?>
                                             <?php endif; ?>
                                         </tbody>
                                     </table>
@@ -485,8 +515,9 @@ function event_image_src(?string $imagePath): string
         </div>
 
         <div class="footer">
-                        <div class="copyright">
-                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/"
+                        target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
 

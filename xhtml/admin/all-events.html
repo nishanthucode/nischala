@@ -1,11 +1,11 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $events = backend_fetch_all('events');
 
 function event_image_src(?string $imagePath): string
 {
-    if (!$imagePath) return 'images/courses/pic1.jpg';
+    if (!$imagePath) return 'images/class/pic1.jpg';
     if (str_starts_with($imagePath, 'uploads/')) return '../' . $imagePath;
     return $imagePath;
 }
@@ -18,8 +18,8 @@ function event_image_src(?string $imagePath): string
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -31,9 +31,9 @@ function event_image_src(?string $imagePath): string
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    
-    
-    
+
+
+
 </head>
 
 <body>
@@ -71,7 +71,7 @@ function event_image_src(?string $imagePath): string
                                     class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live
                                     View</a></li>
 
-                                     <li class="nav-item dropdown header-profile">
+                            <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
@@ -88,7 +88,7 @@ function event_image_src(?string $imagePath): string
                                         <span class="ms-2">Logout </span>
                                     </a>
                                 </div>
-                            </li> 
+                            </li>
                             <!-- <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
                                     <img src="images/profile/pic1.jpg" width="20" alt="" />
@@ -124,7 +124,7 @@ function event_image_src(?string $imagePath): string
                     </li>
                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
-                            <span class="nav-text">Event</span>
+                            <span class="nav-text">Events</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-events.html">All Events</a></li>
@@ -137,8 +137,8 @@ function event_image_src(?string $imagePath): string
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Classes</a></li>
 
                         </ul>
                     </li> -->
@@ -246,8 +246,9 @@ function event_image_src(?string $imagePath): string
         </div>
 
         <div class="footer">
-                        <div class="copyright">
-                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/"
+                        target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
 

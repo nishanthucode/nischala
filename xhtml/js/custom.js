@@ -1038,7 +1038,7 @@ var EduZone = function(){
 	var handleBootstrapSelect = function(){
 		/* Bootstrap Select box function by  = bootstrap-select.min.js */ 
 		if (jQuery('select').length) {
-		    jQuery('select').selectpicker();
+		    jQuery('select:not(#dzTimeSelect):not([name=dzProgram])').selectpicker();
 		}
 		/* Bootstrap Select box function by  = bootstrap-select.min.js end*/
 	}
@@ -1345,6 +1345,21 @@ jQuery(window).on('load',function () {
 	setTimeout(function(){
 		jQuery('#loading-area').remove();
 	}, 0);
+	
+	if (window.location.hash) {
+		setTimeout(function() {
+			var hash = window.location.hash;
+			if (jQuery(hash).length) {
+				var headerHeight = jQuery('.header').outerHeight() || 100;
+				jQuery('html, body').scrollTop(jQuery(hash).offset().top - headerHeight);
+				
+				// Remove the hash from the URL so reloading goes back to the top
+				if (history.replaceState) {
+					history.replaceState(null, null, window.location.pathname + window.location.search);
+				}
+			}
+		}, 100);
+	}
 });
 /*  Window Load END */
 /* Window Resize START */

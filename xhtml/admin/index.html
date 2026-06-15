@@ -1,4 +1,4 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,13 +11,13 @@
     <meta name="author" content="" />
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-    
-    
-    
+
+
+
+
     <meta name="format-detection" content="telephone=no">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -32,8 +32,8 @@
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    
-    
+
+
 </head>
 
 <body>
@@ -129,7 +129,7 @@
             Header end ti-comment-alt
         ***********************************-->
 
-                <!--**********************************
+        <!--**********************************
             Sidebar start
         ***********************************-->
         <div class="deznav">
@@ -146,8 +146,8 @@
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Class</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Class</a></li>
                         </ul>
                     </li> -->
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -177,7 +177,7 @@
                             <li><a href="add-blog.html">Add Blog</a></li>
                         </ul>
                     </li>
-                    
+
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-envelope"></i>
                             <span class="nav-text">Enquiry</span>
@@ -187,7 +187,7 @@
                             <li><a href="view-enquiry.html">View Enquiry</a></li>
                         </ul>
                     </li>
-                  
+
                 </ul>
             </div>
         </div>
@@ -207,17 +207,15 @@
                         <div class="widget-stat card bg-primary">
                             <div class="card-body">
                                 <div class="media">
-                                    <span class="me-3">
-                                        <i class="la la-users"></i>
-                                    </span>
+                                    <span class="me-3"><i class="la la-envelope"></i></span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Total Members</p>
-                                        <h3 class="text-white" id="stat-members">...</h3>
+                                        <p class="mb-1">Total Class Enquiries</p>
+                                        <h3 class="text-white" id="stat-enquiries">...</h3>
                                         <div class="progress mb-2 bg-white">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 80%">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 50%">
                                             </div>
                                         </div>
-                                        <small>80% Increase in 20 Days</small>
+                                        <small>Loading...</small>
                                     </div>
                                 </div>
                             </div>
@@ -227,17 +225,15 @@
                         <div class="widget-stat card bg-warning">
                             <div class="card-body">
                                 <div class="media">
-                                    <span class="me-3">
-                                        <i class="la la-user"></i>
-                                    </span>
+                                    <span class="me-3"><i class="la la-image"></i></span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">New Registrations</p>
-                                        <h3 class="text-white" id="stat-registrations">...</h3>
+                                        <p class="mb-1">Media Gallery</p>
+                                        <h3 class="text-white" id="stat-gallery">...</h3>
                                         <div class="progress mb-2 bg-white">
                                             <div class="progress-bar progress-animated bg-light" style="width: 50%">
                                             </div>
                                         </div>
-                                        <small>50% Increase in 25 Days</small>
+                                        <small>Loading...</small>
                                     </div>
                                 </div>
                             </div>
@@ -247,17 +243,15 @@
                         <div class="widget-stat card bg-secondary">
                             <div class="card-body">
                                 <div class="media">
-                                    <span class="me-3">
-                                        <i class="la la-graduation-cap"></i>
-                                    </span>
+                                    <span class="me-3"><i class="la la-calendar"></i></span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Active Classes</p>
-                                        <h3 class="text-white" id="stat-classes">...</h3>
+                                        <p class="mb-1">Total Events</p>
+                                        <h3 class="text-white" id="stat-events">...</h3>
                                         <div class="progress mb-2 bg-white">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 76%">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 50%">
                                             </div>
                                         </div>
-                                        <small>76% Increase in 20 Days</small>
+                                        <small>Loading...</small>
                                     </div>
                                 </div>
                             </div>
@@ -267,26 +261,25 @@
                         <div class="widget-stat card bg-danger">
                             <div class="card-body">
                                 <div class="media">
-                                    <span class="me-3">
-                                        <i class="la la-dollar"></i>
-                                    </span>
+                                    <span class="me-3"><i class="la la-newspaper-o"></i></span>
                                     <div class="media-body text-white">
-                                        <p class="mb-1">Revenue</p>
-                                        <h3 class="text-white" id="stat-revenue">...</h3>
+                                        <p class="mb-1">Published Blogs</p>
+                                        <h3 class="text-white" id="stat-blogs">...</h3>
                                         <div class="progress mb-2 bg-white">
-                                            <div class="progress-bar progress-animated bg-light" style="width: 30%">
+                                            <div class="progress-bar progress-animated bg-light" style="width: 50%">
                                             </div>
                                         </div>
-                                        <small>30% Increase in 30 Days</small>
+                                        <small>Loading...</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-xxl-6 col-lg-12 col-sm-12">
+
+                    <div class="col-xl-8 col-xxl-8 col-lg-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Studio Analytics</h3>
+                                <h3 class="card-title">Enquiries Trend</h3>
                             </div>
                             <div class="card-body">
                                 <div id="morris_bar_stalked" class="morris_chart_height"
@@ -294,10 +287,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-xxl-3 col-sm-6">
+                    <div class="col-xl-4 col-xxl-4 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Class Popularity</h3>
+                                <h3 class="card-title">Enquiries by Program</h3>
                             </div>
                             <div class="card-body">
                                 <div id="morris_donught_2" class="morris_chart_height"
@@ -305,49 +298,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-xxl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Studio Analytics</h3>
-                            </div>
-                            <div class="card-body">
-                                <div id="morris_area" class="morris_chart_height" style="height: 300px !important;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-
-
-
-
-
-                    <!-- <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Top Instructors</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table verticle-middle">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Edit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="table-instructors"></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Recent Registrations</h4>
+                                <h4 class="card-title">Class Registration</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive recentOrderTable">
@@ -356,10 +311,11 @@
                                             <tr>
                                                 <th scope="col">No.</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Instructor</th>
-                                                <th scope="col">Registration Date</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Date</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Class</th>
+                                                <th scope="col">Program</th>
                                             </tr>
                                         </thead>
                                         <tbody id="table-registrations"></tbody>
@@ -369,7 +325,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <!--**********************************
@@ -381,8 +336,9 @@
             Footer start
         ***********************************-->
         <div class="footer">
-                        <div class="copyright">
-                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/"
+                        target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
         <!--**********************************
@@ -442,11 +398,26 @@
                     if (res.success) {
                         const data = res.data;
 
-                        // Update Stats
-                        document.getElementById('stat-members').textContent = data.total_members;
-                        document.getElementById('stat-registrations').textContent = data.new_registrations;
-                        document.getElementById('stat-classes').textContent = data.active_classes;
-                        document.getElementById('stat-revenue').textContent = data.revenue + '$';
+                        // Update Stats Dynamically
+                        const updateWidget = (id, val, prog, growth) => {
+                            const el = document.getElementById(id);
+                            if (el) {
+                                el.textContent = val;
+                                if (el.nextElementSibling && el.nextElementSibling.classList.contains('progress')) {
+                                    const bar = el.nextElementSibling.querySelector('.progress-bar');
+                                    if (bar) bar.style.width = prog + '%';
+                                    const small = el.nextElementSibling.nextElementSibling;
+                                    if (small && small.tagName === 'SMALL') {
+                                        small.textContent = Math.abs(growth) + '% ' + (growth >= 0 ? 'Increase' : 'Decrease') + ' in 30 Days';
+                                    }
+                                }
+                            }
+                        };
+
+                        updateWidget('stat-enquiries', data.total_enquiries, data.enquiries_progress, data.enquiries_growth);
+                        updateWidget('stat-gallery', data.total_gallery, data.gallery_progress, data.gallery_growth);
+                        updateWidget('stat-events', data.total_events, data.events_progress, data.events_growth);
+                        updateWidget('stat-blogs', data.total_blogs, data.blogs_progress, data.blogs_growth);
 
                         // Update Top Instructors
                         const tbodyInstructors = document.getElementById('table-instructors');
@@ -486,14 +457,11 @@
                                         <tr>
                                             <td>${index + 1}</td>
                                             <td>${reg.name}</td>
-                                            <td>${reg.instructor || 'N/A'}</td>
+                                            <td>${reg.email}</td>
+                                            <td>${reg.phone || 'N/A'}</td>
                                             <td>${reg.booking_date}</td>
                                             <td><span class="badge badge-rounded ${badgeClass}">${reg.status || 'Confirmed'}</span></td>
                                             <td>${reg.class_name}</td>
-                                            <td>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-                                            </td>
                                         </tr>
                                     `;
                                 });
@@ -501,6 +469,39 @@
                                 tbodyRegistrations.innerHTML = '<tr><td colspan="8" class="text-center">No recent registrations found</td></tr>';
                             }
                         }
+
+                        // Dynamic Charts Update
+                        if (document.getElementById('morris_bar_stalked')) {
+                            document.getElementById('morris_bar_stalked').innerHTML = '';
+                            if (typeof Morris !== 'undefined') {
+                                Morris.Bar({
+                                    element: 'morris_bar_stalked',
+                                    data: data.chart_bar || [],
+                                    xkey: 'y',
+                                    ykeys: ['a', 'b'],
+                                    labels: ['Enquiries', 'Trend'],
+                                    barColors: ['#2b6b4a', '#99C83D'],
+                                    hideHover: 'auto',
+                                    gridLineColor: '#eef0f2',
+                                    resize: true,
+                                    parseTime: false
+                                });
+                            }
+                        }
+
+                        if (document.getElementById('morris_donught_2')) {
+                            document.getElementById('morris_donught_2').innerHTML = '';
+                            if (typeof Morris !== 'undefined') {
+                                Morris.Donut({
+                                    element: 'morris_donught_2',
+                                    data: data.chart_donut || [{ label: 'Loading...', value: 0 }],
+                                    resize: true,
+                                    colors: ['#2b6b4a', '#99C83D', '#143b64', '#FF9800', '#F25521', '#4CAF50']
+                                });
+                            }
+                        }
+
+
                     } else {
                         console.error('Error fetching dashboard data:', res.error);
                     }

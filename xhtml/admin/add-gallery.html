@@ -11,8 +11,8 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -27,9 +27,9 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
-    
-    
-    
+
+
+
 </head>
 
 <body>
@@ -198,7 +198,7 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                     </li>
                     <li><a class="has-arrow" href="event-management.html" aria-expanded="false">
                             <i class="la la-calendar"></i>
-                            <span class="nav-text">Event Management</span>
+                            <span class="nav-text">Events</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
                             <li><a href="all-events.html">All Events</a></li>
@@ -212,8 +212,8 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false" style="background-color: #1e3a5f;">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Classes</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Classes</a></li>
 
 
                         </ul>
@@ -322,8 +322,10 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group fallback w-100">
-                                                <label class="form-label d-block">Video File (Optional, for Video Gallery)</label>
-                                                <input type="file" name="video_path" class="form-control" accept="video/mp4,video/webm,video/ogg">
+                                                <label class="form-label d-block">Video File (Optional, for Video
+                                                    Gallery)</label>
+                                                <input type="file" name="video_path" class="form-control"
+                                                    accept="video/mp4,video/webm,video/ogg">
                                             </div>
                                         </div>
                                         <!-- Description removed -->
@@ -357,8 +359,9 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
             Footer start
         ***********************************-->
         <div class="footer">
-                        <div class="copyright">
-                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/"
+                        target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
         <!--**********************************
@@ -415,14 +418,14 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
             }
         });
     </script>
-<script>
-const params = new URLSearchParams(window.location.search);
-if (params.has('error')) {
-    alert('Upload Failed: ' + params.get('error') + '\n\n(This usually happens if your image is larger than 2MB. Try compressing the image, or increase upload_max_filesize in your XAMPP php.ini)');
-} else if (params.has('success')) {
-    alert('Successfully uploaded!');
-}
-</script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('error')) {
+            alert('Upload Failed: ' + params.get('error') + '\n\n(This usually happens if your image is larger than 2MB. Try compressing the image, or increase upload_max_filesize in your XAMPP php.ini)');
+        } else if (params.has('success')) {
+            alert('Successfully uploaded!');
+        }
+    </script>
 </body>
 
 </html>

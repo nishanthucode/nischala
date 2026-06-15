@@ -158,18 +158,21 @@ function event_image_src(?string $imagePath): string
 			text-align: left;
 			padding: 10px;
 		}
+
 		.testimonial-1 .testimonial-text {
 			background: #fdfdfd;
 			padding: 25px 30px;
 			border-radius: 8px;
 			margin-bottom: 20px;
 			position: relative;
-			border-left: 4px solid #99C83D; /* Theme Green */
-			box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+			border-left: 4px solid #99C83D;
+			/* Theme Green */
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 			font-style: italic;
 			color: #555;
 			line-height: 1.8;
 		}
+
 		.testimonial-1 .testimonial-text:after {
 			content: '';
 			position: absolute;
@@ -178,27 +181,34 @@ function event_image_src(?string $imagePath): string
 			border-width: 12px 12px 0 0;
 			border-style: solid;
 			border-color: #fdfdfd transparent transparent transparent;
-			filter: drop-shadow(2px 4px 3px rgba(0,0,0,0.02));
+			filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.02));
 		}
+
 		.testimonial-1 .testimonial-detail {
 			padding-left: 30px;
 		}
+
 		.testimonial-1 .testimonial-name {
-			color: #143b64; /* Theme Dark Blue */
+			color: #143b64;
+			/* Theme Dark Blue */
 			font-weight: 700;
 			font-size: 16px;
 			display: block;
 			margin-bottom: 2px;
 		}
+
 		.testimonial-1 .testimonial-position {
-			color: #f77024 !important; /* Theme Orange */
+			color: #f77024 !important;
+			/* Theme Orange */
 			font-size: 13px;
 			font-weight: 500;
 			text-transform: uppercase;
 			letter-spacing: 0.5px;
 		}
+
 		.testimonial-1 .quote-left:before {
-			display: none; /* Hide the old yellow circle quote */
+			display: none;
+			/* Hide the old yellow circle quote */
 		}
 	</style>
 	<!-- END MOBILE LOGO FIX -->
@@ -248,11 +258,11 @@ function event_image_src(?string $imagePath): string
 
 								</li>
 								<li>
-									<a href="about-1.html">About Us</a>
+									<a href="about.html">About Us</a>
 
 								</li>
 								<li>
-									<a href="courses.html">Classes</a>
+									<a href="class.html">Classes</a>
 								</li>
 								<!-- <li>
 									<a href="services-1.html">Services</a>
@@ -267,11 +277,11 @@ function event_image_src(?string $imagePath): string
 								</li>
 
 								<li>
-									<a href="blog-grid-4.html">Blog</a>
+									<a href="blog.html">Blog</a>
 								</li>
 
 								<li>
-									<a href="contact-4.html">Contact Us</a>
+									<a href="contact.html">Contact Us</a>
 
 								</li>
 							</ul>
@@ -361,7 +371,9 @@ function event_image_src(?string $imagePath): string
 										<li>
 											<i class="la la-ticket"></i>
 											<span class="title">Price:</span>
-											<span class="info">₹<?php echo number_format((float)$event['ticket_price'], 2); ?></span>
+											<span class="info">₹
+												<?php echo number_format((float)$event['ticket_price'], 2); ?>
+											</span>
 										</li>
 										<?php else: ?>
 										<li>
@@ -377,7 +389,9 @@ function event_image_src(?string $imagePath): string
 											<?php if((int)$event['available_seats'] <= 0): ?>
 											<span class="info text-danger" style="font-weight: bold;">Sold Out</span>
 											<?php else: ?>
-											<span class="info text-warning" style="font-weight: bold;"><?php echo (int)$event['available_seats']; ?> Spots Left</span>
+											<span class="info text-warning" style="font-weight: bold;">
+												<?php echo (int)$event['available_seats']; ?> Spots Left
+											</span>
 											<?php endif; ?>
 										</li>
 										<?php endif; ?>
@@ -388,29 +402,39 @@ function event_image_src(?string $imagePath): string
 								<div class="widget widget_getin_tuch">
 									<h5 class="widget-title style-1">Register Now</h5>
 									<?php if((int)$event['available_seats'] <= 0 && $event['available_seats'] !== ''): ?>
-										<div class="alert alert-danger">Sorry, this event is completely sold out.</div>
+									<div class="alert alert-danger">Sorry, this event is completely sold out.</div>
 									<?php else: ?>
-										<?php if(isset($_GET['success'])): ?>
-											<div class="alert alert-success">Registration successful! We will contact you soon.</div>
-										<?php endif; ?>
-										<form action="backend/save.php" method="post">
-											<input type="hidden" name="module" value="enquiries">
-											<input type="hidden" name="redirect" value="../event-details.html?id=<?php echo $event['id']; ?>&success=1">
-											<input type="hidden" name="subject" value="Event Registration: <?php echo htmlspecialchars($event['title']); ?>">
-											<input type="hidden" name="message" value="User registered for event via event-details page.">
-											<input type="hidden" name="status" value="New">
-											
-											<div class="form-group">
-												<input type="text" name="name" class="form-control" placeholder="Your Name" required pattern="^[a-zA-Z\s]{2,50}$" title="Please enter a valid name (letters only, minimum 2 characters)">
-											</div>
-											<div class="form-group">
-												<input type="email" name="email" class="form-control" placeholder="Your Email" required>
-											</div>
-											<div class="form-group">
-												<input type="text" name="phone" class="form-control" placeholder="Your Phone" required pattern="^[0-9]{10}$" minlength="10" maxlength="10" title="Please enter exactly 10 digits (e.g. 9876543210)">
-											</div>
-											<button type="submit" class="site-button btn-block radius-no outline">Register</button>
-										</form>
+									<?php if(isset($_GET['success'])): ?>
+									<div class="alert alert-success">Registration successful! We will contact you soon.
+									</div>
+									<?php endif; ?>
+									<form action="backend/save.php" method="post">
+										<input type="hidden" name="module" value="enquiries">
+										<input type="hidden" name="redirect"
+											value="../event-details.html?id=<?php echo $event['id']; ?>&success=1">
+										<input type="hidden" name="subject"
+											value="Event Registration: <?php echo htmlspecialchars($event['title']); ?>">
+										<input type="hidden" name="message"
+											value="User registered for event via event-details page.">
+										<input type="hidden" name="status" value="New">
+
+										<div class="form-group">
+											<input type="text" name="name" class="form-control" placeholder="Your Name"
+												required pattern="^[a-zA-Z\s]{2,50}$"
+												title="Please enter a valid name (letters only, minimum 2 characters)">
+										</div>
+										<div class="form-group">
+											<input type="email" name="email" class="form-control"
+												placeholder="Your Email" required>
+										</div>
+										<div class="form-group">
+											<input type="text" name="phone" class="form-control"
+												placeholder="Your Phone" required pattern="^[0-9]{10}$" minlength="10"
+												maxlength="10" title="Please enter exactly 10 digits (e.g. 9876543210)">
+										</div>
+										<button type="submit"
+											class="site-button btn-block radius-no outline">Register</button>
+									</form>
 									<?php endif; ?>
 								</div>
 
@@ -465,50 +489,60 @@ function event_image_src(?string $imagePath): string
 									</ul>
 									<?php endif; ?>
 								</div>
-								
+
 								<!-- Past Event Media Gallery -->
 								<?php if(!empty($event['gallery_image_1']) || !empty($event['gallery_image_2']) || !empty($event['gallery_image_3'])): ?>
 								<div class="dlab-post-text m-t30">
 									<h4 class="m-b20">Past Event Media Gallery</h4>
 									<div class="row lightgallery">
 										<?php for($i=1; $i<=3; $i++): ?>
-											<?php if(!empty($event['gallery_image_'.$i])): ?>
-											<div class="col-md-4 col-sm-6 m-b30">
-												<div class="dlab-box">
-													<div class="dlab-media dlab-img-effect zoom"> 
-														<img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" alt="" style="aspect-ratio: 1; object-fit: cover; border-radius: 8px;">
-														<div class="overlay-bx">
-															<div class="overlay-icon">
-																<span data-exthumbimage="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" data-src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>" class="check-km dlab-media-icon" title="Event Media">
-																	<i class="ti-fullscreen"></i>
-																</span>
-															</div>
+										<?php if(!empty($event['gallery_image_'.$i])): ?>
+										<div class="col-md-4 col-sm-6 m-b30">
+											<div class="dlab-box">
+												<div class="dlab-media dlab-img-effect zoom">
+													<img src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>"
+														alt=""
+														style="aspect-ratio: 1; object-fit: cover; border-radius: 8px;">
+													<div class="overlay-bx">
+														<div class="overlay-icon">
+															<span
+																data-exthumbimage="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>"
+																data-src="<?php echo htmlspecialchars(event_image_src($event['gallery_image_'.$i])); ?>"
+																class="check-km dlab-media-icon" title="Event Media">
+																<i class="ti-fullscreen"></i>
+															</span>
 														</div>
 													</div>
 												</div>
 											</div>
-											<?php endif; ?>
+										</div>
+										<?php endif; ?>
 										<?php endfor; ?>
 									</div>
 								</div>
 								<?php endif; ?>
-								
+
 								<!-- Participant Testimonial Carousel -->
 								<?php if(!empty($event['testimonial_1_text']) || !empty($event['testimonial_2_text']) || !empty($event['testimonial_3_text'])): ?>
 								<div class="dlab-post-text m-t30">
 									<h4 class="m-b20">Participant Testimonials</h4>
 									<div class="testimonial-one owl-carousel owl-btn-1 col-12 p-a0">
 										<?php for($i=1; $i<=3; $i++): ?>
-											<?php if(!empty($event['testimonial_'.$i.'_text'])): ?>
-											<div class="item">
-												<div class="testimonial-1">
-													<div class="testimonial-text">
-														<p>"<?php echo htmlspecialchars($event['testimonial_'.$i.'_text']); ?>"</p>
-													</div>
-													<div class="testimonial-detail"> <strong class="testimonial-name"><?php echo htmlspecialchars($event['testimonial_'.$i.'_name'] ?? 'Participant'); ?></strong> <span class="testimonial-position">Event Attendee</span> </div>
+										<?php if(!empty($event['testimonial_'.$i.'_text'])): ?>
+										<div class="item">
+											<div class="testimonial-1">
+												<div class="testimonial-text">
+													<p>"
+														<?php echo htmlspecialchars($event['testimonial_'.$i.'_text']); ?>"
+													</p>
+												</div>
+												<div class="testimonial-detail"> <strong class="testimonial-name">
+														<?php echo htmlspecialchars($event['testimonial_'.$i.'_name'] ?? 'Participant'); ?>
+													</strong> <span class="testimonial-position">Event Attendee</span>
 												</div>
 											</div>
-											<?php endif; ?>
+										</div>
+										<?php endif; ?>
 										<?php endfor; ?>
 									</div>
 								</div>
@@ -527,124 +561,116 @@ function event_image_src(?string $imagePath): string
 
 		<!-- Footer -->
 		<footer class="site-footer"
-			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
-			<div class="footer-top" style="background: transparent;">
-				<div class="container saf-footer" style="max-width: 1300px;">
-					<div class="row justify-content-between">
-						<div class="col-lg-4 col-md-12 footer-col-4">
-							<div class="widget widget_about d-flex" style="align-items: flex-start;">
-								<div class="logo-footer" style="margin-right: 15px; flex-shrink: 0;">
-									<a href="index.html"><img src="images/logo.png" alt=""
-											style="max-width: 200px;"></a>
+		style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
+		<div class="footer-top" style="background: transparent;">
+			<div class="container saf-footer" style="max-width: 1300px;">
+				<div class="row justify-content-between">
+					<div class="col-lg-4 col-md-12 footer-col-4">
+    <div class="widget widget_about d-flex flex-column w-100" 
+         style="align-items: center; text-align: center;">
+        <div class="logo-footer mb-3">
+            <a href="index.html">
+                <img src="images/logo.png" alt="" style="max-width: 200px;">
+            </a>
+        </div>
+        <p style="text-transform: none; line-height: 28px; font-size: 15px; 
+                  color: #cccccc; margin-top: 10px; padding: 0 15px; 
+                  text-align: left; max-width: 400px;">
+            Experience authentic yogic practices designed to bring harmony to your body, clarity to
+            your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
+            towards wellbeing, mindfulness, and inner transformation.
+        </p>
+    </div>
+</div>
+
+					<div class="col-lg-4 col-md-6 footer-col-4">
+						<div class="widget widget_services border-0 text-center text-md-left">
+							<h5 class="m-b30 text-white">Usefull Link</h5>
+							<div class="mx-auto mx-md-0"
+								style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
+							</div>
+							<div class="row">
+								<div class="col-6 text-center text-md-left">
+									<ul style="list-style: none; padding-left: 0; color: #f77024; display: inline-block; text-align: left;">
+										<li style="margin-bottom: 12px;"><a
+												href="index.html" style="text-transform: none; color: #cccccc;">Home</a>
+										</li>
+										<li style="margin-bottom: 12px;"><a
+												href="about.html" style="text-transform: none; color: #cccccc;">About
+												Us</a></li>
+										<li style="margin-bottom: 12px;"><a
+												href="class.html"
+												style="text-transform: none; color: #cccccc;">Classes</a></li>
+
+									</ul>
 								</div>
-								<p
-									style="text-transform: none; line-height: 28px; font-size: 15px; color: #cccccc; margin-top: 10px;">
-									Experience authentic yogic practices designed to bring harmony to your body, clarity
-									to
-									your mind, and balance to your life. At Nishchala, yoga is taught as a complete path
-									towards wellbeing, mindfulness, and inner transformation.</p>
+								<div class="col-6 text-center text-md-left">
+									<ul style="list-style: none; padding-left: 0; color: #f77024; display: inline-block; text-align: left;">
+										<li style="margin-bottom: 12px;"><a
+												href="event.html"
+												style="text-transform: none; color: #cccccc;">Events</a></li>
+										<li style="margin-bottom: 12px;"><a
+												href="gallery.html"
+												style="text-transform: none; color: #cccccc;">Gallery</a></li>
+										<li style="margin-bottom: 12px;"><a
+												href="blog.html" style="text-transform: none; color: #cccccc;">Blog</a>
+										</li>
+										<li style="margin-bottom: 12px;"><a
+												href="contact.html"
+												style="text-transform: none; color: #cccccc;">Contact Us</a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
+					</div>
 
-						<div class="col-lg-4 col-md-6 footer-col-4">
-							<div class="widget widget_services border-0">
-								<h5 class="m-b30 text-white">Usefull Link</h5>
-								<div
-									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
-								</div>
-								<div class="row">
-									<div class="col-6">
-										<ul style="list-style: none; padding-left: 0; color: #f77024;">
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="index.html"
-													style="text-transform: none; color: #cccccc;">Home</a>
-											</li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="about-1.html"
-													style="text-transform: none; color: #cccccc;">About
-													Us</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="courses.html"
-													style="text-transform: none; color: #cccccc;">Classes</a></li>
-
-										</ul>
-									</div>
-									<div class="col-6">
-										<ul style="list-style: none; padding-left: 0; color: #f77024;">
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="event.html"
-													style="text-transform: none; color: #cccccc;">Events</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="gallery.html"
-													style="text-transform: none; color: #cccccc;">Gallery</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="blog-grid-4.html"
-													style="text-transform: none; color: #cccccc;">Blog</a></li>
-											<li style="margin-bottom: 12px; display: flex; align-items: center;"><a
-													href="contact-4.html"
-													style="text-transform: none; color: #cccccc;">Contact Us</a></li>
-										</ul>
-									</div>
-								</div>
+					<div class="col-lg-4 col-md-6 footer-col-4">
+						<div class="widget text-center text-md-left">
+							<h5 class="m-b30 text-white">Contact</h5>
+							<div class="mx-auto mx-md-0"
+								style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
 							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-6 footer-col-4">
-							<div class="widget">
-								<h5 class="m-b30 text-white">Contact</h5>
-								<div
-									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
-								</div>
-								<ul style="text-transform: none; color: #cccccc; list-style: none; padding-left: 0;">
-									<li style="margin-bottom: 20px; display: flex; align-items: center;">
-										<i class="la la-map-marker"
-											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,
-											Mangaluru, Karnataka 575002</span>
-									</li>
-									<li style="margin-bottom: 20px; display: flex; align-items: center;">
-										<i class="la la-phone-volume"
-											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Phone +91 98456 67758</span>
-									</li>
-									<!-- <li style="margin-bottom: 20px; display: flex; align-items: center;">
-										<i class="la la-envelope"
-											style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
-										<span style="line-height: 24px;">Email info@example.com</span>
-									</li> -->
-								</ul>
-							</div>
+							<ul style="text-transform: none; color: #cccccc; list-style: none; padding-left: 0; display: inline-block; text-align: left;">
+								<li style="margin-bottom: 20px; display: flex; align-items: center;">
+									<i class="la la-map-marker"
+										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+									<span style="line-height: 24px;">3rd Floor, Sim Centre, Mallikatte, Kadri,<br>
+										Mangaluru, Karnataka 575002</span>
+								</li>
+								<li style="margin-bottom: 20px; display: flex; align-items: center;">
+									<i class="la la-phone-volume"
+										style="margin-right: 12px; font-size: 20px; color: #cccccc;"></i>
+									<span style="line-height: 24px;">Phone +91 98456 67758</span>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- footer bottom part -->
-			<div class="footer-bottom">
-				<div class="container">
-					<div class="row align-items-center">
-						<div class="col-md-6 col-sm-6 text-left">
-							<span>Copyright © 2026 Nishchala All rights Reserved Designed By <a
-									href="https://oneplanet360.com/" target="_blank"
-									style="font-weight: bold;">OnePlanet360.com</a></span>
-						</div>
-						<div class="col-md-6 col-sm-6 text-right">
-							<div class="dlab-social-icon">
-								<ul>
-									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a>
-									</li>
-								</ul>
-							</div>
+		</div>
+		<!-- footer bottom part -->
+		<div class="footer-bottom text-center text-md-left">
+			<div class="container">
+				<div class="row align-items-center">
+					<div class="col-md-6 col-sm-12 text-center text-md-left mb-3 mb-md-0">
+						<span>Copyright &copy; 2026 Nishchala All rights Reserved Designed By <a
+								href="https://oneplanet360.com/" target="_blank"
+								style="font-weight: bold;">OnePlanet360.com</a></span>
+					</div>
+					<div class="col-md-6 col-sm-12 text-center text-md-right d-flex justify-content-center justify-content-md-end">
+						<div class="dlab-social-icon">
+							<ul>
+								<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
+								<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
+								<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
+								<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
 		<!-- Footer END-->
 		<!-- scroll top button -->
 		<button class="scroltop fa fa-chevron-up"></button>
@@ -675,3 +701,10 @@ function event_image_src(?string $imagePath): string
 </body>
 
 </html>
+
+
+
+
+
+
+

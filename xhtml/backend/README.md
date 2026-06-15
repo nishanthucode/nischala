@@ -51,7 +51,7 @@ For each `all-*.html` page, query the matching table with `backend_fetch_all()` 
 
 ## 7. Suggested page mapping
 
-- `add-courses.html` and `edit-courses.html` -> `classes`
+- `add-class.html` and `edit-class.html` -> `classes`
 - `event-management.html` and a custom event form page -> `events`
 - `add-gallery.html`, `edit-gallery.html`, `all-gallery.html` -> `gallery`
 - `add-blog.html`, `edit-blog.html`, `all-blogs.html` -> `blogs`

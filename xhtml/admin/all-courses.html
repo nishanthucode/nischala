@@ -11,13 +11,13 @@
     <meta name="author" content="" />
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    
-    
-    
-    
+
+
+
+
     <meta name="format-detection" content="telephone=no">
-    
-        <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
+
+    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
     <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
     <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
     <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
@@ -29,8 +29,8 @@
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    
-    
+
+
 </head>
 
 <body>
@@ -112,7 +112,7 @@
             Header end ti-comment-alt
         ***********************************-->
 
-                <!--**********************************
+        <!--**********************************
             Sidebar start
         ***********************************-->
         <div class="deznav">
@@ -129,8 +129,8 @@
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="all-courses.html">All Classes</a></li>
-                            <li><a href="add-courses.html">Add Class</a></li>
+                            <li><a href="all-class.html">All Classes</a></li>
+                            <li><a href="add-class.html">Add Class</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -160,7 +160,7 @@
                             <li><a href="add-blog.html">Add Blog</a></li>
                         </ul>
                     </li>
-                    
+
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-envelope"></i>
                             <span class="nav-text">Enquiries</span>
@@ -169,7 +169,7 @@
                             <li><a href="all-enquiries.html">All Enquiries</a></li>
                         </ul>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -189,14 +189,14 @@
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>All Courses</h4>
+                            <h4>All class</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Courses</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">class</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All class</a></li>
                         </ol>
                     </div>
                 </div>
@@ -205,13 +205,13 @@
                     <div class="row">
                         <?php
 require_once __DIR__ . '/../backend/functions.php';
-$courses = backend_fetch_all('classes');
+$class = backend_fetch_all('classes');
 
 function class_admin_image_src(?string $imagePath): string
 {
     $imagePath = trim((string)$imagePath);
     if ($imagePath === '') {
-        return 'images/courses/pic1.jpg';
+        return 'images/class/pic1.jpg';
     }
     if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
         return $imagePath;
@@ -226,12 +226,12 @@ function class_admin_image_src(?string $imagePath): string
 }
 ?>
 
-                        <?php if (!$courses): ?>
+                        <?php if (!$class): ?>
                         <div class="col-12">
                             <div class="alert alert-info">No classes found yet.</div>
                         </div>
                         <?php endif; ?>
-                        <?php foreach ($courses as $course):
+                        <?php foreach ($class as $course):
                             $cap_a = (int)($course['slot_capacity'] ?? 0);
                             $stmt = pdo()->prepare('SELECT COALESCE(SUM(quantity),0) FROM bookings WHERE class_id = ? AND payment_status != "cancelled"');
                             $stmt->execute([(int)$course['id']]);
@@ -305,7 +305,7 @@ function class_admin_image_src(?string $imagePath): string
                                         <?php endif; ?>
                                     </ul>
                                     <div class="d-flex flex-wrap gap-2">
-                                        <a href="edit-courses.html?id=<?php echo (int)$course['id']; ?>"
+                                        <a href="edit-class.html?id=<?php echo (int)$course['id']; ?>"
                                             class="btn btn-primary me-2">Edit</a>
                                         <button class="btn btn-info me-2 btn-view-bookings"
                                             data-id="<?php echo (int)$course['id']; ?>"
@@ -333,8 +333,9 @@ function class_admin_image_src(?string $imagePath): string
             Footer start
         ***********************************-->
         <div class="footer">
-                        <div class="copyright">
-                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
+            <div class="copyright">
+                <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/"
+                        target="_blank" style="font-weight: bold;">OnePlanet360.com</a></p>
             </div>
         </div>
         <!--**********************************
