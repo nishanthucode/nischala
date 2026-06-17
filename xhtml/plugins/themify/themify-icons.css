@@ -307,9 +307,9 @@
     content: "\e645"
 }
 
-/* .ti-close:before {
+.ti-close:before {
     content: "\e646"
-} */
+}
 
 .ti-clip:before {
     content: "\e647"

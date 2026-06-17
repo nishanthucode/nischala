@@ -199,10 +199,8 @@ function gallery_image_src(?string $imagePath): string
 						</div>
 						<!-- main nav -->
 						<div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
-							<div class="logo-header d-md-block d-lg-none">
-								<a href="index.html"><img src="images/logo.png"
-										style="width: 140px; height: auto; max-height: 60px; object-fit: contain;"
-										alt=""></a>
+							<div class="d-md-block d-lg-none mobile-nav-header">
+								<a href="index.html" class="mobile-logo-link"><img src="images/logo.png" alt="Nishchal"></a>
 							</div>
 							<ul class="nav navbar-nav">
 								<li>
@@ -237,16 +235,12 @@ function gallery_image_src(?string $imagePath): string
 
 								</li>
 							</ul>
-							<div class="dlab-social-icon">
+							<div class="dlab-social-icon text-center mobile-social-footer">
 								<ul>
-									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a>
-									</li>
-									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a>
-									</li>
+									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -311,10 +305,15 @@ function gallery_image_src(?string $imagePath): string
 									<p>No gallery images found.</p>
 								</div>
 								<?php endif; ?>
-								<?php foreach ($gallery as $item): ?>
+								<?php $index = 0; foreach ($gallery as $item): $index++; ?>
 								<?php
 									$catClass = strtolower(str_replace(' ', '-', $item['category'] ?? 'all'));
 									$imgSrc = htmlspecialchars(gallery_image_src($item['image_path'] ?? ''));
+                                    
+                                    // If this is a video and the user didn't upload a thumbnail image, use a video placeholder
+                                    if (empty(trim($item['image_path'] ?? '')) && !empty($item['video_path'])) {
+                                        $imgSrc = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzIyMiIvPjxwb2x5Z29uIHBvaW50cz0iODAsNjAgODAsMTQwIDE0MCwxMDAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=';
+                                    }
 								?>
 								<li class="<?php echo $catClass; ?> card-container col-lg-3 col-md-6 col-sm-6">
 									<div class="dlab-box dlab-gallery-box">
@@ -336,10 +335,14 @@ function gallery_image_src(?string $imagePath): string
 														<a href="javascript:void(0);"><i
 																class="fa fa-link icon-bx-xs"></i></a>
 														<span data-exthumbimage="<?php echo $imgSrc; ?>"
-															data-src="<?php echo !empty($item['video_path']) ? htmlspecialchars(gallery_image_src($item['video_path'])) : $imgSrc; ?>"
+															<?php if (!empty($item['video_path'])): ?>
+															data-html="#video_<?php echo $index; ?>"
+															<?php else: ?>
+															data-src="<?php echo $imgSrc; ?>"
+															<?php endif; ?>
 															class="check-km"
 															title="<?php echo htmlspecialchars($item['title'] ?? ''); ?>">
-															<i class="fa fa-picture-o icon-bx-xs"></i>
+															<i class="fa <?php echo !empty($item['video_path']) ? 'fa-play' : 'fa-picture-o'; ?> icon-bx-xs"></i>
 														</span>
 													</div>
 												</div>
@@ -352,6 +355,14 @@ function gallery_image_src(?string $imagePath): string
 												</small></p>
 										</div>
 									</div>
+                                    <?php if (!empty($item['video_path'])): ?>
+                                    <div style="display:none;" id="video_<?php echo $index; ?>">
+                                        <video class="lg-video-object lg-html5" controls preload="none">
+                                            <source src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>" type="video/mp4">
+                                            Your browser does not support HTML5 video.
+                                        </video>
+                                    </div>
+                                    <?php endif; ?>
 								</li>
 								<?php endforeach; ?>
 							</ul>
@@ -490,14 +501,14 @@ function gallery_image_src(?string $imagePath): string
 								style="font-weight: bold;">OnePlanet360.com</a></span>
 					</div>
 					<div class="col-md-6 col-sm-12 text-center text-md-right d-flex justify-content-center justify-content-md-end">
-						<div class="dlab-social-icon">
-							<ul>
-								<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
-								<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
-							</ul>
-						</div>
+						<div class="dlab-social-icon text-center mobile-social-footer">
+								<ul>
+									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-twitter" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-linkedin" href="javascript:void(0);"></a></li>
+									<li><a class="site-button sharp-sm fa fa-instagram" href="javascript:void(0);"></a></li>
+								</ul>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -531,6 +542,7 @@ function gallery_image_src(?string $imagePath): string
 </body>
 
 </html>
+
 
 
 

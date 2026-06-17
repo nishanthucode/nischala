@@ -27458,3 +27458,46 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 
 
+
+/* --- CUSTOM MOBILE RESPONSIVE FIX FOR ADMIN --- */
+@media only screen and (max-width: 767px) {
+    #main-wrapper .nav-header {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 15px !important;
+        z-index: 10 !important;
+    }
+    #main-wrapper .nav-header .brand-logo {
+        width: auto !important;
+        padding: 0 !important;
+        justify-content: flex-start !important;
+    }
+    #main-wrapper .nav-header .brand-logo img {
+        max-width: 140px !important;
+    }
+    #main-wrapper .nav-control {
+        position: relative !important;
+        right: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        margin-left: auto;
+    }
+    #main-wrapper .header {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        top: 5rem !important;
+        width: 100% !important;
+    }
+    #main-wrapper .header .header-content {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    #main-wrapper .content-body {
+        padding-top: 10rem !important; 
+    }
+    #main-wrapper .deznav {
+        top: 10rem !important;
+    }
+}

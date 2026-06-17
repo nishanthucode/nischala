@@ -1,4 +1,4 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $events = backend_fetch_all('events');
@@ -29,7 +29,7 @@ function event_image_src(?string $imagePath): string
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 
 
 
@@ -203,7 +203,7 @@ function event_image_src(?string $imagePath): string
                     <?php endif; ?>
                     <?php foreach ($events as $event): ?>
                     <div class="col-xl-3 col-xxl-4 col-lg-6 col-md-6">
-                        <div class="card">
+                        <div class="card" style="cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="window.location.href='edit-events.html?id=<?php echo (int)$event['id']; ?>#participants'">
                             <img class="img-fluid"
                                 src="<?php echo htmlspecialchars(event_image_src($event['image_path'] ?? '')); ?>"
                                 alt="">
@@ -234,9 +234,9 @@ function event_image_src(?string $imagePath): string
                                         </strong></li>
                                 </ul>
                                 <a href="edit-events.html?id=<?php echo (int)$event['id']; ?>"
-                                    class="btn btn-primary">Update</a>
+                                    class="btn btn-primary" onclick="event.stopPropagation();">Update</a>
                                 <a href="../backend/delete.php?module=events&id=<?php echo (int)$event['id']; ?>"
-                                    class="btn btn-light" onclick="return confirm('Delete this event?');">Delete</a>
+                                    class="btn btn-light" onclick="event.stopPropagation(); return confirm('Delete this event?');">Delete</a>
                             </div>
                         </div>
                     </div>

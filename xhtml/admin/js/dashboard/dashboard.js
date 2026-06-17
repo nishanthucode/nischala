@@ -165,7 +165,12 @@
 	
 	
 	
+	
+	// Fix for Morris charts squishing on mobile by triggering a resize after the layout settles
+	$(window).on('load', function() {
+		setTimeout(function() {
+			$(window).trigger('resize');
+		}, 200);
+	});
+	
 })(jQuery);
-
-
-

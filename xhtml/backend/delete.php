@@ -20,5 +20,21 @@ if ($module !== '' && $id > 0) {
     backend_delete($module, $id);
 }
 
-header('Location: ' . $target . '?deleted=1');
+if (strpos($target, '?') !== false) {
+    if (strpos($target, '#') !== false) {
+        $parts = explode('#', $target, 2);
+        $target = $parts[0] . '&deleted=1#' . $parts[1];
+    } else {
+        $target .= '&deleted=1';
+    }
+} else {
+    if (strpos($target, '#') !== false) {
+        $parts = explode('#', $target, 2);
+        $target = $parts[0] . '?deleted=1#' . $parts[1];
+    } else {
+        $target .= '?deleted=1';
+    }
+}
+
+header('Location: ' . $target);
 exit;

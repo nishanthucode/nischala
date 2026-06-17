@@ -1,4 +1,4 @@
-﻿<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -35,7 +35,7 @@ function event_image_src(?string $imagePath): string
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
@@ -447,7 +447,7 @@ function event_image_src(?string $imagePath): string
                 </div>
 
                 <!-- Event Registrants Table -->
-                <div class="row mt-4">
+                <div class="row mt-4" id="participants">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -464,6 +464,7 @@ function event_image_src(?string $imagePath): string
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Date Registered</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -477,7 +478,7 @@ function event_image_src(?string $imagePath): string
                                             if (empty($registrants)): 
                                             ?>
                                             <tr>
-                                                <td colspan="5" class="text-center">No participants have registered for
+                                                <td colspan="6" class="text-center">No participants have registered for
                                                     this event yet.</td>
                                             </tr>
                                             <?php else: ?>
@@ -500,6 +501,11 @@ function event_image_src(?string $imagePath): string
                                                         class="badge badge-<?php echo ($reg['status'] === 'New') ? 'primary' : 'success'; ?>">
                                                         <?php echo htmlspecialchars($reg['status'] ?? 'New'); ?>
                                                     </span>
+                                                </td>
+                                                <td>
+                                                    <a href="../backend/delete.php?module=enquiries&id=<?php echo (int)$reg['id']; ?>&redirect=<?php echo urlencode('../admin/edit-events.html?id=' . (int)$event['id'] . '#participants'); ?>"
+                                                        onclick="return confirm('Delete this participant?');"
+                                                        class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
