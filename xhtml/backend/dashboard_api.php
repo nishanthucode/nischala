@@ -42,6 +42,11 @@ try {
         "SELECT COUNT(*) FROM blogs WHERE created_at >= DATE_SUB(NOW(), INTERVAL 60 DAY) AND created_at < DATE_SUB(NOW(), INTERVAL 30 DAY)"
     );
 
+    // 5. Total Revenue (Paid Bookings)
+    $stmt = $pdo->query("SELECT SUM(amount) FROM program_bookings WHERE payment_status = 'paid'");
+    $revenue = $stmt->fetchColumn();
+    $data['total_revenue'] = $revenue ? (float) $revenue : 0;
+
     $data['enquiries_progress'] = $data['enquiries_growth'] == 0 && $data['total_enquiries'] > 0 ? 50 : abs($data['enquiries_growth']);
     $data['gallery_progress'] = $data['gallery_growth'] == 0 && $data['total_gallery'] > 0 ? 50 : abs($data['gallery_growth']);
     $data['events_progress'] = $data['events_growth'] == 0 && $data['total_events'] > 0 ? 50 : abs($data['events_growth']);

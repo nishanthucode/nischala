@@ -2029,17 +2029,71 @@ function event_image_src(?string $imagePath): string {
 				var formData = new FormData(form);
 				formData.append('ajax_mode', '1');
 
-				fetch(form.action, {
+				fetch('backend/create_order.php', {
 					method: 'POST',
 					body: formData
 				})
-					.then(function (res) { return res.text(); })
-					.then(function (text) {
-						/* save.php redirects with Location header; fetch follows it */
-						form.reset();
-						document.getElementById('dzTimeSelect').innerHTML = '<option value="">Select a program first...</option>';
-						if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Interest \u2192'; }
-						alert('Thank you! Your enquiry has been submitted successfully. We will contact you within 24 hours.');
+					.then(function (res) { return res.json(); })
+					.then(function (data) {
+						if (!data.success) {
+							if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Interest \u2192'; }
+							alert(data.message || 'Error creating order.');
+							return;
+						}
+
+						var options = {
+							"key": data.key,
+							"amount": data.amount,
+							"currency": data.currency,
+							"name": "Nishchal Yoga",
+							"description": "Program Booking",
+							"order_id": data.order_id,
+							"handler": function (response){
+								var postForm = document.createElement('form');
+								postForm.method = 'POST';
+								postForm.action = 'backend/verify_payment.php';
+								
+								var pid = document.createElement('input');
+								pid.type = 'hidden';
+								pid.name = 'razorpay_payment_id';
+								pid.value = response.razorpay_payment_id;
+								postForm.appendChild(pid);
+
+								var oid = document.createElement('input');
+								oid.type = 'hidden';
+								oid.name = 'razorpay_order_id';
+								oid.value = response.razorpay_order_id;
+								postForm.appendChild(oid);
+
+								var sig = document.createElement('input');
+								sig.type = 'hidden';
+								sig.name = 'razorpay_signature';
+								sig.value = response.razorpay_signature;
+								postForm.appendChild(sig);
+
+								document.body.appendChild(postForm);
+								postForm.submit();
+							},
+							"prefill": {
+								"name": data.customer_name,
+								"email": data.email,
+								"contact": data.phone
+							},
+							"theme": {
+								"color": "#E67527"
+							},
+							"modal": {
+								"ondismiss": function() {
+									if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Interest \u2192'; }
+								}
+							}
+						};
+						var rzp1 = new Razorpay(options);
+						rzp1.on('payment.failed', function (response){
+							if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Interest \u2192'; }
+							alert("Payment failed: " + response.error.description);
+						});
+						rzp1.open();
 					})
 					.catch(function () {
 						if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Submit Interest \u2192'; }
@@ -2056,6 +2110,7 @@ function event_image_src(?string $imagePath): string {
 			});
 		})();
 	</script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </body>
 
 </html>

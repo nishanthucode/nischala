@@ -350,6 +350,8 @@
                                                 <td>
                                                     <?php if ($item['status'] === 'Replied'): ?>
                                                     <span class="badge badge-success">Replied</span>
+                                                    <?php elseif ($item['status'] === 'Paid'): ?>
+                                                    <span class="badge badge-success" style="background-color: #E67527;">Paid</span>
                                                     <?php else: ?>
                                                     <span class="badge badge-warning">Pending</span>
                                                     <?php endif; ?>
