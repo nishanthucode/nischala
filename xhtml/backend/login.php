@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Hardcoded credentials for single admin setup
-    $admin_email = 'admin@nischala.com';
-    $admin_password = 'password123';
+    $admin_email = '';
+    $admin_password = '';
 
     if ($email === $admin_email && $password === $admin_password) {
         $_SESSION['admin_logged_in'] = true;
