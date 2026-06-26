@@ -2,8 +2,12 @@
 // backend/razorpay_config.php
 
 // Razorpay API Keys
-$keyId = 'rzp_test_T5Km4cuZZz7moU';
-$keySecret = 'vyV7myBdoHox4ZIkESMeWX8j';
+
+
+//live keys
+$keyId = '';
+$keySecret = '';
+
 
 // Fixed booking amount (in INR) - used as fallback
 $bookingAmount = 1500;
