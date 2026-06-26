@@ -315,50 +315,51 @@ function gallery_image_src(?string $imagePath): string
 									$catClass = strtolower(str_replace(' ', '-', $item['category'] ?? 'all'));
 									$imgSrc = htmlspecialchars(gallery_image_src($item['image_path'] ?? ''));
                                     
-                                    // If this is a video and the user didn't upload a thumbnail image, use a video placeholder
+                                    // If this is a video and the user didn't upload a thumbnail image, use a visible orange play-button placeholder
                                     if (empty(trim($item['image_path'] ?? '')) && !empty($item['video_path'])) {
-                                        $imgSrc = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzIyMiIvPjxwb2x5Z29uIHBvaW50cz0iODAsNjAgODAsMTQwIDE0MCwxMDAiIGZpbGw9IiNmZmYiLz48L3N2Zz4=';
+                                        // Orange background (#E67527) with white play triangle - visible on dark lightgallery thumbnail strip
+                                        $imgSrc = 'data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect width="200" height="200" fill="#E67527" rx="8"/><polygon points="75,55 75,145 155,100" fill="#fff"/></svg>');
                                     }
 								?>
-								<li class="<?php echo $catClass; ?> card-container col-lg-3 col-md-6 col-sm-6">
+								<li class="<?php echo $catClass; ?> card-container col-lg-3 col-md-6 col-sm-6"
+									data-exthumbimage="<?php echo $imgSrc; ?>"
+									<?php if (!empty($item['video_path'])): ?>
+									data-html="#video_<?php echo $index; ?>"
+									<?php else: ?>
+									data-src="<?php echo $imgSrc; ?>"
+									<?php endif; ?>
+									data-sub-html="<h4><?php echo htmlspecialchars($item['title'] ?? ''); ?></h4><p><?php echo htmlspecialchars($item['category'] ?? ''); ?></p>">
 									<div class="dlab-box dlab-gallery-box">
 										<div class="dlab-media dlab-img-overlay1 dlab-img-effect">
 											<a href="javascript:void(0);">
 												<?php if (!empty($item['video_path'])): ?>
-												<video
-													src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
-													style="width: 100%; aspect-ratio: 1/1; object-fit: cover;" muted
-													loop autoplay playsinline></video>
+												<div style="position:relative; width:100%; aspect-ratio:1/1; overflow:hidden;"
+													 onmouseenter="var v=this.querySelector('video'); if(v) v.play().catch(function(){});"
+													 onmouseleave="var v=this.querySelector('video'); if(v) { v.pause(); v.currentTime=0; }">
+													<video
+														src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
+														style="width: 100%; height: 100%; object-fit: cover;" muted
+														preload="metadata" loop playsinline></video>
+													<span style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); color:#fff; border-radius:50%; width:30px; height:30px; display:flex; align-items:center; justify-content:center; font-size:12px; pointer-events:none; z-index: 2;">
+														<i class="fa fa-play"></i>
+													</span>
+												</div>
 												<?php else: ?>
-												<img src="<?php echo $imgSrc; ?>" alt=""
-													style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+												<img src="<?php echo $imgSrc; ?>" alt="" loading="lazy"
+        style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
 												<?php endif; ?>
 											</a>
 											<div class="overlay-bx">
 												<div class="overlay-icon">
 													<div class="text-white">
-														<a href="javascript:void(0);"><i
-																class="fa fa-link icon-bx-xs"></i></a>
-														<span data-exthumbimage="<?php echo $imgSrc; ?>" <?php if
-															(!empty($item['video_path'])): ?>
-															data-html="#video_
-															<?php echo $index; ?>"
-															<?php else: ?>
-															data-src="
-															<?php echo $imgSrc; ?>"
-															<?php endif; ?>
-															class="check-km"
-															title="
-															<?php echo htmlspecialchars($item['title'] ?? ''); ?>">
-															<i
-																class="fa <?php echo !empty($item['video_path']) ? 'fa-play' : 'fa-picture-o'; ?> icon-bx-xs"></i>
+														<span class="check-km">
+															<i class="fa <?php echo !empty($item['video_path']) ? 'fa-play' : 'fa-picture-o'; ?> icon-bx-xs"></i>
 														</span>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="dez-info bg-white">
-											<!-- <h6 class="dez-title m-t0"><a href="javascript:void(0);"><?php echo htmlspecialchars($item['title'] ?? ''); ?></a></h6> -->
 											<p class="category"><small>
 													<?php echo htmlspecialchars($item['category'] ?? ''); ?>
 												</small></p>
@@ -366,7 +367,8 @@ function gallery_image_src(?string $imagePath): string
 									</div>
 									<?php if (!empty($item['video_path'])): ?>
 									<div style="display:none;" id="video_<?php echo $index; ?>">
-										<video class="lg-video-object lg-html5" controls preload="none">
+										<video class="lg-video-object lg-html5" controls preload="metadata"
+											style="width:100%;max-height:80vh;outline:none;">
 											<source
 												src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
 												type="video/mp4">
@@ -414,8 +416,7 @@ function gallery_image_src(?string $imagePath): string
 		</div>
 	</div> -->
 		<!-- Footer -->
-		<footer class="site-footer"
-			style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
+		<footer class="site-footer" style="background-color: #292d24; background-image: url('images/pattern/pt1.png'); padding-top: 60px;">
 			<div class="footer-top" style="background: transparent;">
 				<div class="container saf-footer" style="max-width: 1300px;">
 					<div class="row justify-content-between">
@@ -440,7 +441,7 @@ function gallery_image_src(?string $imagePath): string
 
 						<div class="col-lg-4 col-md-6 footer-col-4">
 							<div class="widget widget_services border-0 text-center text-md-left">
-								<h5 class="m-b30 text-white">Usefull Link</h5>
+								<h5 class="m-b30 text-white">Useful Links</h5>
 								<div class="mx-auto mx-md-0"
 									style="width: 30px; height: 2px; background-color: #f77024; margin-top: -20px; margin-bottom: 25px;">
 								</div>
@@ -513,7 +514,7 @@ function gallery_image_src(?string $imagePath): string
 						</div>
 						<div
 							class="col-md-6 col-sm-12 text-center text-md-right d-flex justify-content-center justify-content-md-end">
-							<div class="dlab-social-icon text-center mobile-social-footer">
+							<div class="dlab-social-icon">
 								<ul>
 									<li><a class="site-button sharp-sm fa fa-facebook" href="javascript:void(0);"></a>
 									</li>
@@ -554,7 +555,63 @@ function gallery_image_src(?string $imagePath): string
 	<script src="js/dz.ajax.js"></script><!-- CONTACT JS  -->
 	<script src="plugins/rangeslider/rangeslider.js"></script><!-- Rangeslider -->
 
+	<style>
+		/* Lightgallery video fills the modal properly */
+		.lg-video-object.lg-html5 {
+			width: 100% !important;
+			max-width: 900px !important;
+			max-height: 80vh !important;
+			outline: none;
+			background: #000;
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+
+	<script>
+		// Auto-play video when lightgallery opens it, pause on close/slide
+		$(document).on('onAfterOpen.lg', function () {
+			var v = document.querySelector('.lg-inner .lg-video-object');
+			if (v) { v.play().catch(function(){}); }
+		});
+		$(document).on('onBeforeSlide.lg', function () {
+			var v = document.querySelector('.lg-inner .lg-video-object');
+			if (v) { v.pause(); v.currentTime = 0; }
+		});
+		$(document).on('onBeforeClose.lg', function () {
+			var v = document.querySelector('.lg-inner .lg-video-object');
+			if (v) { v.pause(); v.currentTime = 0; }
+		});
+		$(document).on('onAfterSlide.lg', function () {
+			var v = document.querySelector('.lg-current .lg-video-object');
+			if (v) { v.play().catch(function(){}); }
+		});
+
+		// ── Re-initialise lightGallery ensuring exThumbImage is set ───────────
+		// Use window load to guarantee custom.js has already auto-inited the gallery
+		$(window).on('load', function () {
+			var $ul = $('#masonry');
+			// Destroy previous instance (from custom.js) that may lack exThumbImage
+			try {
+				if ($ul.data('lightGallery')) {
+					$ul.data('lightGallery').destroy(true);
+				}
+			} catch(e) {}
+			$ul.lightGallery({
+				thumbnail:            true,
+				exThumbImage:         'data-exthumbimage',
+				animateThumb:         true,
+				showThumbByDefault:   true,
+				thumbWidth:           90,
+				thumbContHeight:      85,
+				getCaptionFromTitleOrAlt: false
+			});
+		});
+	</script>
 
 </body>
 
 </html>
+
+
+

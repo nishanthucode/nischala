@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); header("Cache-Control: post-check=0, pre-check=0", false); header("Pragma: no-cache"); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -11,7 +11,7 @@ if (!$event) {
 
 function event_image_src(?string $imagePath): string
 {
-    if (!$imagePath) return '';
+    if (!$imagePath) return 'images/class/pic1.jpg';
     if (str_starts_with($imagePath, 'uploads/')) return '../' . $imagePath;
     return $imagePath;
 }
@@ -93,7 +93,7 @@ function event_image_src(?string $imagePath): string
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -111,7 +111,7 @@ function event_image_src(?string $imagePath): string
                                     <img src="images/profile/pic1.jpg" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -286,7 +286,7 @@ function event_image_src(?string $imagePath): string
                                             <div class="form-group">
                                                 <label class="form-label">Ticket Price</label>
                                                 <input type="number" step="0.01" class="form-control"
-                                                    name="ticket_price"
+                                                    name="ticket_price" max="99999" oninput="if(this.value > 99999) this.value = 99999;"
                                                     value="<?php echo htmlspecialchars($event['ticket_price'] ?? ''); ?>">
                                             </div>
                                         </div>
@@ -297,25 +297,19 @@ function event_image_src(?string $imagePath): string
                                                     value="<?php echo htmlspecialchars($event['total_seats'] ?? ''); ?>">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Available Seats</label>
-                                                <input type="number" class="form-control" name="available_seats"
-                                                    value="<?php echo htmlspecialchars($event['available_seats'] ?? ''); ?>">
-                                            </div>
-                                        </div>
+
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Highlights / Key Features</label>
                                                 <textarea class="form-control" rows="3"
-                                                    name="highlights"><?php echo htmlspecialchars($event['highlights'] ?? ''); ?></textarea>
+                                                    name="highlights" oninput="limitWords(this, 500)"><?php echo htmlspecialchars($event['highlights'] ?? ''); ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Event Description</label>
                                                 <textarea class="form-control" rows="5"
-                                                    name="description"><?php echo htmlspecialchars($event['description'] ?? ''); ?></textarea>
+                                                    name="description" oninput="limitWords(this, 800)"><?php echo htmlspecialchars($event['description'] ?? ''); ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -386,7 +380,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 1 Name</label>
                                                         <input type="text" class="form-control"
-                                                            name="testimonial_1_name"
+                                                            name="testimonial_1_name" oninput="limitWords(this, 50)"
                                                             value="<?php echo htmlspecialchars($event['testimonial_1_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
@@ -394,7 +388,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 1 Text</label>
                                                         <textarea class="form-control" rows="2"
-                                                            name="testimonial_1_text"><?php echo htmlspecialchars($event['testimonial_1_text'] ?? ''); ?></textarea>
+                                                            name="testimonial_1_text" oninput="limitWords(this, 200)"><?php echo htmlspecialchars($event['testimonial_1_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -403,7 +397,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 2 Name</label>
                                                         <input type="text" class="form-control"
-                                                            name="testimonial_2_name"
+                                                            name="testimonial_2_name" oninput="limitWords(this, 50)"
                                                             value="<?php echo htmlspecialchars($event['testimonial_2_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
@@ -411,7 +405,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 2 Text</label>
                                                         <textarea class="form-control" rows="2"
-                                                            name="testimonial_2_text"><?php echo htmlspecialchars($event['testimonial_2_text'] ?? ''); ?></textarea>
+                                                            name="testimonial_2_text" oninput="limitWords(this, 200)"><?php echo htmlspecialchars($event['testimonial_2_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -420,7 +414,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 3 Name</label>
                                                         <input type="text" class="form-control"
-                                                            name="testimonial_3_name"
+                                                            name="testimonial_3_name" oninput="limitWords(this, 50)"
                                                             value="<?php echo htmlspecialchars($event['testimonial_3_name'] ?? ''); ?>">
                                                     </div>
                                                 </div>
@@ -428,7 +422,7 @@ function event_image_src(?string $imagePath): string
                                                     <div class="form-group">
                                                         <label class="form-label">Testimonial 3 Text</label>
                                                         <textarea class="form-control" rows="2"
-                                                            name="testimonial_3_text"><?php echo htmlspecialchars($event['testimonial_3_text'] ?? ''); ?></textarea>
+                                                            name="testimonial_3_text" oninput="limitWords(this, 200)"><?php echo htmlspecialchars($event['testimonial_3_text'] ?? ''); ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -548,6 +542,50 @@ function event_image_src(?string $imagePath): string
 
 
     <script>
+        function limitWords(field, maxWords) {
+            if (field.value.trim().split(/\s+/).filter(Boolean).length <= maxWords) {
+                field.dataset.lastValidValue = field.value;
+            }
+
+            if (!field.dataset.limitAttached) {
+                field.dataset.limitAttached = "true";
+                field.addEventListener('keydown', function (e) {
+                    var words = field.value.trim().split(/\s+/).filter(Boolean);
+                    var wordCount = words.length;
+                    if (wordCount >= maxWords) {
+                        var allowed = [8, 9, 27, 35, 36, 37, 38, 39, 40, 46];
+                        if (allowed.indexOf(e.keyCode) !== -1 || e.ctrlKey || e.metaKey) {
+                            return true;
+                        }
+                        if (field.selectionStart !== field.selectionEnd) {
+                            return true;
+                        }
+                        if (e.keyCode === 32 || e.keyCode === 13) {
+                            e.preventDefault();
+                            return false;
+                        }
+                        var cursor = field.selectionStart;
+                        var charBefore = field.value.charAt(cursor - 1);
+                        if (/\s/.test(charBefore)) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                });
+            }
+            
+            var currentWords = field.value.trim().split(/\s+/).filter(Boolean);
+            if (currentWords.length > maxWords) {
+                if (field.dataset.lastValidValue !== undefined) {
+                    field.value = field.dataset.lastValidValue;
+                } else {
+                    field.value = currentWords.slice(0, maxWords).join(" ");
+                }
+            } else {
+                field.dataset.lastValidValue = field.value;
+            }
+        }
+
         // Dynamic Notifications Inject
         document.addEventListener('DOMContentLoaded', function () {
             var notifList = document.querySelector('.notification_dropdown .list-unstyled');

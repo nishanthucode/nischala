@@ -1,10 +1,23 @@
 <?php
 // backend/razorpay_config.php
 
-// Keep space for Key ID and Secret
-$keyId = 'rzp_test_AbCdEf123456';
-$keySecret = '7hGkLmNoPqRsTuVw';
+// Razorpay API Keys
+$keyId = 'rzp_test_T5Km4cuZZz7moU';
+$keySecret = 'vyV7myBdoHox4ZIkESMeWX8j';
 
-// Fixed booking amount (in INR)
-$bookingAmount = 500; // Change this amount as needed
+// Fixed booking amount (in INR) - used as fallback
+$bookingAmount = 1500;
+
+// ── SMTP Email Configuration (Gmail - for testing) ───────────────────────────
+// To use Gmail:
+// 1. Enable 2-Step Verification on your Google account
+// 2. Go to myaccount.google.com > Security > App Passwords
+// 3. Generate an App Password for "Mail" and paste it below (remove spaces)
+define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);                          // Gmail uses 587 + TLS
+define('SMTP_SECURE', 'tls');                        // Must be 'tls' for Gmail
+define('SMTP_USER', 'nishanthlab024@gmail.com');        // ← Your Gmail address
+define('SMTP_PASS', 'ptkvqmyhplhnrobz');           // ← 16-char App Password (no spaces)
+define('SMTP_FROM_NAME', 'Nishchala Yoga');
+define('SMTP_FROM_EMAIL', 'nishanthlab024@gmail.com');       // ← Same as SMTP_USER
 ?>

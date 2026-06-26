@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); header("Cache-Control: post-check=0, pre-check=0", false); header("Pragma: no-cache"); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $item = ['title' => '', 'category' => '', 'description' => ''];
@@ -157,7 +157,7 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -320,20 +320,20 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" id="video_group">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Video File (Optional, for Video
                                                     Gallery)</label>
                                                 <input type="file" name="video_path" class="form-control"
-                                                    accept="video/mp4,video/webm,video/ogg">
+                                                    accept="video/mp4,video/webm,video/ogg" onchange="toggleMediaGroups()">
                                             </div>
                                         </div>
                                         <!-- Description removed -->
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" id="image_group">
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Image (Thumbnail/Photo)</label>
-                                                <input type="file" name="image_path" class="dropify"
-                                                    data-default-file="">
+                                                <input type="file" name="image_path" class="form-control"
+                                                    data-default-file="" onchange="toggleMediaGroups()">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -395,6 +395,26 @@ $item = ['title' => '', 'category' => '', 'description' => ''];
     <script src="vendor/svganimation/svg.animation.js"></script>
 
 
+    <script>
+        function toggleMediaGroups() {
+            var videoInput = document.querySelector('input[name="video_path"]');
+            var imageInput = document.querySelector('input[name="image_path"]');
+            var videoGroup = document.getElementById('video_group');
+            var imageGroup = document.getElementById('image_group');
+
+            var hasVideoFile = videoInput && videoInput.files && videoInput.files.length > 0;
+            var hasImageFile = imageInput && imageInput.files && imageInput.files.length > 0;
+
+            if (hasVideoFile && !hasImageFile) {
+                imageGroup.style.display = 'none';
+            } else if (hasImageFile && !hasVideoFile) {
+                videoGroup.style.display = 'none';
+            } else {
+                imageGroup.style.display = 'block';
+                videoGroup.style.display = 'block';
+            }
+        }
+    </script>
     <script>
         // Dynamic Notifications Inject
         document.addEventListener('DOMContentLoaded', function () {

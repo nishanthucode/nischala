@@ -32,7 +32,16 @@ function backend_upload_file(array $file, string $folder): ?string
     }
 
     if ($file['error'] !== UPLOAD_ERR_OK) {
-        throw new RuntimeException('File upload failed.');
+        $uploadErrors = [
+            UPLOAD_ERR_INI_SIZE => 'File is too large (exceeds upload_max_filesize directive in php.ini).',
+            UPLOAD_ERR_FORM_SIZE => 'File is too large (exceeds MAX_FILE_SIZE directive in HTML form).',
+            UPLOAD_ERR_PARTIAL => 'File was only partially uploaded.',
+            UPLOAD_ERR_NO_TMP_DIR => 'Missing a temporary folder.',
+            UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+            UPLOAD_ERR_EXTENSION => 'A PHP extension stopped the file upload.'
+        ];
+        $errorMsg = $uploadErrors[$file['error']] ?? 'Unknown file upload error code: ' . $file['error'];
+        throw new RuntimeException('File upload failed: ' . $errorMsg);
     }
 
     $targetDirectory = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . $folder;
@@ -95,6 +104,9 @@ function backend_save(string $moduleName, array $post, array $files = [], ?int $
     }
 
     foreach ($fileFields as $fileField) {
+        if (!empty($_POST['remove_' . $fileField])) {
+            $data[$fileField] = null;
+        }
         if (isset($files[$fileField])) {
             $uploadedPath = backend_upload_file($files[$fileField], $moduleName);
             if ($uploadedPath !== null) {
@@ -136,23 +148,58 @@ function backend_delete(string $moduleName, int $id): void
 }
 
 /**
- * Send a simple email using PHP mail().
- * This is a best-effort helper; for production use configure SMTP or PHPMailer.
+ * Send email via PHPMailer (SMTP) if configured, otherwise fall back to PHP mail().
+ * Hostinger REQUIRES SMTP — PHP mail() is silently discarded on shared hosting.
  */
 function send_email(string $to, string $subject, string $body): bool
 {
-    if (defined('SMTP_FROM_EMAIL')) {
-        $from = SMTP_FROM_EMAIL;
-    } else {
-        $from = 'no-reply@localhost';
+    // Use PHPMailer + SMTP when credentials are defined (live server)
+    if (defined('SMTP_HOST') && defined('SMTP_USER') && defined('SMTP_PASS') && SMTP_PASS !== 'YOUR_EMAIL_PASSWORD_HERE') {
+        $autoloadPath = __DIR__ . '/vendor/autoload.php';
+        if (!file_exists($autoloadPath)) {
+            error_log('PHPMailer autoload not found at: ' . $autoloadPath);
+            return false;
+        }
+        require_once $autoloadPath;
+
+        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host       = SMTP_HOST;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = SMTP_USER;
+            $mail->Password   = SMTP_PASS;
+            $mail->SMTPSecure = defined('SMTP_SECURE') ? SMTP_SECURE : 'ssl';
+            $mail->Port       = defined('SMTP_PORT')   ? SMTP_PORT   : 465;
+
+            $fromName  = defined('SMTP_FROM_NAME')  ? SMTP_FROM_NAME  : 'Nishchala Yoga';
+            $fromEmail = defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : SMTP_USER;
+
+            $mail->setFrom($fromEmail, $fromName);
+            $mail->addAddress($to);
+            $mail->Subject = $subject;
+            $mail->Body    = $body;
+            $mail->isHTML(false); // Plain text email
+
+            $mail->send();
+            return true;
+        } catch (\PHPMailer\PHPMailer\Exception $e) {
+            error_log('PHPMailer Error: ' . $mail->ErrorInfo);
+            return false;
+        }
     }
 
-    $headers = [];
-    $headers[] = 'From: ' . $from;
-    $headers[] = 'Content-Type: text/plain; charset=utf-8';
+    // Fallback: PHP mail() for local/dev environments
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    $host = preg_replace('/^www\./', '', $host);
+    $from = defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : 'no-reply@' . $host;
 
-    // Suppress warnings
-    return @mail($to, $subject, $body, implode("\r\n", $headers));
+    $headers  = 'From: Nishchala Yoga <' . $from . ">\r\n";
+    $headers .= 'Reply-To: ' . $from . "\r\n";
+    $headers .= 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-Type: text/plain; charset=utf-8';
+
+    return @mail($to, $subject, $body, $headers, '-f' . $from);
 }
 
 /**

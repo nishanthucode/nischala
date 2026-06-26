@@ -98,7 +98,7 @@ return [
         'title' => 'subject',
         'fields' => [
             'name' => ['label' => 'Name', 'type' => 'text', 'required' => true],
-            'email' => ['label' => 'Email', 'type' => 'text', 'required' => true],
+            'email' => ['label' => 'Email', 'type' => 'text', 'required' => false],
             'phone' => ['label' => 'Phone', 'type' => 'text', 'required' => false],
             'subject' => ['label' => 'Subject', 'type' => 'text', 'required' => true],
             'message' => ['label' => 'Message', 'type' => 'textarea', 'required' => true],

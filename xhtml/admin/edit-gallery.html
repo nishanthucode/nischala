@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); header("Cache-Control: post-check=0, pre-check=0", false); header("Pragma: no-cache"); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -175,7 +175,7 @@ function gallery_image_src(?string $imagePath): string
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -329,26 +329,26 @@ function gallery_image_src(?string $imagePath): string
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" id="video_group" <?php echo !empty($item['image_path']) ? 'style="display:none;"' : ''; ?>>
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Video File (Optional, for Video
                                                     Gallery)</label>
-                                                <?php if (!empty($item['video_path'])): ?>
-                                                <div style="margin-bottom: 15px;">
+                                                <div id="video_preview_container" style="margin-bottom: 15px; <?php echo empty($item['video_path']) ? 'display: none;' : ''; ?>">
                                                     <span
                                                         style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current
                                                         Video:</span>
-                                                    <video
-                                                        src="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
+                                                    <video id="video_preview_element"
+                                                        src="<?php echo empty($item['video_path']) ? '' : htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
                                                         controls
-                                                        style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;"></video>
+                                                        style="width: 100%; max-width: 320px; height: auto; max-height: 240px; object-fit: contain; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #000;"></video>
+                                                    <?php if (!empty($item['video_path'])): ?>
                                                     <small class="text-muted d-block mt-2"><a
                                                             href="<?php echo htmlspecialchars(gallery_image_src($item['video_path'])); ?>"
                                                             target="_blank">Open in new tab</a></small>
+                                                    <?php endif; ?>
                                                 </div>
-                                                <?php endif; ?>
                                                 <input type="file" class="form-control" name="video_path"
-                                                    accept="video/mp4,video/webm,video/ogg">
+                                                    accept="video/mp4,video/webm,video/ogg" onchange="previewMedia(this, 'video_preview_container', 'video_preview_element'); toggleMediaGroups();">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -358,19 +358,17 @@ function gallery_image_src(?string $imagePath): string
                                                     rows="5"><?php echo htmlspecialchars($item['description']); ?></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" id="image_group" <?php echo !empty($item['video_path']) ? 'style="display:none;"' : ''; ?>>
                                             <div class="form-group fallback w-100">
                                                 <label class="form-label d-block">Image (Thumbnail/Photo)</label>
-                                                <?php if (!empty($item['image_path'])): ?>
-                                                <div style="margin-bottom: 15px;">
+                                                <div id="image_preview_container" style="margin-bottom: 15px; <?php echo empty($item['image_path']) ? 'display: none;' : ''; ?>">
                                                     <span
                                                         style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current
                                                         Image:</span>
-                                                    <img src="<?php echo htmlspecialchars(gallery_image_src($item['image_path'])); ?>"
+                                                    <img id="image_preview_element" src="<?php echo empty($item['image_path']) ? '' : htmlspecialchars(gallery_image_src($item['image_path'])); ?>"
                                                         style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
                                                 </div>
-                                                <?php endif; ?>
-                                                <input type="file" class="form-control" name="image_path">
+                                                <input type="file" class="form-control" name="image_path" onchange="previewMedia(this, 'image_preview_container', 'image_preview_element'); toggleMediaGroups();">
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -433,6 +431,41 @@ function gallery_image_src(?string $imagePath): string
 
 
     <script>
+        function previewMedia(input, containerId, elementId) {
+            if (input.files && input.files[0]) {
+                var fileURL = URL.createObjectURL(input.files[0]);
+                document.getElementById(containerId).style.display = 'block';
+                document.getElementById(elementId).src = fileURL;
+            }
+        }
+
+        function toggleMediaGroups() {
+            var videoInput = document.querySelector('input[name="video_path"]');
+            var imageInput = document.querySelector('input[name="image_path"]');
+            var videoGroup = document.getElementById('video_group');
+            var imageGroup = document.getElementById('image_group');
+
+            var hasVideoFile = videoInput && videoInput.files && videoInput.files.length > 0;
+            var hasImageFile = imageInput && imageInput.files && imageInput.files.length > 0;
+            
+            var hasVideoDB = document.getElementById('video_preview_element') && document.getElementById('video_preview_element').getAttribute('src') !== '';
+            var hasImageDB = document.getElementById('image_preview_element') && document.getElementById('image_preview_element').getAttribute('src') !== '';
+
+            var isVideo = hasVideoFile || hasVideoDB;
+            var isImage = hasImageFile || hasImageDB;
+
+            if (isVideo && !isImage) {
+                imageGroup.style.display = 'none';
+                videoGroup.style.display = 'block';
+            } else if (isImage && !isVideo) {
+                videoGroup.style.display = 'none';
+                imageGroup.style.display = 'block';
+            } else {
+                imageGroup.style.display = 'block';
+                videoGroup.style.display = 'block';
+            }
+        }
+
         // Dynamic Notifications Inject
         document.addEventListener('DOMContentLoaded', function () {
             var notifList = document.querySelector('.notification_dropdown .list-unstyled');

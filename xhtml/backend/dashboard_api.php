@@ -106,6 +106,70 @@ try {
     }
     if (count($dynamic_bar) > 0) $data['chart_bar'] = $dynamic_bar;
 
+    // 8. Event Registrations Summary
+    $events_summary = [];
+    $stmt = $pdo->query("SELECT id, title, event_date, total_seats FROM events ORDER BY event_date DESC");
+    while ($ev = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $subjectMatch = "Event Registration: " . $ev['title'];
+        $countStmt = $pdo->prepare("SELECT COUNT(*) FROM enquiries WHERE subject = ?");
+        $countStmt->execute([$subjectMatch]);
+        $regCount = (int)$countStmt->fetchColumn();
+        
+        $events_summary[] = [
+            'id' => $ev['id'],
+            'title' => $ev['title'],
+            'date' => $ev['event_date'],
+            'total_seats' => $ev['total_seats'] ? (int)$ev['total_seats'] : 100,
+            'registered' => $regCount,
+            'available' => max(0, ($ev['total_seats'] ? (int)$ev['total_seats'] : 100) - $regCount)
+        ];
+    }
+    $data['events_summary'] = $events_summary;
+
+    // 9. Class Registrations Summary
+    $known_classes = ["Yogasanas", "Angamardana", "Surya Kriya", "Anandam", "Shanmukhi Mudra", "Sunayana", "Jala Neti", "Sacred Peak Retreat"];
+    $found_classes = [];
+    $stmt = $pdo->query("SELECT DISTINCT selected_program FROM program_bookings WHERE selected_program IS NOT NULL");
+    while ($row = $stmt->fetch(PDO::FETCH_COLUMN)) {
+        if (!in_array($row, $found_classes)) $found_classes[] = $row;
+    }
+    
+    $stmt = $pdo->query("SELECT DISTINCT subject FROM enquiries WHERE subject NOT LIKE 'Event Registration:%'");
+    while ($row = $stmt->fetch(PDO::FETCH_COLUMN)) {
+        $parts = explode(' | ', $row);
+        $cls = trim($parts[0]);
+        if ($cls && !in_array($cls, $found_classes)) {
+            $found_classes[] = $cls;
+        }
+    }
+    
+    $all_classes = array_values(array_unique(array_merge($known_classes, $found_classes)));
+    $classes_summary = [];
+    foreach ($all_classes as $cls) {
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM program_bookings WHERE selected_program = ? AND payment_status = 'paid'");
+        $stmt->execute([$cls]);
+        $paid = (int)$stmt->fetchColumn();
+        
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM program_bookings WHERE selected_program = ? AND payment_status = 'pending'");
+        $stmt->execute([$cls]);
+        $pending = (int)$stmt->fetchColumn();
+        
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM enquiries WHERE subject = ? OR subject LIKE ?");
+        $stmt->execute([$cls, $cls . ' | %']);
+        $enq = (int)$stmt->fetchColumn();
+        
+        if ($paid > 0 || $pending > 0 || $enq > 0 || in_array($cls, $known_classes)) {
+            $classes_summary[] = [
+                'name' => $cls,
+                'paid_bookings' => $paid,
+                'pending_bookings' => $pending,
+                'enquiries' => $enq,
+                'total' => $paid + $pending + $enq
+            ];
+        }
+    }
+    $data['classes_summary'] = $classes_summary;
+
     echo json_encode(['success' => true, 'data' => $data]);
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'error' => $e->getMessage()]);

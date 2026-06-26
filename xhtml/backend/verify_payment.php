@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 require_once 'razorpay_config.php';
+require_once 'functions.php';
 
 // If PHPMailer is available
 use PHPMailer\PHPMailer\PHPMailer;
@@ -51,26 +52,10 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
 
             // Send Confirmation Email
             try {
-                // Uncomment and configure below lines to enable email sending via PHPMailer
-                /*
-                $mail = new PHPMailer(true);
-                $mail->isSMTP();
-                $mail->Host       = 'smtp.example.com'; 
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'your_email@example.com';
-                $mail->Password   = 'your_email_password';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
-
-                $mail->setFrom('no-reply@nishchal.com', 'Nishchal Yoga');
-                $mail->addAddress($email, $customer_name);
-
-                $mail->isHTML(false);
-                $mail->Subject = 'Booking Confirmed - Payment Successful';
-                $mail->Body    = "Hello {$customer_name},\n\nYour booking has been confirmed.\n\nProgram:\n{$selected_program}\n\nDate/Time:\n{$preferred_time}\n\nAmount Paid:\n₹{$amount}\n\nPayment ID:\n{$razorpay_payment_id}\n\nThank you for registering.";
-
-                $mail->send();
-                */
+                $subject = 'Booking Confirmed - Payment Successful';
+                $body    = "Hello {$customer_name},\n\nYour booking has been confirmed.\n\nProgram:\n{$selected_program}\n\nDate/Time:\n{$preferred_time}\n\nAmount Paid:\nRs. {$amount}\n\nPayment ID:\n{$razorpay_payment_id}\n\nThank you for registering.";
+                
+                send_email($email, $subject, $body);
             } catch (Exception $e) {
                 error_log("Message could not be sent. Mailer Error: " . $e->getMessage());
             }

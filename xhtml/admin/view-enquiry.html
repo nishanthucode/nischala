@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); header("Cache-Control: post-check=0, pre-check=0", false); header("Pragma: no-cache"); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <?php
 require_once __DIR__ . '/../backend/functions.php';
 $id = $_GET['id'] ?? null;
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_replied'])) {
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -339,11 +339,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_replied'])) {
                                                 <?php echo htmlspecialchars($enquiry['name']); ?>
                                             </h5>
                                             <p class="mb-0">
-                                                <?php echo htmlspecialchars($enquiry['email']); ?>
+                                                <a href="mailto:<?php echo htmlspecialchars($enquiry['email']); ?>">
+                                                    <?php echo htmlspecialchars($enquiry['email']); ?>
+                                                </a>
                                             </p>
                                             <?php if(!empty($enquiry['phone'])): ?>
-                                            <p class="mb-0"><i class="fa fa-phone"></i>
-                                                <?php echo htmlspecialchars($enquiry['phone']); ?>
+                                            <p class="mb-0">
+                                                <i class="fa fa-phone"></i>
+                                                <a href="tel:<?php echo htmlspecialchars($enquiry['phone']); ?>">
+                                                    <?php echo htmlspecialchars($enquiry['phone']); ?>
+                                                </a>
                                             </p>
                                             <?php endif; ?>
                                         </div>
@@ -368,20 +373,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_replied'])) {
                                         </div>
                                     </div>
                                     <div class="read-content-body">
-                                        <p>
-                                            <?php echo nl2br(htmlspecialchars($enquiry['message'])); ?>
+                                        <p style="line-height: 1.8;">
+                                            <?php 
+                                                $safe_message = htmlspecialchars($enquiry['message']);
+                                                $safe_message = preg_replace('/^(Program:|Time:|Amount Paid:|Razorpay Order ID:|Razorpay Payment ID:)/m', '<strong style="color: #143b64;">$1</strong>', $safe_message);
+                                                echo nl2br($safe_message); 
+                                            ?>
                                         </p>
                                         <hr>
                                     </div>
                                 </div>
-                                <?php if($enquiry['status'] !== 'Replied'): ?>
-                                <div class="text-right">
-                                    <form method="POST">
-                                        <button name="mark_replied" value="1" class="btn btn-success w-md m-b-30"
-                                            type="submit"><i class="fa fa-check"></i> Mark as Replied</button>
-                                    </form>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <?php if($enquiry['status'] !== 'Replied'): ?>
+                                        <form method="POST" class="m-0">
+                                            <button name="mark_replied" value="1" class="btn btn-success w-md m-b-30"
+                                                type="submit"><i class="fa fa-check"></i> Mark as Replied</button>
+                                        </form>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div>
+                                        <a href="../backend/delete.php?module=enquiries&id=<?php echo (int)$enquiry['id']; ?>"
+                                            onclick="return confirm('Delete this enquiry?');"
+                                            class="btn btn-danger w-md m-b-30"><i class="la la-trash-o"></i> Delete</a>
+                                    </div>
                                 </div>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

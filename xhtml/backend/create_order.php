@@ -15,7 +15,7 @@ $email = $_POST['email'] ?? '';
 $program = $_POST['dzProgram'] ?? '';
 $time = $_POST['dzTime'] ?? '';
 
-if (empty($firstName) || empty($lastName) || empty($phone) || empty($email) || empty($program) || empty($time)) {
+if (empty($firstName) || empty($phone) || empty($program) || empty($time)) {
     echo json_encode(['success' => false, 'message' => 'Please fill all required fields']);
     exit;
 }
@@ -23,12 +23,48 @@ if (empty($firstName) || empty($lastName) || empty($phone) || empty($email) || e
 try {
     $pdo = pdo();
 
-    // Basic duplicate booking check
-    $stmt = $pdo->prepare("SELECT id FROM program_bookings WHERE email = ? AND selected_program = ? AND payment_status = 'paid'");
-    $stmt->execute([$email, $program]);
-    if ($stmt->fetch()) {
-        echo json_encode(['success' => false, 'message' => 'You have already booked this program.']);
-        exit;
+
+
+    // Map prices based on program and time (from class.html)
+    $pricing = [
+        'Yogasanas' => [
+            '12:30 PM - 1:15 PM' => 3000,
+            'Sep 14 - 15 (Weekend) | 12:30 PM - 2:30 PM' => 1500,
+            'Oct 14 - 19 | 12:30 PM - 1:15 PM' => 3000
+        ],
+        'Anandam' => [
+            'Morning: 6:00 AM - 7:15 AM' => 999,
+            'Evening: 7:30 PM - 8:45 PM' => 999
+        ],
+        'Shanmukhi Mudra' => [
+            'Aug 15 Morning | 7:30 AM - 9:30 AM' => 800,
+            'Aug 15 Evening | 4:00 PM - 6:00 PM' => 800
+        ],
+        'Jala Neti' => [
+            'Aug 15 | 12:30 PM - 1:15 PM' => 2000
+        ],
+        'Angamardana' => [
+            'Aug 19 - 23 | 7:00 PM - 9:15 PM' => 2800,
+            'Sep 14 - 15 (Weekend) | 6:00 PM - 8:00 PM' => 1200,
+            'Oct 14 - 18 | 7:00 PM - 9:15 PM' => 2800
+        ],
+        'Sunayana' => [
+            'Sep 3 - 5 & Oct 22 - 24 | 6:00 - 8:00 AM' => 1800,
+            'Sep 3 - 5 & Oct 22 - 24 | 3:30 - 5:30 PM' => 1800,
+            'Sep 3 - 5 & Oct 22 - 24 | 7:00 - 9:00 PM' => 1800
+        ],
+        'Bhuta Shuddhi' => [
+            'Sep 14 | 9:30 AM - 11:00 AM' => 3000
+        ],
+        'Surya Kriya' => [
+            'Aug 20 - 23 | 4:30 PM - 6:30 PM' => 2500,
+            'Sep 14 - 15 (Weekend) | 6:00 AM - 9:00 AM' => 2000,
+            'Oct 15 - 18 | 4:30 PM - 6:30 PM' => 2500
+        ]
+    ];
+
+    if (isset($pricing[$program][$time])) {
+        $bookingAmount = $pricing[$program][$time];
     }
 
     $amountInPaise = $bookingAmount * 100;

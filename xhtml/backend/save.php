@@ -5,6 +5,12 @@ require_once __DIR__ . '/functions.php';
 $module = $_POST['module'] ?? '';
 $id = isset($_POST['id']) && $_POST['id'] !== '' ? (int) $_POST['id'] : null;
 
+// Check if POST data was dropped (happens when upload exceeds post_max_size)
+if (empty($_POST) && isset($_SERVER['REQUEST_METHOD']) && strtolower($_SERVER['REQUEST_METHOD']) === 'post' && isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) {
+    header('Location: ../admin/index.html?error=File+is+too+large+(exceeds+server+post_max_size+limit).');
+    exit;
+}
+
 $redirectMap = [
     'blogs' => '../admin/all-blogs.html',
     'classes' => '../admin/all-class.html',

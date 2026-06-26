@@ -1,4 +1,4 @@
-<?php session_start(); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
+<?php session_start(); header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0"); header("Cache-Control: post-check=0, pre-check=0", false); header("Pragma: no-cache"); if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,10 +30,34 @@
     <link rel="stylesheet" href="vendor/chartist/css/chartist.min.css">
     <!-- Summernote -->
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/style.css?v=2">
-
-
-
+    <link rel="stylesheet" href="css/style.css?v=3">
+    <style>
+        :root {
+            --color-primary: #E67527;
+            --color-secondry: #99C83D;
+            --color-hover: #99C83D;
+        }
+        @media (max-width: 768px) {
+            .table-responsive-custom {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .table-responsive-custom table {
+                min-width: 650px !important;
+            }
+            .table-responsive-custom th:first-child,
+            .table-responsive-custom td:first-child {
+                min-width: 180px;
+                white-space: normal !important;
+            }
+            .table-responsive-custom th:not(:first-child),
+            .table-responsive-custom td:not(:first-child) {
+                white-space: nowrap !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -107,7 +131,7 @@
                                     <img src="images/profile.png" width="20" alt="" />
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -280,7 +304,7 @@
                         <div class="widget-stat card" style="background-color: #E67527;">
                             <div class="card-body">
                                 <div class="media">
-                                    <span class="me-3"><i class="la la-rupee text-white"></i></span>
+                                    <span class="me-3"><i class="la la-rupee text-black" style="color: #000 !important;"></i></span>
                                     <div class="media-body text-white">
                                         <p class="mb-1 text-white">Total Revenue</p>
                                         <h3 class="text-white" id="stat-revenue">₹0</h3>
@@ -295,7 +319,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-8 col-xxl-8 col-lg-12 col-sm-12">
+                    <!-- <div class="col-xl-8 col-xxl-8 col-lg-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Enquiries Trend</h3>
@@ -305,8 +329,8 @@
                                     style="height: 300px !important;"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-xxl-4 col-sm-12">
+                    </div> -->
+                    <div class="col-xl-4 col-xxl-4 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Enquiries by Program</h3>
@@ -317,11 +341,41 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
+                        <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden; background: #fff; margin-bottom: 30px;">
+                            <div class="card-header border-0 d-flex align-items-center" style="background-color: #1e56a0; padding: 15px 20px; min-height: auto;">
+                                <h4 class="card-title text-white mb-0 d-flex align-items-center" style="font-weight: 600; font-size: 16px;">
+                                    <i class="la la-th-large me-2 text-white" style="font-size: 20px; vertical-align: middle;"></i> Class Registrations
+                                </h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="list-classes-summary">
+                                    <div class="text-center p-4 text-muted">Loading class summaries...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-xxl-6 col-lg-6 col-md-12 col-sm-12">
+                        <div class="card shadow-sm border-0" style="border-radius: 12px; overflow: hidden; background: #fff; margin-bottom: 30px;">
+                            <div class="card-header border-0 d-flex align-items-center" style="background-color: var(--color-primary); padding: 15px 20px; min-height: auto;">
+                                <h4 class="card-title text-white mb-0 d-flex align-items-center" style="font-weight: 600; font-size: 16px;">
+                                    Event Registrations
+                                </h4>
+                            </div>
+                            <div class="card-body p-0">
+                                <div id="list-events-summary">
+                                    <div class="text-center p-4 text-muted">Loading event summaries...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Class Registration</h4>
+                                <h4 class="card-title">Recent Class Registration</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive recentOrderTable">
@@ -494,11 +548,90 @@
                             }
                         }
 
+                        // Update Class Registrations Summary
+                        const listClassesSummary = document.getElementById('list-classes-summary');
+                        if (listClassesSummary) {
+                            listClassesSummary.innerHTML = '';
+                            if (data.classes_summary && data.classes_summary.length > 0) {
+                                data.classes_summary.forEach((cls) => {
+                                    listClassesSummary.innerHTML += `
+                                        <div class="d-flex align-items-center justify-content-between p-3 border-bottom" style="border-color: #f0f0f0 !important;">
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: #eaf2f8; flex-shrink: 0;">
+                                                    <i class="la la-leaf" style="color: #1e56a0; font-size: 18px;"></i>
+                                                </div>
+                                                <div>
+                                                    <h5 class="mb-0 text-black" style="font-weight: 700; font-size: 14px;">${cls.name}</h5>
+                                                    <span class="text-muted" style="font-size: 11px;">Class Program</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center text-center">
+                                                <div class="me-4" style="min-width: 50px;">
+                                                    <h4 class="mb-0 text-black" style="font-weight: 700; font-size: 16px;">${cls.paid_bookings}</h4>
+                                                    <small class="text-uppercase text-muted" style="font-size: 9px; font-weight: 600; letter-spacing: 0.5px;">Paid</small>
+                                                </div>
+                                                <div style="min-width: 50px;">
+                                                    <h4 class="mb-0 text-black" style="font-weight: 700; font-size: 16px;">${cls.total}</h4>
+                                                    <small class="text-uppercase text-muted" style="font-size: 9px; font-weight: 600; letter-spacing: 0.5px;">Total</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                });
+                            } else {
+                                listClassesSummary.innerHTML = '<div class="text-center p-4 text-muted">No class registrations found</div>';
+                            }
+                        }
+
+                        // Update Event Registrations Summary
+                        const listEventsSummary = document.getElementById('list-events-summary');
+                        if (listEventsSummary) {
+                            listEventsSummary.innerHTML = '';
+                            if (data.events_summary && data.events_summary.length > 0) {
+                                data.events_summary.forEach((ev) => {
+                                    let statusBadge = '';
+                                    if (ev.available <= 0) {
+                                        statusBadge = '<span class="badge rounded-pill py-1 px-3" style="background-color: #fce8e6; color: #dc3545; font-size: 11px; font-weight: 600; white-space: nowrap;">Sold Out</span>';
+                                    } else if (ev.available <= 5) {
+                                        statusBadge = `<span class="badge rounded-pill py-1 px-3" style="background-color: #fdf2e9; color: var(--color-primary); font-size: 11px; font-weight: 600; white-space: nowrap;">${ev.available} Left</span>`;
+                                    } else {
+                                        statusBadge = '<span class="badge rounded-pill py-1 px-3" style="background-color: #e6f7ed; color: #28a745; font-size: 11px; font-weight: 600; white-space: nowrap;">Available</span>';
+                                    }
+
+                                    listEventsSummary.innerHTML += `
+                                        <div class="d-flex align-items-center justify-content-between p-3 border-bottom" style="border-color: #f0f0f0 !important;">
+                                            <div class="d-flex align-items-center" style="max-width: 65%;">
+                                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 40px; height: 40px; background-color: #fdf2e9;">
+                                                    <i class="la la-calendar" style="color: var(--color-primary); font-size: 18px;"></i>
+                                                </div>
+                                                <div>
+                                                    <h5 class="mb-0 text-black" style="font-weight: 700; font-size: 13px; line-height: 1.4;">${ev.title}</h5>
+                                                    <span class="text-muted" style="font-size: 11px;">${ev.date}</span>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center text-center">
+                                                <div class="me-3" style="min-width: 45px;">
+                                                    <h4 class="mb-0 text-black" style="font-weight: 700; font-size: 15px;">${ev.registered}</h4>
+                                                    <small class="text-uppercase text-muted" style="font-size: 9px; font-weight: 600; letter-spacing: 0.5px;">Reg.</small>
+                                                </div>
+                                                <div style="min-width: 80px;">
+                                                    ${statusBadge}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                });
+                            } else {
+                                listEventsSummary.innerHTML = '<div class="text-center p-4 text-muted">No event registrations found</div>';
+                            }
+                        }
+
                         // Dynamic Charts Update
+                        window.morrisCharts = [];
                         if (document.getElementById('morris_bar_stalked')) {
                             document.getElementById('morris_bar_stalked').innerHTML = '';
                             if (typeof Morris !== 'undefined') {
-                                Morris.Bar({
+                                const chart1 = Morris.Bar({
                                     element: 'morris_bar_stalked',
                                     data: data.chart_bar || [],
                                     xkey: 'y',
@@ -510,21 +643,58 @@
                                     resize: true,
                                     parseTime: false
                                 });
+                                window.morrisCharts.push(chart1);
                             }
                         }
 
                         if (document.getElementById('morris_donught_2')) {
                             document.getElementById('morris_donught_2').innerHTML = '';
                             if (typeof Morris !== 'undefined') {
-                                Morris.Donut({
+                                const chart2 = Morris.Donut({
                                     element: 'morris_donught_2',
                                     data: data.chart_donut || [{ label: 'Loading...', value: 0 }],
                                     resize: true,
                                     colors: ['#2b6b4a', '#99C83D', '#143b64', '#FF9800', '#F25521', '#4CAF50']
                                 });
+                                window.morrisCharts.push(chart2);
                             }
                         }
 
+                        // Responsive helper to copy width/height to viewBox for fluid SVG scaling
+                        function makeMorrisChartsResponsive() {
+                            document.querySelectorAll('.morris_chart_height svg, #morris_donught_2 svg, #morris_bar_stalked svg').forEach(svg => {
+                                const width = svg.getAttribute('width');
+                                const height = svg.getAttribute('height');
+                                if (width && height && !svg.getAttribute('viewBox')) {
+                                    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+                                    svg.style.width = '100%';
+                                    svg.style.height = '100%';
+                                }
+                            });
+                        }
+
+                        setTimeout(makeMorrisChartsResponsive, 500);
+
+                        // Redraw Morris charts on resize or layout toggle
+                        function redrawAllCharts() {
+                            if (window.morrisCharts) {
+                                window.morrisCharts.forEach(c => {
+                                    if (c && typeof c.redraw === 'function') {
+                                        c.redraw();
+                                    }
+                                });
+                            }
+                            setTimeout(makeMorrisChartsResponsive, 250);
+                        }
+
+                        window.addEventListener('resize', redrawAllCharts);
+
+                        // Handle hamburger/sidebar click transitions
+                        document.querySelectorAll('.nav-control, .hamburger').forEach(btn => {
+                            btn.addEventListener('click', () => {
+                                setTimeout(redrawAllCharts, 350); // Wait for transition
+                            });
+                        });
 
                     } else {
                         console.error('Error fetching dashboard data:', res.error);

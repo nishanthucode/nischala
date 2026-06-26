@@ -332,12 +332,13 @@ var EduZone = function(){
 			var self = $("#masonry, .masonry");
 			if(jQuery('.card-container').length)
 		    {
+				self.masonry({
+					gutterWidth: 15,
+					isAnimated: true,
+					itemSelector: ".card-container"
+				});
 				self.imagesLoaded(function () {
-					self.masonry({
-						gutterWidth: 15,
-						isAnimated: true,
-						itemSelector: ".card-container"
-					});
+					self.masonry('layout');
 				});
 			}
 		}
@@ -1331,8 +1332,17 @@ jQuery(document).ready(function() {
 		})
 	});	
 	
-	jQuery('.navicon').on('click',function(){
+	jQuery('.navicon').on('click',function(e){
+		e.stopPropagation();
 		$(this).toggleClass('open');
+		jQuery('.header-nav').toggleClass('show');
+	});
+
+	jQuery(document).on('click', function(e) {
+		if (!jQuery(e.target).closest('.header-nav, .navicon').length) {
+			jQuery('.navicon').removeClass('open');
+			jQuery('.header-nav').removeClass('show');
+		}
 	});
 
 });

@@ -9286,12 +9286,11 @@ a,
     font-size: 13px;
     outline: none;
     cursor: pointer;
-    outline: none;
     border-width: 0;
     border-style: solid;
     border-color: transparent;
     line-height: 1.42857;
-    border-radius: 3px !important;
+    border-radius: 8px !important;
     font-weight: 600;
     text-align: center;
     white-space: nowrap;
@@ -21614,7 +21613,8 @@ button.fa,
         border-bottom: none;
     }
 
-    .mobile-social-footer {
+    .header-nav .mobile-social-footer {
+        display: block !important;
         margin-top: auto !important;
         padding: 25px 20px !important;
         background: #fafafa !important;
@@ -21622,7 +21622,6 @@ button.fa,
         width: 100%;
         position: relative;
         top: -20px;
-
     }
 
     .mobile-social-footer ul {
@@ -21641,4 +21640,15 @@ button.fa,
     .mobile-social-footer ul li a {
         margin: 0 !important;
     }
+
+    /* Fixed/scrolled header background color and shadow on mobile */
+    .sticky-header.is-fixed .main-bar {
+        background-color: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+}
+
+/* Hide mobile social footer on desktop by default */
+.mobile-social-footer {
+    display: none !important;
 }
