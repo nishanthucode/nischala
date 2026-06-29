@@ -1,0 +1,15 @@
+# Environment variables — never commit this file
+.env
+
+# PHP / Composer
+/backend/vendor/
+composer.phar
+
+# SQLite databases
+/backend/*.sqlite
+/backend/*.db
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/

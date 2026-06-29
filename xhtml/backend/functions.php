@@ -151,10 +151,10 @@ function backend_delete(string $moduleName, int $id): void
  * Send email via PHPMailer (SMTP) if configured, otherwise fall back to PHP mail().
  * Hostinger REQUIRES SMTP — PHP mail() is silently discarded on shared hosting.
  */
-function send_email(string $to, string $subject, string $body): bool
+function send_email(string $to, string $subject, string $body, bool $isHtml = false): bool
 {
     // Use PHPMailer + SMTP when credentials are defined (live server)
-    if (defined('SMTP_HOST') && defined('SMTP_USER') && defined('SMTP_PASS') && SMTP_PASS !== 'YOUR_EMAIL_PASSWORD_HERE') {
+    if (defined('SMTP_HOST') && SMTP_HOST !== '' && defined('SMTP_USER') && defined('SMTP_PASS') && SMTP_PASS !== '') {
         $autoloadPath = __DIR__ . '/vendor/autoload.php';
         if (!file_exists($autoloadPath)) {
             error_log('PHPMailer autoload not found at: ' . $autoloadPath);
@@ -169,8 +169,9 @@ function send_email(string $to, string $subject, string $body): bool
             $mail->SMTPAuth   = true;
             $mail->Username   = SMTP_USER;
             $mail->Password   = SMTP_PASS;
-            $mail->SMTPSecure = defined('SMTP_SECURE') ? SMTP_SECURE : 'ssl';
-            $mail->Port       = defined('SMTP_PORT')   ? SMTP_PORT   : 465;
+            $mail->SMTPSecure = defined('SMTP_SECURE') ? SMTP_SECURE : 'tls';
+            $mail->Port       = defined('SMTP_PORT')   ? SMTP_PORT   : 587;
+            $mail->CharSet    = 'UTF-8';
 
             $fromName  = defined('SMTP_FROM_NAME')  ? SMTP_FROM_NAME  : 'Nishchala Yoga';
             $fromEmail = defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : SMTP_USER;
@@ -178,8 +179,13 @@ function send_email(string $to, string $subject, string $body): bool
             $mail->setFrom($fromEmail, $fromName);
             $mail->addAddress($to);
             $mail->Subject = $subject;
+            $mail->isHTML($isHtml);
             $mail->Body    = $body;
-            $mail->isHTML(false); // Plain text email
+
+            if ($isHtml) {
+                // Strip tags for plain-text fallback
+                $mail->AltBody = strip_tags(str_replace(['<br>', '<br/>', '<br />', '</p>', '</div>', '</tr>'], "\n", $body));
+            }
 
             $mail->send();
             return true;
@@ -197,7 +203,7 @@ function send_email(string $to, string $subject, string $body): bool
     $headers  = 'From: Nishchala Yoga <' . $from . ">\r\n";
     $headers .= 'Reply-To: ' . $from . "\r\n";
     $headers .= 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-Type: text/plain; charset=utf-8';
+    $headers .= 'Content-Type: text/' . ($isHtml ? 'html' : 'plain') . '; charset=utf-8';
 
     return @mail($to, $subject, $body, $headers, '-f' . $from);
 }
