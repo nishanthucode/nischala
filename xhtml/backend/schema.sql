@@ -96,3 +96,19 @@ CREATE TABLE IF NOT EXISTS instructors (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- ======================================================
+-- Extended class fields for dynamic frontend card rendering
+-- ======================================================
+ALTER TABLE classes
+  ADD COLUMN IF NOT EXISTS category VARCHAR(50) NULL DEFAULT 'in-person' COMMENT 'Filter category: in-person|online|retreats|sacred-trails',
+  ADD COLUMN IF NOT EXISTS location VARCHAR(50) NULL DEFAULT 'none' COMMENT 'Location section: none|mangaluru|udupi',
+  ADD COLUMN IF NOT EXISTS highlights TEXT NULL COMMENT 'One benefit per line (shown as bullet points)',
+  ADD COLUMN IF NOT EXISTS upcoming_batches TEXT NULL COMMENT 'JSON array: [{date,time,price,note}]',
+  ADD COLUMN IF NOT EXISTS video_url VARCHAR(255) NULL COMMENT 'YouTube or external video URL',
+  ADD COLUMN IF NOT EXISTS badge_label VARCHAR(100) NULL COMMENT 'Small badge label on card image e.g. Hatha Yoga',
+  ADD COLUMN IF NOT EXISTS registration_required TINYINT(1) NOT NULL DEFAULT 0 COMMENT '1 = show Registration Mandatory badge',
+  ADD COLUMN IF NOT EXISTS age_requirement VARCHAR(50) NULL DEFAULT '14+ years' COMMENT 'e.g. 14+ years',
+  ADD COLUMN IF NOT EXISTS special_instruction TEXT NULL COMMENT 'Italic note shown at card bottom e.g. No prior experience required',
+  ADD COLUMN IF NOT EXISTS schedule TEXT NULL COMMENT 'Free-text schedule description',
+  ADD COLUMN IF NOT EXISTS price_note VARCHAR(255) NULL COMMENT 'e.g. Incl. Jala Neti Pot · No prior exp. needed';
+

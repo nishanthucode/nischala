@@ -73,16 +73,25 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
 
           <!-- Header -->
           <tr>
-            <td style="background:linear-gradient(135deg,#2d6a4f 0%,#40916c 100%);padding:40px 40px 30px;text-align:center;">
+            <td style="background:linear-gradient(135deg,#E67527 0%,#c45e1a 100%);padding:40px 40px 30px;text-align:center;">
               <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:700;letter-spacing:0.5px;">Nishchala Classical Yoga</h1>
-              <p style="margin:8px 0 0;color:#d8f3dc;font-size:14px;letter-spacing:1px;text-transform:uppercase;">Booking Confirmation</p>
+              <p style="margin:8px 0 0;color:#fde8d5;font-size:14px;letter-spacing:1px;text-transform:uppercase;">Booking Confirmation</p>
             </td>
           </tr>
 
-          <!-- Success Badge -->
+          <!-- Success Banner -->
           <tr>
-            <td style="background:#d8f3dc;padding:16px 40px;text-align:center;">
-              <span style="display:inline-block;background:#2d6a4f;color:#ffffff;font-size:13px;font-weight:600;padding:6px 20px;border-radius:20px;letter-spacing:0.5px;">✔ Payment Successful</span>
+            <td style="padding:28px 40px 0;text-align:center;">
+              <table cellpadding="0" cellspacing="0" style="margin:0 auto;border:1.5px solid #99C83D;border-radius:8px;padding:0;overflow:hidden;min-width:260px;">
+                <tr>
+                  <td style="background:#f6fbee;padding:14px 28px;text-align:center;vertical-align:middle;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#99C83D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:8px;margin-bottom:2px;">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span style="font-size:14px;font-weight:600;color:#3a5a10;letter-spacing:0.3px;vertical-align:middle;">Payment Confirmed</span>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -101,7 +110,7 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
             <td style="padding:24px 40px;">
               <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
                 <tr style="background:#f9f9f9;">
-                  <td colspan="2" style="padding:14px 20px;font-size:13px;font-weight:700;color:#2d6a4f;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e0e0e0;">
+                  <td colspan="2" style="padding:14px 20px;font-size:13px;font-weight:700;color:#E67527;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e0e0e0;">
                     Booking Details
                   </td>
                 </tr>
@@ -115,7 +124,7 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
                 </tr>
                 <tr>
                   <td style="padding:14px 20px;font-size:14px;color:#666;font-weight:600;border-bottom:1px solid #f0f0f0;">Amount Paid</td>
-                  <td style="padding:14px 20px;font-size:15px;color:#2d6a4f;font-weight:700;border-bottom:1px solid #f0f0f0;">{$amount_fmt}</td>
+                  <td style="padding:14px 20px;font-size:15px;color:#99C83D;font-weight:700;border-bottom:1px solid #f0f0f0;">{$amount_fmt}</td>
                 </tr>
                 <tr style="background:#fafafa;">
                   <td style="padding:14px 20px;font-size:14px;color:#666;font-weight:600;">Payment Reference</td>
@@ -128,7 +137,7 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
           <!-- Note -->
           <tr>
             <td style="padding:0 40px 30px;">
-              <p style="margin:0;font-size:14px;color:#555;line-height:1.7;background:#fffde7;border-left:4px solid #f9a825;padding:14px 18px;border-radius:4px;">
+              <p style="margin:0;font-size:14px;color:#555;line-height:1.7;background:#f6fbee;border-left:4px solid #99C83D;padding:14px 18px;border-radius:4px;">
                 📌 Please save this email as your booking reference. Our team will reach out to you with further details.
               </p>
             </td>
@@ -143,7 +152,7 @@ if (hash_equals($generated_signature, $razorpay_signature)) {
           <tr>
             <td style="padding:24px 40px;text-align:center;">
               <p style="margin:0;font-size:13px;color:#999;">With gratitude,</p>
-              <p style="margin:4px 0 0;font-size:14px;font-weight:700;color:#2d6a4f;">Nishchala Classical Yoga</p>
+              <p style="margin:4px 0 0;font-size:14px;font-weight:700;color:#E67527;">Nishchala Classical Yoga</p>
               <p style="margin:12px 0 0;font-size:12px;color:#bbb;">This is an automated confirmation email. Please do not reply directly to this message.</p>
             </td>
           </tr>

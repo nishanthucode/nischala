@@ -1,665 +1,418 @@
 <?php
 session_start();
-if(empty($_SESSION['admin_logged_in'])) {
-    header('Location: page-login.html');
-    exit;
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+if(empty($_SESSION['admin_logged_in'])) { header('Location: page-login.html'); exit; }
+
+require_once __DIR__ . '/../backend/functions.php';
+$courseId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$course   = $courseId > 0 ? backend_fetch_one('classes', $courseId) : null;
+if (!$course) {
+    $course = [
+        'id'=>'','name'=>'','category'=>'in-person','location'=>'none',
+        'badge_label'=>'','registration_required'=>0,'description'=>'',
+        'highlights'=>'','video_url'=>'','upcoming_batches'=>'[]',
+        'schedule'=>'','age_requirement'=>'14+ years','special_instruction'=>'',
+        'price_note'=>'','price'=>'','instructor'=>'','image_path'=>'',
+        'booking_enabled'=>1,'booking_type'=>'Group','slot_capacity'=>'',
+        'timeslots'=>'','tiers'=>'',
+    ];
 }
 
-function class_admin_image_src(?string $imagePath): string
-{
-    $imagePath = trim((string)$imagePath);
-    if ($imagePath === '') {
-        return 'images/class/pic1.jpg';
-    }
-    if (preg_match('/^(https?:)?\/\//i', $imagePath) === 1 || str_starts_with($imagePath, 'data:')) {
-        return $imagePath;
-    }
-    if (str_starts_with($imagePath, '../')) {
-        return $imagePath;
-    }
-    if (str_starts_with($imagePath, 'uploads/')) {
-        return '../' . $imagePath;
-    }
-    return '../uploads/classes/' . ltrim($imagePath, '/');
+function admin_img(?string $p): string {
+    $p = trim((string)$p);
+    if($p==='') return '';
+    if(preg_match('/^(https?:)?\/\//i',$p)||str_starts_with($p,'data:')) return $p;
+    if(str_starts_with($p,'uploads/')) return '../'.$p;
+    return '../uploads/classes/'.ltrim($p,'/');
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta charset="utf-8">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-
-
-
-
-    <meta name="format-detection" content="telephone=no">
-
-    <title>Nishchala | Classical Hatha Yoga in its Purest Form</title>
-    <meta name="description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
-    <meta property="og:title" content="Nishchala | Classical Hatha Yoga in its Purest Form">
-    <meta property="og:description" content="Nishchala - Classical Hatha Yoga in its Purest Form">
-    <meta property="og:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://wheat-reindeer-996062.hostingersite.com/images/logo.png">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/logo.png?v=3">
-    <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/style.css?v=2">
-    <!-- Pick date -->
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
-
-
-
+<meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nishchala | Edit Class</title>
+<link rel="icon" type="image/png" href="images/logo.png?v=3">
+<link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="css/style.css?v=2">
+<style>
+.batch-row{display:flex;gap:10px;align-items:center;background:#f8f9fa;border:1px solid #e3e6ef;border-radius:8px;padding:10px 14px;margin-bottom:8px;flex-wrap:wrap}
+.batch-row input{flex:1;min-width:100px;border:1px solid #ddd;border-radius:6px;padding:6px 10px;font-size:13px}
+.btn-remove-batch{background:#dc3545;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-size:13px;white-space:nowrap}
+.add-batch-btn{background:#E67527;color:#fff;border:none;border-radius:8px;padding:8px 18px;cursor:pointer;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.add-batch-btn:hover{background:#c9651e}
+.batch-label{font-size:11px;color:#888;display:block;margin-bottom:2px}
+.section-heading{font-size:13px;font-weight:700;color:#143b64;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #E67527;padding-bottom:6px;margin:24px 0 16px}
+.form-tip{font-size:11px;color:#888;margin-top:4px}
+</style>
 </head>
-
 <body>
+<div id="preloader"><div class="sk-three-bounce"><div class="sk-child sk-bounce1"></div><div class="sk-child sk-bounce2"></div><div class="sk-child sk-bounce3"></div></div></div>
+<div id="main-wrapper">
 
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
+<!-- Nav header -->
+<div class="nav-header" style="background-color:#143b64;">
+  <a href="index.html" class="brand-logo" style="display:flex;align-items:center;justify-content:center;text-decoration:none;width:100%;padding:15px 10px;">
+    <img class="logo-abbr" src="images/logo-1.png" alt="" style="width:100%;max-width:180px;height:auto;">
+  </a>
+  <div class="nav-control"><div class="hamburger"><span class="line"></span><span class="line"></span><span class="line"></span></div></div>
+</div>
 
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
-    <div id="main-wrapper">
-
-        <!--**********************************
-            Nav header start
-        ***********************************-->
-        <div class="nav-header" style="background-color: #143b64;">
-            <a href="index.html" class="brand-logo"
-                style="display: flex; align-items: center; justify-content: center; text-decoration: none; width: 100%; padding: 15px 10px;">
-                <img class="logo-abbr" src="images/logo-1.png" alt=""
-                    style="width: 100%; max-width: 180px; height: auto;">
+<!-- Header -->
+<div class="header" style="background-color:#143b64;">
+  <div class="header-content">
+    <nav class="navbar navbar-expand">
+      <div class="collapse navbar-collapse justify-content-between">
+        <ul class="navbar-nav header-right ms-auto">
+          <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank" class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live View</a></li>
+          <li class="nav-item dropdown notification_dropdown">
+            <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <div class="pulse-css"></div>
             </a>
-
-            <div class="nav-control">
-                <div class="hamburger">
-                    <span class="line"></span><span class="line"></span><span class="line"></span>
-                </div>
+            <div class="dropdown-menu dropdown-menu-end"><ul class="list-unstyled"></ul></div>
+          </li>
+          <li class="nav-item dropdown header-profile">
+            <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown"><img src="images/profile/pic1.jpg" width="20" alt=""/></a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a href="../backend/logout.php" class="dropdown-item ai-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span class="ms-2">Logout</span>
+              </a>
             </div>
-        </div>
-        <!--**********************************
-            Nav header end
-        ***********************************-->
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
 
-        <!--**********************************
-            Header start
-        ***********************************-->
-        <div class="header" style="background-color: #143b64;">
-            <div class="header-content">
-                <nav class="navbar navbar-expand">
-                    <div class="collapse navbar-collapse justify-content-between">
-                        <ul class="navbar-nav header-right ms-auto">
-                            <li class="nav-item align-items-center d-flex"><a href="../index.html" target="_blank"
-                                    class="btn btn-primary btn-sm me-3"><i class="la la-external-link"></i> Live
-                                    View</a></li>
-                            <li class="nav-item dropdown notification_dropdown">
-                                <a class="nav-link bell ai-icon" href="#" role="button" data-bs-toggle="dropdown">
-                                    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg>
-                                    <div class="pulse-css"></div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <ul class="list-unstyled"></ul>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown header-profile">
-                                <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="images/profile/pic1.jpg" width="20" alt="" />
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a href="../backend/logout.php" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-log-out">
-                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                            <polyline points="16 17 21 12 16 7"></polyline>
-                                            <line x1="21" y1="12" x2="9" y2="12"></line>
-                                        </svg>
-                                        <span class="ms-2">Logout </span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
-
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-        <div class="deznav">
-            <div class="deznav-scroll">
-                <ul class="metismenu" id="menu">
-                    <li class="nav-label first">Main Menu</li>
-                    <li><a href="index.html" class="ai-icon" aria-expanded="false">
-                            <i class="la la-home"></i>
-                            <span class="nav-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <!-- <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+<!-- Sidebar -->
+<div class="deznav"><div class="deznav-scroll">
+  <ul class="metismenu" id="menu">
+    <li class="nav-label first">Main Menu</li>
+    <li><a href="index.html" class="ai-icon"><i class="la la-home"></i><span class="nav-text">Dashboard</span></a></li>
+    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="la la-graduation-cap"></i>
                             <span class="nav-text">Classes</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="all-class.html">All Classes</a></li>
-                            <li><a href="add-class.html">Add Class</a></li>
-                        </ul>
-                    </li> -->
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-calendar"></i>
-                            <span class="nav-text">Events</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-events.html">All Events</a></li>
-                            <li><a href="add-events.html">Add Event</a></li>
+                            <li><a href="all-courses.html">All Classes</a></li>
+                            <li><a href="add-courses.html">Add Class</a></li>
                         </ul>
                     </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-image"></i>
-                            <span class="nav-text">Gallery</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-gallery.html">All Gallery</a></li>
-                            <li><a href="add-gallery.html">Add Gallery</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-file-text"></i>
-                            <span class="nav-text">Blog</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-blogs.html">All Blogs</a></li>
-                            <li><a href="add-blog.html">Add Blog</a></li>
-                        </ul>
-                    </li>
+    <li><a class="has-arrow" href="javascript:void()"><i class="la la-calendar"></i><span class="nav-text">Events</span></a>
+      <ul aria-expanded="false"><li><a href="all-events.html">All Events</a></li><li><a href="add-events.html">Add Event</a></li></ul>
+    </li>
+    <li><a class="has-arrow" href="javascript:void()"><i class="la la-image"></i><span class="nav-text">Gallery</span></a>
+      <ul aria-expanded="false"><li><a href="all-gallery.html">All Gallery</a></li><li><a href="add-gallery.html">Add Gallery</a></li></ul>
+    </li>
+    <li><a class="has-arrow" href="javascript:void()"><i class="la la-file-text"></i><span class="nav-text">Blog</span></a>
+      <ul aria-expanded="false"><li><a href="all-blogs.html">All Blogs</a></li><li><a href="add-blog.html">Add Blog</a></li></ul>
+    </li>
+    <li><a class="has-arrow" href="javascript:void()"><i class="la la-envelope"></i><span class="nav-text">Enquiries</span></a>
+      <ul aria-expanded="false"><li><a href="all-enquiries.html">All Enquiries</a></li></ul>
+    </li>
+  </ul>
+</div></div>
 
-                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="la la-envelope"></i>
-                            <span class="nav-text">Enquiries</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="all-enquiries.html">All Enquiries</a></li>
-                        </ul>
-                    </li>
+<!-- Content body -->
+<div class="content-body"><div class="container-fluid">
+  <div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0"><div class="welcome-text"><h4>Edit Class</h4></div></div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active"><a href="all-courses.html">Classes</a></li>
+        <li class="breadcrumb-item active">Edit Class</li>
+      </ol>
+    </div>
+  </div>
 
-                </ul>
+  <div class="row"><div class="col-lg-12"><div class="card">
+    <div class="card-header"><h4 class="card-title">Class Details</h4></div>
+    <form action="../backend/save.php" method="post" enctype="multipart/form-data" id="edit-class-form">
+      <input type="hidden" name="module" value="classes">
+      <input type="hidden" name="id" value="<?php echo (int)$course['id']; ?>">
+      <input type="hidden" name="upcoming_batches" id="upcoming_batches_json" value="<?php echo htmlspecialchars($course['upcoming_batches'] ?? '[]'); ?>">
+
+      <div class="card-body">
+
+        <!-- SECTION 1: Identity -->
+        <div class="section-heading">1. Identity &amp; Display</div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Class Name <span class="text-danger">*</span></label>
+              <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($course['name']); ?>" required>
             </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Badge Label</label>
+              <input type="text" name="badge_label" class="form-control" placeholder="e.g. Hatha Yoga" value="<?php echo htmlspecialchars($course['badge_label'] ?? ''); ?>">
+              <p class="form-tip">Small label shown on card image.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Registration Mandatory?</label>
+              <select name="registration_required" class="form-control">
+                <option value="0" <?php echo (int)($course['registration_required']??0)===0?' selected':''; ?>>No</option>
+                <option value="1" <?php echo (int)($course['registration_required']??0)===1?' selected':''; ?>>Yes – Show Red Badge</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Category <span class="text-danger">*</span></label>
+              <select name="category" class="form-control">
+                <?php
+                $cats = ['in-person'=>'In-Person','online'=>'Online','retreats'=>'Retreats','sacred-trails'=>'Sacred Trails'];
+                $curCat = $course['category'] ?? 'in-person';
+                foreach($cats as $v=>$l) echo "<option value=\"$v\"".($curCat===$v?' selected':'').">$l</option>";
+                ?>
+              </select>
+              <p class="form-tip">Controls which filter chip shows this class.</p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Location / Center <span class="text-danger">*</span></label>
+              <select name="location" class="form-control">
+                <?php
+                $locs = ['none'=>'— No Specific Location —','mangaluru'=>'Mangaluru Center','udupi'=>'Udupi Center'];
+                $curLoc = $course['location'] ?? 'none';
+                foreach($locs as $v=>$l) echo "<option value=\"$v\"".($curLoc===$v?' selected':'').">$l</option>";
+                ?>
+              </select>
+              <p class="form-tip">Determines which center section this class appears under on the Classes page.</p>
+            </div>
+          </div>
         </div>
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
 
-
-
-        <!--**********************************
-            Content body start
-        ***********************************-->
-        <div class="content-body">
-            <!-- row -->
-            <div class="container-fluid">
-
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Edit Class</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Classes</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Classes</a></li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Class Details</h4>
-                            </div>
-                            <div class="card-body">
-                                <?php
-                                require_once __DIR__ . '/../backend/functions.php';
-                                $courseId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-                                $course = $courseId > 0 ? backend_fetch_one('classes', $courseId) : null;
-                                if (!$course) {
-                                    $course = [
-                                        'id' => '',
-                                        'name' => '',
-                                        'description' => '',
-                                        'start_date' => '',
-                                        'price' => '',
-                                        'instructor' => '',
-                                        'image_path' => '',
-                                        'booking_enabled' => 1,
-                                        'slot_capacity' => '',
-                                        'timeslots' => '06:00,08:00,10:00,12:00,14:00,16:00,18:00',
-                                        'tiers' => 'General,Premium,VIP',
-                                    ];
-                                }
-                                ?>
-                                <form action="../backend/save.php" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="module" value="classes">
-                                    <input type="hidden" name="id"
-                                        value="<?php echo htmlspecialchars((string)$course['id']); ?>">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Class Name <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="text" name="name" class="form-control"
-                                                    value="<?php echo htmlspecialchars($course['name']); ?>" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Class Details</label>
-                                                <textarea name="description" class="form-control"
-                                                    rows="5"><?php echo htmlspecialchars($course['description']); ?></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Start Date <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="date" name="start_date" class="form-control"
-                                                    value="<?php echo htmlspecialchars($course['start_date']); ?>"
-                                                    required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Price <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="number" step="0.01" name="price" class="form-control"
-                                                    value="<?php echo htmlspecialchars($course['price']); ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Instructor</label>
-                                                <input type="text" name="instructor" class="form-control"
-                                                    value="<?php echo htmlspecialchars($course['instructor']); ?>">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Enable Booking</label>
-                                                <select name="booking_enabled" class="form-control">
-                                                    <option value="1" <?php echo (int)$course['booking_enabled']===1
-                                                        ? ' selected' : '' ; ?>>Enabled</option>
-                                                    <option value="0" <?php echo (int)$course['booking_enabled']===0
-                                                        ? ' selected' : '' ; ?>>Disabled</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Slot Capacity</label>
-                                                <input type="number" name="slot_capacity" class="form-control"
-                                                    value="<?php echo htmlspecialchars($course['slot_capacity']); ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Booking Type</label>
-                                                <select name="booking_type" class="form-control">
-                                                    <option value="Group" <?php echo $course['booking_type']==='Group'
-                                                        ? ' selected' : '' ; ?>>Group Class</option>
-                                                    <option value="Personal" <?php echo
-                                                        $course['booking_type']==='Personal' ? ' selected' : '' ; ?>
-                                                        >Personal / 1-on-1</option>
-                                                    <option value="Both" <?php echo $course['booking_type']==='Both'
-                                                        ? ' selected' : '' ; ?>>Both</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Program Tiers (Multi-select)</label>
-                                                <select name="tiers[]" class="form-control" multiple>
-                                                    <?php
-                                                    $selectedTiers = explode(',', $course['tiers'] ?? '');
-                                                    $availableTiers = ['General', 'Premium', 'VIP', 'Member', 'Guest'];
-                                                    foreach($availableTiers as $tier) {
-                                                        $selected = in_array($tier, $selectedTiers) ? ' selected' : '';
-                                                        echo "<option value=\"$tier\"$selected>$tier</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Time Slot Matrix</label>
-                                                <div class="d-flex flex-wrap" style="gap: 15px;">
-                                                    <?php
-                                                    $selectedSlots = explode(',', $course['timeslots'] ?? '');
-                                                    $allSlots = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '14:00', '16:00', '18:00', '19:00', '20:00'];
-                                                    foreach($allSlots as $slot) {
-                                                        $checked = in_array($slot, $selectedSlots) ? ' checked' : '';
-                                                        echo "<div class=\"form-check custom-checkbox\">
-                                                                <input type=\"checkbox\" class=\"form-check-input\" name=\"timeslots[]\" value=\"$slot\" id=\"slot_$slot\"$checked>
-                                                                <label class=\"form-check-label\" for=\"slot_$slot\">$slot</label>
-                                                              </div>";
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <div class="form-group fallback w-100">
-                                                <label class="form-label d-block">Course Photo</label>
-                                                <?php if (!empty($course['image_path'])): ?>
-                                                <div style="margin-bottom: 15px;">
-                                                    <span
-                                                        style="font-size: 13px; color: #666; display: block; margin-bottom: 5px; font-weight: 600;">Current
-                                                        Image:</span>
-                                                    <img src="<?php echo htmlspecialchars(class_admin_image_src((string)($course['image_path'] ?? ''))); ?>"
-                                                        style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; padding: 4px; background: #fff;">
-                                                </div>
-                                                <?php endif; ?>
-                                                <input type="file" class="form-control" name="image_path">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                                            <button type="button" onclick="history.back()"
-                                                class="btn btn-light">Cancel</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="bookings" <?php if ($courseId===0) echo 'style="display:none;"' ; ?>>
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Class Bookings Management</h4>
-                                    <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#addBookingModal">Add Booking Manually</a>
-                                </div>
-                                <div class="card-body">
-                                    <?php
-                                if ($courseId > 0) {
-                                    $stmt = pdo()->prepare('SELECT * FROM bookings WHERE class_id = ? ORDER BY booking_date DESC, time_slot ASC');
-                                    $stmt->execute([$courseId]);
-                                    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                                } else {
-                                    $bookings = [];
-                                }
-                                ?>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped verticle-middle">
-                                            <thead>
-                                                <tr>
-                                                    <th>Customer</th>
-                                                    <th>Email / Phone</th>
-                                                    <th>Date & Time</th>
-                                                    <th>Tier / Type</th>
-                                                    <th>Qty</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php if (!$bookings): ?>
-                                                <tr>
-                                                    <td colspan="7" class="text-center">No bookings found for this
-                                                        class.</td>
-                                                </tr>
-                                                <?php endif; ?>
-                                                <?php foreach ($bookings as $b): ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php echo htmlspecialchars($b['customer_name']); ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlspecialchars($b['customer_email']); ?><br>
-                                                        <small>
-                                                            <?php echo htmlspecialchars((string)($b['customer_phone'] ?? '')); ?>
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlspecialchars($b['booking_date']); ?><br>
-                                                        <span class="badge badge-light">
-                                                            <?php echo htmlspecialchars($b['time_slot']); ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo htmlspecialchars((string)($b['program_tier'] ?? '')); ?><br>
-                                                        <small class="text-muted">
-                                                            <?php echo htmlspecialchars(ucfirst((string)($b['personal_or_group'] ?? ''))); ?>
-                                                        </small>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo (int)$b['quantity']; ?>
-                                                    </td>
-                                                    <td>
-                                                        <span
-                                                            class="badge badge-<?php echo ($b['payment_status'] ?? '') === 'paid' ? 'success' : 'warning'; ?>">
-                                                            <?php echo htmlspecialchars(ucfirst((string)($b['payment_status'] ?? 'pending'))); ?>
-                                                        </span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <a href="../backend/delete.php?module=bookings&id=<?php echo (int)$b['id']; ?>&redirect=../admin/edit-class.html?id=<?php echo $courseId; ?>"
-                                                                class="btn btn-sm btn-danger"
-                                                                onclick="return confirm('Delete this booking?');"><i
-                                                                    class="la la-trash-o"></i></a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal for manual booking -->
-                    <div class="modal fade" id="addBookingModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Add Booking Manually</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="../backend/save.php" method="post">
-                                        <input type="hidden" name="module" value="bookings">
-                                        <input type="hidden" name="id" value="">
-                                        <input type="hidden" name="class_id" value="<?php echo $courseId; ?>">
-                                        <input type="hidden" name="redirect"
-                                            value="../admin/edit-class.html?id=<?php echo $courseId; ?>#bookings">
-
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Customer Name</label>
-                                                <input type="text" class="form-control" name="customer_name" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="customer_email" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Phone</label>
-                                                <input type="text" class="form-control" name="customer_phone">
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Booking Date</label>
-                                                <input type="date" class="form-control" name="booking_date" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Time Slot</label>
-                                                <select class="form-control" name="time_slot" required>
-                                                    <?php 
-                                        $slots = explode(',', (string)($course['timeslots'] ?? ''));
-                                        foreach ($slots as $slot) {
-                                            $s = trim($slot);
-                                            if ($s) echo "<option value=\"".htmlspecialchars($s)."\">".htmlspecialchars($s)."</option>";
-                                        }
-                                        ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Quantity</label>
-                                                <input type="number" class="form-control" name="quantity" value="1"
-                                                    min="1" required>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Program Tier</label>
-                                                <select class="form-control" name="program_tier">
-                                                    <?php 
-                                        $tiers = explode(',', (string)($course['tiers'] ?? ''));
-                                        foreach ($tiers as $tier) {
-                                            $t = trim($tier);
-                                            if ($t) echo "<option value=\"".htmlspecialchars($t)."\">".htmlspecialchars($t)."</option>";
-                                        }
-                                        ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Personal / Group</label>
-                                                <select class="form-control" name="personal_or_group">
-                                                    <option value="personal">Personal</option>
-                                                    <option value="group">Group</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label class="form-label">Payment Status</label>
-                                                <select class="form-control" name="payment_status">
-                                                    <option value="pending">Pending</option>
-                                                    <option value="paid">Paid</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                            <button type="submit" class="btn btn-primary">Save Booking</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <!-- SECTION 2: Content -->
+        <div class="section-heading">2. Content</div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-label">Description</label>
+              <textarea name="description" class="form-control" rows="4"><?php echo htmlspecialchars($course['description'] ?? ''); ?></textarea>
             </div>
-            <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-            <!--**********************************
-            Footer start
-        ***********************************-->
-            <div class="footer">
-                <div class="copyright">
-                    <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a
-                            href="https://oneplanet360.com/" target="_blank"
-                            style="font-weight: bold;">OnePlanet360.com</a></p>
-                </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-label">Highlights / Benefits</label>
+              <textarea name="highlights" class="form-control" rows="5" placeholder="One benefit per line"><?php echo htmlspecialchars($course['highlights'] ?? ''); ?></textarea>
+              <p class="form-tip">Each line becomes a bullet point with a ✓ icon on the card.</p>
             </div>
-            <!--**********************************
-            Footer end
-        ***********************************-->
-
-            <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-            <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-label">Video URL (YouTube link)</label>
+              <input type="url" name="video_url" class="form-control" placeholder="https://youtu.be/..." value="<?php echo htmlspecialchars($course['video_url'] ?? ''); ?>">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="form-label">Schedule Description</label>
+              <textarea name="schedule" class="form-control" rows="3" placeholder="e.g. 5 Sessions (Mon to Fri) OR Saturdays &amp; Sundays only"><?php echo htmlspecialchars($course['schedule'] ?? ''); ?></textarea>
+              <p class="form-tip">Optional. A brief summary of the schedule pattern or program duration (e.g., "5 Sessions", "Weekends only"). This is displayed directly on the class card.</p>
+            </div>
+          </div>
         </div>
-        <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
-        <!--**********************************
-        Scripts
-    ***********************************-->
-        <!-- Required vendors -->
-        <script src="vendor/global/global.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <script src="js/custom.min.js"></script>
+        <!-- SECTION 3: Upcoming Batches -->
+        <div class="section-heading">3. Upcoming Batches</div>
+        <p style="font-size:13px;color:#666;margin-bottom:12px;">Each row becomes a date/time/price entry on the class card.</p>
+        <div id="batch-container"></div>
+        <button type="button" class="add-batch-btn" onclick="addBatchRow()"><i class="la la-plus"></i> Add Batch</button>
 
-        <!-- Svganimation scripts -->
-        <script src="vendor/svganimation/vivus.min.js"></script>
-        <script src="vendor/svganimation/svg.animation.js"></script>
+        <!-- SECTION 4: Pricing -->
+        <div class="section-heading">4. Pricing &amp; Instructions</div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Base Price (₹)</label>
+              <input type="number" step="0.01" name="price" class="form-control" value="<?php echo htmlspecialchars($course['price'] ?? ''); ?>">
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Price Note</label>
+              <input type="text" name="price_note" class="form-control" placeholder="e.g. Incl. Jala Neti Pot" value="<?php echo htmlspecialchars($course['price_note'] ?? ''); ?>">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Special Instruction</label>
+              <input type="text" name="special_instruction" class="form-control" placeholder="e.g. No prior experience required." value="<?php echo htmlspecialchars($course['special_instruction'] ?? ''); ?>">
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Age Requirement</label>
+              <input type="text" name="age_requirement" class="form-control" value="<?php echo htmlspecialchars($course['age_requirement'] ?? '14+ years'); ?>">
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Instructor</label>
+              <input type="text" name="instructor" class="form-control" value="<?php echo htmlspecialchars($course['instructor'] ?? ''); ?>">
+            </div>
+          </div>
+        </div>
 
-        <!-- pickdate -->
-        <script src="vendor/pickadate/picker.js"></script>
-        <script src="vendor/pickadate/picker.time.js"></script>
-        <script src="vendor/pickadate/picker.date.js"></script>
+        <!-- SECTION 5: Photo -->
+        <div class="section-heading">5. Class Photo</div>
+        <div class="row">
+          <div class="col-lg-12">
+            <?php if (!empty($course['image_path'])): ?>
+            <div style="margin-bottom:12px;">
+              <span style="font-size:13px;color:#666;font-weight:600;display:block;margin-bottom:5px;">Current Image:</span>
+              <img src="<?php echo htmlspecialchars(admin_img($course['image_path'])); ?>" style="max-height:140px;border-radius:8px;border:1px solid #ddd;padding:4px;background:#fff;">
+            </div>
+            <?php endif; ?>
+            <div class="form-group">
+              <input type="file" class="form-control" name="image_path" accept="image/*">
+              <p class="form-tip">Upload a new image to replace the current one.</p>
+            </div>
+          </div>
+        </div>
 
-        <!-- Pickdate -->
-        <script src="js/plugins-init/pickadate-init.js"></script>
+        <!-- SECTION 6: Booking -->
+        <div class="section-heading">6. Booking Settings</div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Enable Booking</label>
+              <select name="booking_enabled" class="form-control">
+                <option value="1" <?php echo (int)($course['booking_enabled']??1)===1?' selected':''; ?>>Enabled</option>
+                <option value="0" <?php echo (int)($course['booking_enabled']??1)===0?' selected':''; ?>>Disabled</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Booking Type</label>
+              <select name="booking_type" class="form-control">
+                <?php
+                $bt = $course['booking_type'] ?? 'Group';
+                foreach(['Group'=>'Group Class','Personal'=>'Personal / 1-on-1','Both'=>'Both'] as $v=>$l)
+                  echo "<option value=\"$v\"".($bt===$v?' selected':'').">$l</option>";
+                ?>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Max Capacity</label>
+              <input type="number" name="slot_capacity" class="form-control" placeholder="Blank = unlimited" value="<?php echo htmlspecialchars($course['slot_capacity'] ?? ''); ?>">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Program Tiers <small class="text-muted">(Ctrl/Cmd to multi-select)</small></label>
+              <select name="tiers[]" class="form-control" multiple>
+                <?php
+                $selTiers = explode(',', $course['tiers'] ?? '');
+                foreach(['General','Premium','VIP','Member','Guest'] as $t)
+                  echo "<option value=\"$t\"".(in_array($t,$selTiers)?' selected':'').">$t</option>";
+                ?>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+              <label class="form-label">Time Slot Matrix</label>
+              <div class="d-flex flex-wrap" style="gap:12px;">
+                <?php
+                $selSlots = explode(',', $course['timeslots'] ?? '');
+                foreach(['06:00','07:00','08:00','09:00','10:00','11:00','12:00','14:00','16:00','18:00','19:00','20:00'] as $sl)
+                  echo "<div class=\"form-check custom-checkbox\"><input type=\"checkbox\" class=\"form-check-input\" name=\"timeslots[]\" value=\"$sl\" id=\"slot_$sl\"".(in_array($sl,$selSlots)?' checked':'')."><label class=\"form-check-label\" for=\"slot_$sl\">$sl</label></div>";
+                ?>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <script>
-            // Dynamic Notifications Inject
-            document.addEventListener('DOMContentLoaded', function () {
-                var notifList = document.querySelector('.notification_dropdown .list-unstyled');
-                if (notifList) {
-                    fetch('../backend/dashboard_api.php')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data && data.recentRegistrations) {
-                                let html = '';
-                                data.recentRegistrations.forEach(reg => {
-                                    html += '<li class="media dropdown-item"><span class="success" style="background: #99C83D; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; width: 35px; height: 35px; margin-right: 15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration: none;"><p style="margin-bottom: 0;"><strong>' + reg.name + '</strong> registered for <strong>' + (reg.class_name || 'a class') + '</strong></p></a></div></li>';
-                                });
-                                if (html === '') {
-                                    html = '<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
-                                }
-                                notifList.innerHTML = html;
-                            }
-                        })
-                        .catch(err => console.error("Error loading notifications:", err));
-                }
-            });
-        </script>
+        <div class="row mt-3">
+          <div class="col-lg-12">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" onclick="history.back()" class="btn btn-light ms-2">Cancel</button>
+          </div>
+        </div>
+      </div><!-- .card-body -->
+    </form>
+  </div></div></div>
+
+</div></div><!-- .content-body -->
+
+<div class="footer"><div class="copyright">
+  <p>Copyright &copy; 2026 Nishchala All rights Reserved. Designed By <a href="https://oneplanet360.com/" target="_blank" style="font-weight:bold;">OnePlanet360.com</a></p>
+</div></div>
+</div><!-- #main-wrapper -->
+
+<script src="vendor/global/global.min.js"></script>
+<script src="js/deznav-init.js"></script>
+<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="js/custom.min.js"></script>
+<script src="vendor/svganimation/vivus.min.js"></script>
+<script src="vendor/svganimation/svg.animation.js"></script>
+
+<script>
+// ── Batch Builder ──────────────────────────────────────────────────────
+var batchData = [];
+
+// Load existing batches from DB
+(function(){
+    var raw = document.getElementById('upcoming_batches_json').value;
+    try { batchData = JSON.parse(raw) || []; } catch(e){ batchData=[]; }
+    batchData.forEach(function(b){ addBatchRow(b, true); });
+})();
+
+function addBatchRow(data, fromInit) {
+    data = data || { date:'', time:'', price:'', note:'' };
+    if(!fromInit) batchData.push(data);
+    var idx = batchData.length - 1;
+    var container = document.getElementById('batch-container');
+    var row = document.createElement('div');
+    row.className = 'batch-row';
+    row.dataset.idx = idx;
+    row.innerHTML =
+        '<div style="flex:2;min-width:120px;"><span class="batch-label">Date / Range</span>' +
+        '<input type="text" placeholder="e.g. Aug 19 – 24" value="'+escH(data.date)+'" oninput="updateBatch('+idx+',\'date\',this.value)"></div>' +
+        '<div style="flex:2;min-width:130px;"><span class="batch-label">Time</span>' +
+        '<input type="text" placeholder="e.g. 12:30 PM – 1:15 PM" value="'+escH(data.time)+'" oninput="updateBatch('+idx+',\'time\',this.value)"></div>' +
+        '<div style="flex:1;min-width:80px;"><span class="batch-label">Price (₹)</span>' +
+        '<input type="text" placeholder="3000" value="'+escH(data.price)+'" oninput="updateBatch('+idx+',\'price\',this.value)"></div>' +
+        '<div style="flex:1;min-width:80px;"><span class="batch-label">Note</span>' +
+        '<input type="text" placeholder="(Weekend)" value="'+escH(data.note||'')+'" oninput="updateBatch('+idx+',\'note\',this.value)"></div>' +
+        '<button type="button" class="btn-remove-batch" onclick="removeBatch(this,'+idx+')"><i class="la la-trash-o"></i></button>';
+    container.appendChild(row);
+}
+
+function updateBatch(idx, field, val){ if(batchData[idx]) batchData[idx][field]=val; syncJSON(); }
+function removeBatch(btn, idx){ batchData[idx]=null; btn.closest('.batch-row').remove(); syncJSON(); }
+function syncJSON(){
+    var cleaned = batchData.filter(function(b){ return b && (b.date||b.time||b.price); });
+    document.getElementById('upcoming_batches_json').value = JSON.stringify(cleaned);
+}
+function escH(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+document.getElementById('edit-class-form').addEventListener('submit', function(){ syncJSON(); });
+
+// ── Notifications ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+    fetch('../backend/dashboard_api.php').then(function(r){return r.json();}).then(function(data){
+        var nl = document.querySelector('.notification_dropdown .list-unstyled');
+        if(!nl||!data||!data.recentRegistrations) return;
+        var html='';
+        data.recentRegistrations.forEach(function(reg){
+            html+='<li class="media dropdown-item"><span style="background:#99C83D;color:white;display:flex;align-items:center;justify-content:center;border-radius:50%;width:35px;height:35px;margin-right:15px;"><i class="la la-user"></i></span><div class="media-body"><a href="all-students.html" style="text-decoration:none;"><p style="margin-bottom:0;"><strong>'+reg.name+'</strong> registered for <strong>'+(reg.class_name||'a class')+'</strong></p></a></div></li>';
+        });
+        nl.innerHTML = html||'<li class="media dropdown-item"><div class="media-body"><p>No recent registrations</p></div></li>';
+    }).catch(function(){});
+});
+</script>
 </body>
-
 </html>

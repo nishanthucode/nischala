@@ -8,7 +8,7 @@ $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 $redirectMap = [
     'blogs' => '../admin/all-blogs.html',
-    'classes' => '../admin/all-class.html',
+    'classes' => '../admin/all-courses.html',
     'gallery' => '../admin/all-gallery.html',
     'events' => '../admin/event-management.html',
     'enquiries' => '../admin/all-enquiries.html',

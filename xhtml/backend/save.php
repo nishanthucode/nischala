@@ -13,7 +13,7 @@ if (empty($_POST) && isset($_SERVER['REQUEST_METHOD']) && strtolower($_SERVER['R
 
 $redirectMap = [
     'blogs' => '../admin/all-blogs.html',
-    'classes' => '../admin/all-class.html',
+    'classes' => '../admin/all-courses.html',
     'gallery' => '../admin/all-gallery.html',
     'events' => '../admin/event-management.html',
 ];
